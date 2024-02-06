@@ -16,7 +16,7 @@ Briefly describe the purpose and features of your mobile application.
 1. Clone the repository:
 ```bash
 git clone git@github.com:Equinox-SDGP/Frontend-mobile_app.git
-cd your-project
+cd Frontend-mobile_app
 ```
 2. Install Dependancies:
 ```bash
