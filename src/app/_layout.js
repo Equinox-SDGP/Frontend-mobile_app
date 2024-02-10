@@ -1,11 +1,13 @@
 import { TamaguiProvider } from "tamagui";
 import { Tabs } from "expo-router";
-import tamaguiConfig from "../tamagui.config";
+import tamaguiConfig from "../../tamagui.config.ts";
 import { Home, MessageSquare, UserRound } from "@tamagui/lucide-icons";
+import { useColorScheme } from "react-native";
 
 export default function Applayout() {
+  const colorScheme = useColorScheme();
   return (
-    <TamaguiProvider config={tamaguiConfig}>
+    <TamaguiProvider config={tamaguiConfig} defaultTheme={colorScheme}>
       <Tabs>
         <Tabs.Screen
           // Name of the route to hide.

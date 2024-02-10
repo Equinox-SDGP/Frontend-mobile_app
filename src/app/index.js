@@ -1,7 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import { TamaguiProvider } from "tamagui";
 import { Button } from "tamagui";
-import tamaguiConfig from "../tamagui.config";
 
 export default function Page() {
   return (
