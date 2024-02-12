@@ -3,12 +3,14 @@ import { View, StyleSheet } from "react-native";
 import StatCard from "../../components/statsCard";
 import ProductionCard from "../../components/productionCard";
 import SpaceCard from "../../components/spaces";
+import ProfilePic from "../../components/ProfilePic";
 
 export default function devices() {
   return (
     <View style={styles.container}>
       <ScrollView>
         <YStack rowGap={10}>
+          <ProfilePic/>
           <ScrollView horizontal={true}>
             <XStack>
               <SpaceCard />
