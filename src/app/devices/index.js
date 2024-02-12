@@ -10,7 +10,7 @@ export default function devices() {
     <View style={styles.container}>
       <ScrollView>
         <YStack rowGap={10}>
-          <ProfilePic/>
+          <ProfilePic />
           <ScrollView horizontal={true}>
             <XStack>
               <SpaceCard />
