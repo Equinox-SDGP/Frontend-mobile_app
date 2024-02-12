@@ -1,18 +1,29 @@
-import { ListItem, XStack, YStack } from "tamagui";
+import { ListItem, ScrollView, XStack, YStack } from "tamagui";
 import { View, StyleSheet } from "react-native";
 import StatCard from "../../components/statsCard";
 import ProductionCard from "../../components/productionCard";
+import SpaceCard from "../../components/spaces";
 
 export default function devices() {
   return (
     <View style={styles.container}>
-      <YStack rowGap={10}>
-        <ProductionCard />
-        <XStack columnGap={10}> 
-          <StatCard />
-          <StatCard />
-        </XStack>
-      </YStack>
+      <ScrollView>
+        <YStack rowGap={10}>
+          <ScrollView horizontal={true}>
+            <XStack>
+              <SpaceCard />
+              <SpaceCard />
+              <SpaceCard />
+            </XStack>
+          </ScrollView>
+
+          <ProductionCard />
+          <XStack columnGap={10}>
+            <StatCard />
+            <StatCard />
+          </XStack>
+        </YStack>
+      </ScrollView>
     </View>
   );
 }
