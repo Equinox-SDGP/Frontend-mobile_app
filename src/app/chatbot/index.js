@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, Button, StyleSheet } from "react-native";
+import { Button, XGroup, XStack, YStack } from "tamagui";
 
 const ChatBox = ({ messages }) => {
   return (
@@ -38,7 +39,9 @@ const UserInput = ({ onSend }) => {
         onChangeText={setMessage}
         placeholder="Type your message..."
       />
-      <Button title="Send" onPress={handleSend} color="#FF621F" />
+      <Button themeInverse size="$3" onPress={handleSend} color="#FF621F">
+        Inverse
+      </Button>
     </View>
   );
 };
