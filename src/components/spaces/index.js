@@ -1,15 +1,19 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
+<<<<<<< HEAD
 import { Button, Card, H2, Image, Paragraph, XStack} from "tamagui";
 import WeatherIcon from "./../../assets/icons/weatherIcon/day.svg"
+=======
+import { Button, Card, H2, Image, Paragraph, XStack } from "tamagui";
+>>>>>>> f33b7304992fd4a45eefc5c2dd50ebcf209dc247
 
 export default function SpaceCard() {
   return (
     <DemoCard
       animation="bouncy"
       size="$4"
-      width={350}
-      height={200}
+      width={320}
+      height={170}
       scale={0.9}
       hoverStyle={{ scale: 0.925 }}
       pressStyle={{ scale: 0.875 }}
@@ -23,13 +27,15 @@ export function DemoCard(props) {
         <H2>Home</H2>
         {/* <WeatherIcon width={30} height={30} /> */}
 
-        <Paragraph theme="alt2">Now available</Paragraph>
+        <Paragraph theme="alt2">Colombo,sri lanka</Paragraph>
       </Card.Header>
 
       <Card.Footer padded>
+        <Text>24KWh</Text>
+
         <XStack flex={1} />
 
-        <Button borderRadius="$10">Purchase</Button>
+        <Button borderRadius="$10">Healthy</Button>
       </Card.Footer>
 
       <Card.Background>
