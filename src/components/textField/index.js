@@ -1,7 +1,7 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 import React from "react";
 //import type { SizeTokens } from 'tamagui'
-import { Button, Input, Label, TextArea, XStack, YStack } from "tamagui";
+import { Input, Label, YStack } from "tamagui";
 
 export default function TextField(props) {
   return (
