@@ -8,7 +8,7 @@ import ProfilePic from "../../components/ProfilePic";
 export default function devices() {
   return (
     <View style={styles.container}>
-      <ScrollView>
+      <ScrollView style={{ padding: 24 }}>
         <YStack rowGap={10}>
           <ProfilePic />
           <ScrollView horizontal={true}>

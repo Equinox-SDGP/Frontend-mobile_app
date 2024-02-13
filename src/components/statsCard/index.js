@@ -3,7 +3,7 @@ import React from "react";
 import { Card, View, Button } from "tamagui"; // or '@tamagui/card'
 import { Bold, CircleDollarSign, Plus } from "@tamagui/lucide-icons";
 import { Image } from "react-native";
-import dollarIcon from "./../../assets/dolarIcon.png"
+import dollarIcon from "./../../assets/icons/dolarIcon.png"
 
 const StatCard = () => {
   return (

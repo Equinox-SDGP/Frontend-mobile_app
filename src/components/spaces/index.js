@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { Button, Card, H2, Image, Paragraph, XStack} from "tamagui";
+import WeatherIcon from "./../../assets/icons/weatherIcon/day.svg"
 
 export default function SpaceCard() {
   return (
@@ -20,6 +21,7 @@ export function DemoCard(props) {
     <Card elevate size="$4" bordered {...props}>
       <Card.Header padded>
         <H2>Home</H2>
+        {/* <WeatherIcon width={30} height={30} /> */}
 
         <Paragraph theme="alt2">Now available</Paragraph>
       </Card.Header>
