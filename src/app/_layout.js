@@ -51,7 +51,30 @@ function RootLayoutNav() {
     <TamaguiProvider config={config} defaultTheme={colorScheme}>
       <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
         <Tabs>
-          <Tabs.Screen name="index" />
+          <Tabs.Screen
+            name="index"
+            options={{
+              title: "Home",
+            }}
+          />
+          <Tabs.Screen
+            name="chatbot/index"
+            options={{
+              title: "Chatbot",
+            }}
+          />
+          <Tabs.Screen
+            name="devices/index"
+            options={{
+              title: "Devices",
+            }}
+          />
+          <Tabs.Screen
+            name="profile/index"
+            options={{
+              title: "Profile",
+            }}
+          />
         </Tabs>
       </ThemeProvider>
     </TamaguiProvider>

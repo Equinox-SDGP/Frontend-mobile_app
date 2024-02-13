@@ -1,14 +1,36 @@
-import { StyleSheet, Text, View } from "react-native";
-import { Button } from "tamagui";
+import { ScrollView, XStack, YStack } from "tamagui";
+import { View, StyleSheet } from "react-native";
+import StatCard from "@/components/statsCard";
+import ProductionCard from "@/components/productionCard";
+import SpaceCard from "@/components/spaces";
+import ProfilePic from "@/components/ProfilePic";
 
-export default function Page() {
+export default function devices() {
   return (
     <View style={styles.container}>
-      <View style={styles.main}>
-        <Text style={styles.title}>Hello, World!</Text>
-        <Text style={styles.subtitle}>Welcome to Tamagui</Text>
-        <Button onPress={() => console.log("Button pressed")}>Press me</Button>
-      </View>
+      <ScrollView style={{ padding: 24 }}>
+        <YStack rowGap={10}>
+          <ProfilePic />
+          <ScrollView
+            horizontal={true}
+            decelerationRate={0}
+            snapToInterval={320}
+            snapToAlignment="center"
+            >
+            <XStack>
+              <SpaceCard />
+              <SpaceCard />
+              <SpaceCard />
+            </XStack>
+          </ScrollView>
+
+          <ProductionCard />
+          <XStack columnGap={10}>
+            <StatCard />
+            <StatCard />
+          </XStack>
+        </YStack>
+      </ScrollView>
     </View>
   );
 }
@@ -16,21 +38,8 @@ export default function Page() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#EFEFEF",
     alignItems: "center",
-    padding: 24,
-  },
-  main: {
-    flex: 1,
     justifyContent: "center",
-    maxWidth: 960,
-    marginHorizontal: "auto",
-  },
-  title: {
-    fontSize: 64,
-    fontWeight: "bold",
-  },
-  subtitle: {
-    fontSize: 36,
-    color: "#38434D",
   },
 });
