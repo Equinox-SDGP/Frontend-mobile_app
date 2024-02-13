@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, StyleSheet } from "react-native";
 import { Button, XGroup, XStack, YStack } from "tamagui";
+import {SendHorizontal} from "@tamagui/lucide-icons";
 
 const ChatBox = ({ messages }) => {
   return (
@@ -16,8 +17,7 @@ const ChatMessage = ({ message }) => {
   const isUser = message.sender === "user";
   return (
     <View
-      style={[styles.message, isUser ? styles.userMessage : styles.botMessage]}
-    >
+      style={[styles.message, isUser ? styles.userMessage : styles.botMessage]}>
       <Text style={styles.messageText}>{message.text}</Text>
     </View>
   );
@@ -39,8 +39,8 @@ const UserInput = ({ onSend }) => {
         onChangeText={setMessage}
         placeholder="Type your message..."
       />
-      <Button themeInverse size="$3" onPress={handleSend} color="#FF621F">
-        Inverse
+      <Button size="$3" onPress={handleSend} backgroundColor="white" >
+        <SendHorizontal size={24} color="#868686"/>
       </Button>
     </View>
   );
