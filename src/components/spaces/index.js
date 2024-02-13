@@ -1,11 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
-<<<<<<< HEAD
 import { Button, Card, H2, Image, Paragraph, XStack} from "tamagui";
-import WeatherIcon from "./../../assets/icons/weatherIcon/day.svg"
-=======
-import { Button, Card, H2, Image, Paragraph, XStack } from "tamagui";
->>>>>>> f33b7304992fd4a45eefc5c2dd50ebcf209dc247
 
 export default function SpaceCard() {
   return (

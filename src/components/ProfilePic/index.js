@@ -24,5 +24,5 @@ const styles = StyleSheet.create({
   Greeting: {
     fontSize: 16,
   },
-  UserName: { fontSize: 20, fontStyle: "Regular" },
+  UserName: { fontSize: 20 },
 });

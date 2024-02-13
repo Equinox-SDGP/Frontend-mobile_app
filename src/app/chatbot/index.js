@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Button, StyleSheet } from "react-native";
+import { View, Text, TextInput, StyleSheet } from "react-native";
 import { Button, XGroup, XStack, YStack } from "tamagui";
 
 const ChatBox = ({ messages }) => {

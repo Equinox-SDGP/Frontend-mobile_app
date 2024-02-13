@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, SafeAreaView } from "react-native";
 import React from "react";
-import TextField from "../../components/textFeeld";
+import {TextField} from "./../../components/textField"
 
 const Profile = () => {
   return (

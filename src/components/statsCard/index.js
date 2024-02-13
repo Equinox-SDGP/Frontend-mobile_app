@@ -38,12 +38,9 @@ const styles = StyleSheet.create({
         height:115,
         width:183,
         alignItems:"center",
-
     },
     price:{
         fontSize:22,
         fontWeight:"bold"
-
     }
-
 });
