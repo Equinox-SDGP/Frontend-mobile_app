@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, StyleSheet } from "react-native";
-import { Button, XGroup, XStack, YStack } from "tamagui";
-import {SendHorizontal} from "@tamagui/lucide-icons";
+import { Button, ScrollView } from "tamagui";
+import { SendHorizontal } from "@tamagui/lucide-icons";
 
 const ChatBox = ({ messages }) => {
   return (
-    <View style={styles.chatBox}>
+    <ScrollView snapToEnd style={styles.chatBox}>
       {messages.map((message, index) => (
         <ChatMessage key={index} message={message} />
       ))}
-    </View>
+    </ScrollView>
   );
 };
 
@@ -27,6 +27,7 @@ const UserInput = ({ onSend }) => {
   const [message, setMessage] = useState("");
 
   const handleSend = () => {
+    if (!message) return;
     onSend(message);
     setMessage(""); // Clear input after sending
   };
@@ -39,23 +40,24 @@ const UserInput = ({ onSend }) => {
         onChangeText={setMessage}
         placeholder="Type your message..."
       />
-      <Button size="$3" onPress={handleSend} backgroundColor="white" >
-        <SendHorizontal size={24} color="#868686"/>
+      <Button size="$3" onPress={handleSend} backgroundColor="white">
+        <SendHorizontal size={24} color="#868686" />
       </Button>
     </View>
   );
 };
 
+/** Main export function */
 const App = () => {
   const [messages, setMessages] = useState([]);
 
   const handleSend = (message) => {
     const userMessage = { sender: "user", text: message };
-    setMessages([...messages, userMessage]);
     // Replace with your chatbot logic to simulate bot response
     const botResponse = `Hello, I'm your friendly chatbot!`;
     const botMessage = { sender: "bot", text: botResponse };
-    setMessages([...messages, botMessage]);
+
+    setMessages((prevMessages) => [...prevMessages, userMessage, botMessage]);
   };
 
   return (
@@ -84,7 +86,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   userMessage: {
-    backgroundColor: "#0084ff",
+    backgroundColor: "#FFA179",
     alignSelf: "flex-end",
     borderTopRightRadius: 2,
   },
