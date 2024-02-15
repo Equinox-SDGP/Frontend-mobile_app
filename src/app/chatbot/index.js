@@ -17,7 +17,8 @@ const ChatMessage = ({ message }) => {
   const isUser = message.sender === "user";
   return (
     <View
-      style={[styles.message, isUser ? styles.userMessage : styles.botMessage]}>
+      style={[styles.message, isUser ? styles.userMessage : styles.botMessage]}
+    >
       <Text style={styles.messageText}>{message.text}</Text>
     </View>
   );
