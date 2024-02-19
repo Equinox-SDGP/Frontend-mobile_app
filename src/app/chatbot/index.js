@@ -80,7 +80,7 @@ const App = () => {
       sender: "bot",
       text: botResponse,
       avatarImage:
-        "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pinterest.com%2Fpin%2Fchat-bot-logo-concept-logo-logos-mark-cajva-creative-graphics-graphicdesign-bot-chat-emoticon-robot-oran--293578469463452882%2F&psig=AOvVaw0HR3oPwp7X6g9NgJJ3tlgi&ust=1708067002039000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCOinxe7jrIQDFQAAAAAdAAAAABAv",
+        "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.flaticon.com%2Ffree-icon%2Fchatbot_6014401&psig=AOvVaw1w6bHyreZB2WHej4tVXP8n&ust=1708153936539000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCNi5obinr4QDFQAAAAAdAAAAABAD",
     };
 
     setMessages((prevMessages) => [...prevMessages, userMessage, botMessage]);
