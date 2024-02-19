@@ -16,7 +16,7 @@ export default function devices() {
             decelerationRate={0}
             snapToInterval={320}
             snapToAlignment="center"
-            >
+          >
             <XStack>
               <SpaceCard />
               <SpaceCard />
