@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, StyleSheet } from "react-native";
-import { Button, ScrollView } from "tamagui";
+import { Button, ScrollView, Avatar, XStack } from "tamagui";
 import { SendHorizontal } from "@tamagui/lucide-icons";
 
 const ChatBox = ({ messages }) => {
@@ -16,10 +16,26 @@ const ChatBox = ({ messages }) => {
 const ChatMessage = ({ message }) => {
   const isUser = message.sender === "user";
   return (
-    <View
-      style={[styles.message, isUser ? styles.userMessage : styles.botMessage]}>
-      <Text style={styles.messageText}>{message.text}</Text>
-    </View>
+    <XStack style={[isUser ? styles.userMessage : styles.botMessage]}>
+      <View
+        style={[
+          styles.message,
+          isUser ? styles.userInnerMessage : styles.botInnerMessage,
+        ]}
+      >
+        <Text style={styles.messageText}>{message.text}</Text>
+      </View>
+      <MessageAvatar src={message.avatarImage} />
+    </XStack>
+  );
+};
+
+const MessageAvatar = ({ src }) => {
+  return (
+    <Avatar style={{ borderRadius: 12 }} size="$3.5">
+      <Avatar.Image accessibilityLabel="Nate Wienert" src={src} />
+      <Avatar.Fallback delayMs={600} backgroundColor="$blue10" />
+    </Avatar>
   );
 };
 
@@ -52,10 +68,20 @@ const App = () => {
   const [messages, setMessages] = useState([]);
 
   const handleSend = (message) => {
-    const userMessage = { sender: "user", text: message };
+    const userMessage = {
+      sender: "user",
+      text: message,
+      avatarImage:
+        "https://images.unsplash.com/photo-1531384441138-2736e62e0919?&w=100&h=100&dpr=2&q=80",
+    };
     // Replace with your chatbot logic to simulate bot response
     const botResponse = `Hello, I'm your friendly chatbot!`;
-    const botMessage = { sender: "bot", text: botResponse };
+    const botMessage = {
+      sender: "bot",
+      text: botResponse,
+      avatarImage:
+        "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.flaticon.com%2Ffree-icon%2Fchatbot_6014401&psig=AOvVaw1w6bHyreZB2WHej4tVXP8n&ust=1708153936539000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCNi5obinr4QDFQAAAAAdAAAAABAD",
+    };
 
     setMessages((prevMessages) => [...prevMessages, userMessage, botMessage]);
   };
@@ -86,13 +112,20 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   userMessage: {
-    backgroundColor: "#FFA179",
     alignSelf: "flex-end",
-    borderTopRightRadius: 2,
+    gap: 10,
   },
   botMessage: {
-    backgroundColor: "#f0f0f0",
+    gap: 10,
     alignSelf: "flex-start",
+    flexDirection: "row-reverse",
+  },
+  userInnerMessage: {
+    backgroundColor: "#FFA179",
+    borderTopRightRadius: 2,
+  },
+  botInnerMessage: {
+    backgroundColor: "#f0f0f0",
     borderTopLeftRadius: 2,
   },
   messageText: {
