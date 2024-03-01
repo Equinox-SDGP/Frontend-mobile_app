@@ -28,6 +28,7 @@ const Graph = ({ interval }) => {
     <BarChart
       style={styles.graphContainer}
       data={barData}
+      scrollAnimation={true}
       {...graphConfig.common}
       {...barConfig}
       onPress={(value, index) => {
