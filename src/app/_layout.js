@@ -12,6 +12,18 @@ import { useFonts } from "expo-font";
 import { useEffect } from "react";
 import { Image, Text, View , StyleSheet} from "react-native";
 
+// Icons
+import Home from "../assets/icons/home.jsx";
+import Chat from "../assets/icons/chatbot.jsx";
+import Devices from "../assets/icons/device.jsx";
+import Profile from "../assets/icons/profile.jsx";
+
+const tabs = [
+  {icon: <Home />, name: "index", text: "Home"},
+  {icon: <Chat />, name: "chatbot/index", text: "AI Assistant"},
+  {icon: <Devices />, name: "devices/index", text: "Devices"},
+  {icon: <Profile />, name: "profile/index", text: "Profile"},
+]
 export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary,
@@ -59,7 +71,7 @@ function RootLayoutNav() {
                 <View style={styles.navIcon}>
                 <Image
                 className="icon"
-                  source={require("../assets/icons/home.png")}
+                  source={require(Home)}
                   style={{ width: 23, height: 23, tintColor: focused ? "#e32f45" : "#748c94" }}
                 />
                 <Text style={{color:focused ? "#e32f45" : "#748c94", fontSize:11}}>HOME</Text>
@@ -74,10 +86,10 @@ function RootLayoutNav() {
                 <View style={styles.navIcon}>
                 <Image
                 className="icon"
-                  source={require("../assets/icons/chatbot.png")}
+                  source={require(Chat)}
                   style={{ width: 23, height: 23, tintColor: focused ? "#e32f45" : "#748c94" }}
                 />
-                <Text style={{color:focused ? "#e32f45" : "#748c94", fontSize:11}}>CHATBOT</Text>
+                <Text style={{color:focused ? "#e32f45" : "#748c94", fontSize:11}}>AI ASSISTANT</Text>
                 </View>
               ),
             }}
@@ -89,7 +101,7 @@ function RootLayoutNav() {
                 <View style={styles.navIcon}>
                 <Image
                 className="icon"
-                  source={require("../assets/icons/device.png")}
+                  source={require(Devices)}
                   style={{ width: 23, height: 23, tintColor: focused ? "#e32f45" : "#748c94" }}
                 />
                 <Text style={{color:focused ? "#e32f45" : "#748c94", fontSize:11}}>DEVICES</Text>
@@ -104,7 +116,7 @@ function RootLayoutNav() {
                 <View style={styles.navIcon}>
                 <Image
                 className="icon"
-                  source={require("../assets/icons/profile.png")}
+                  source={require(Profile)}
                   style={{ width: 23, height: 23, tintColor: focused ? "#e32f45" : "#748c94"}}
                 />
                 <Text style={{color:focused ? "#e32f45" : "#748c94", fontSize:11}}>PROFILE</Text>
@@ -123,7 +135,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: 20,
   },
-  navIcon: {
+  tabs: {
     alignItems: "center",
     justifyContent: "center",
     paddingTop: 10,
