@@ -3,38 +3,37 @@ import {
   DefaultTheme,
   ThemeProvider,
 } from "@react-navigation/native";
-import { SplashScreen, Stack, Tabs } from "expo-router";
+import React, { useEffect, useRef, useState } from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useColorScheme } from "react-native";
+import * as Animatable from "react-native-animatable";
+import { TouchableOpacity, Image, Text, View, StyleSheet, TextInput } from "react-native";
+import * as SplashScreen from 'expo-splash-screen';
 import { TamaguiProvider } from "tamagui";
-
 import { config } from "../../tamagui.config";
-import { useFonts } from "expo-font";
-import { useEffect } from "react";
-import { Image, Text, View , StyleSheet} from "react-native";
 
-// Icons
-import Home from "../assets/icons/home.jsx";
-import Chat from "../assets/icons/chatbot.jsx";
-import Devices from "../assets/icons/device.jsx";
-import Profile from "../assets/icons/profile.jsx";
+import { useFonts } from "expo-font";
+
+import home from "../assets/icons/home.png";
+import chatbot from "../assets/icons/chatbot.png";
+import device from "../assets/icons/device.png";
+import profile from "../assets/icons/profile.png";
+
+import Chatbot from "./chatbot/Index";
+import Devices from "./devices/Index";
+import Home from "./index";
+import Profile from "./profile/Index";
 
 const tabs = [
-  {icon: <Home />, name: "index", text: "Home"},
-  {icon: <Chat />, name: "chatbot/index", text: "AI Assistant"},
-  {icon: <Devices />, name: "devices/index", text: "Devices"},
-  {icon: <Profile />, name: "profile/index", text: "Profile"},
-]
-export {
-  // Catch any errors thrown by the Layout component.
-  ErrorBoundary,
-} from "expo-router";
+  { route: "Home", icon: home, label: "Home", component: Home },
+  { route: "Chatbot", icon: chatbot, label: "AI Assistant", component: Chatbot },
+  { route: "Devices", icon: device, label: "Devices", component: Devices },
+  { route: "Profile", icon: profile, label: "Profile", component: Profile }
+];
 
-export const unstable_settings = {
-  // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: "(tabs)",
-};
+export { ErrorBoundary } from "expo-router";
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
@@ -45,7 +44,6 @@ export default function RootLayout() {
 
   useEffect(() => {
     if (interLoaded || interError) {
-      // Hide the splash screen after the fonts have loaded (or an error was returned) and the UI is ready.
       SplashScreen.hideAsync();
     }
   }, [interLoaded, interError]);
@@ -57,88 +55,122 @@ export default function RootLayout() {
   return <RootLayoutNav />;
 }
 
+const TabButton = (props) => {
+  const { item, onPress, accessibilityState } = props;
+  const focused = accessibilityState.selected;
+
+  const viewRef = useRef(null);
+  const circleRef = useRef(null);
+  const textRef = useRef(null);
+
+  useEffect(() => {
+    if (focused) {
+      viewRef.current.animate(animate1);
+      circleRef.current.animate(circle1);
+      textRef.current.transitionTo({ scale: 1 });
+    } else {
+      viewRef.current.animate(animate2);
+      textRef.current.transitionTo({ scale: 0 });
+    }
+  }, [focused]);
+
+  return (
+    <TouchableOpacity onPress={onPress} style={styles.container} activeOpacity={1}>
+      <Animatable.View ref={viewRef} duration={500} style={styles.container}>
+        <View style={[styles.btn,{
+          borderColor: focused ? "white" : "transparent"
+        }]}>
+          <Animatable.View ref={circleRef} style={styles.circle}>
+            <Image
+              resizeMode="contain"
+              source={item.icon}
+              style={{ height: 30, width: 30, tintColor: "white"}}
+            />
+          </Animatable.View>
+        </View>
+        <Animatable.Text ref={textRef} 
+        style={styles.text}>
+          {item.label}
+        </Animatable.Text>
+      </Animatable.View>
+    </TouchableOpacity>
+  );
+};
+
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
+  const Tab = createBottomTabNavigator();
+
+  const [navBarVisible, setNavBarVisible] = useState(true);
+
+  const handleTextInput = () => {
+    setNavBarVisible(false);
+  };
 
   return (
     <TamaguiProvider config={config} defaultTheme={colorScheme}>
       <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-        <Tabs style={styles.container}>
-          <Tabs.Screen 
-            name="index" // This is the default route.
-            options={{
-              tabBarIcon:({focused}) => (
-                <View style={styles.navIcon}>
-                <Image
-                className="icon"
-                  source={require(Home)}
-                  style={{ width: 23, height: 23, tintColor: focused ? "#e32f45" : "#748c94" }}
-                />
-                <Text style={{color:focused ? "#e32f45" : "#748c94", fontSize:11}}>HOME</Text>
-                </View>
-              ),
-            }}
-          />
-          <Tabs.Screen
-            name="chatbot/index"
-            options={{
-              tabBarIcon:({focused}) => (
-                <View style={styles.navIcon}>
-                <Image
-                className="icon"
-                  source={require(Chat)}
-                  style={{ width: 23, height: 23, tintColor: focused ? "#e32f45" : "#748c94" }}
-                />
-                <Text style={{color:focused ? "#e32f45" : "#748c94", fontSize:11}}>AI ASSISTANT</Text>
-                </View>
-              ),
-            }}
-          />
-          <Tabs.Screen
-            name="devices/index"
-            options={{
-              tabBarIcon:({focused}) => (
-                <View style={styles.navIcon}>
-                <Image
-                className="icon"
-                  source={require(Devices)}
-                  style={{ width: 23, height: 23, tintColor: focused ? "#e32f45" : "#748c94" }}
-                />
-                <Text style={{color:focused ? "#e32f45" : "#748c94", fontSize:11}}>DEVICES</Text>
-                </View>
-              ),
-            }}
-          />
-          <Tabs.Screen
-            name="profile/index"
-            options={{
-              tabBarIcon:({focused}) => (
-                <View style={styles.navIcon}>
-                <Image
-                className="icon"
-                  source={require(Profile)}
-                  style={{ width: 23, height: 23, tintColor: focused ? "#e32f45" : "#748c94"}}
-                />
-                <Text style={{color:focused ? "#e32f45" : "#748c94", fontSize:11}}>PROFILE</Text>
-                </View>
-              ),
-            }}
-          />
-        </Tabs>
+        <NavigationContainer independent={true}>
+          <Tab.Navigator screenOptions={{
+            headerShown: false,
+            tabBarStyle:{
+              position: 'absolute',
+              height: 72,
+              bottom:10,
+              left: 15,
+              right: 15,
+              borderRadius: 16,
+              backgroundColor: '#FF4F1F'
+            }
+          }}>
+            {tabs.map((item, index) => (
+              <Tab.Screen
+                key={index}
+                name={item.route}
+                component={item.component}
+                options={{
+                  tabBarShowLabel: false,
+                  tabBarButton: (props) => <TabButton {...props} item={item} />,
+                }}
+              />
+            ))}
+          </Tab.Navigator>
+        </NavigationContainer>
       </ThemeProvider>
     </TamaguiProvider>
   );
 }
+
+const animate1 = { 0: { scale: 0.5, translateY: 7 }, 0.92: { translateY: -34 }, 1: { scale: 1.2, translateY: -24 } };
+const animate2 = { 0: { scale: 1.2, translateY: -24 }, 1: { scale: 1, translateY: 7 } };
+const circle1 = { 0: { scale: 0 }, 0.3: { scale: .9 }, 0.5: { scale: 0.2 }, 0.8: { scale: 0.7 }, 1: { scale: 1 } };
+
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     alignItems: "center",
-    justifyContent: "center",
-    padding: 20,
   },
-  tabs: {
+  btn: {
+    width: 50,
+    height: 50,
+    borderWidth: 4,
+    borderRadius: 25,
+    justifyContent: "center",
+    backgroundColor: "transparent",
+    alignItems: "center",
+    borderColor:'white'
+  },
+  text: {
+    fontSize: 13,
+    textAlign: "center",
+    color: "white",
+    marginTop: 2,
+  },
+  circle: {
+    ...StyleSheet.absoluteFillObject,
     alignItems: "center",
     justifyContent: "center",
-    paddingTop: 10,
-    paddingBottom: 5,
-  }, 
+    borderRadius: 25,
+    backgroundColor:"#FF4F1F",
+  },
 });

@@ -3,9 +3,9 @@ import { View, StyleSheet } from "react-native";
 import StatCard from "@/components/statsCard";
 import ProductionCard from "@/components/productionCard";
 import SpaceCard from "@/components/spaces";
-import ProfilePic from "@/components/profilePic";
+import ProfilePic from "@/components/ProfilePic";
 
-export default function devices() {
+export default function Devices() {
   return (
     <View style={styles.container}>
       <ScrollView style={{ padding: 24 }}>
@@ -41,5 +41,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#EFEFEF",
     alignItems: "center",
     justifyContent: "center",
+    top: 10,
   },
 });
