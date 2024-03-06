@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { View, Text, TextInput, StyleSheet } from "react-native";
 import { Button, ScrollView, Avatar, XStack } from "tamagui";
 import { SendHorizontal } from "@tamagui/lucide-icons";
-import { handleTextInput } from "../_layout";
 
 const ChatBox = ({ messages }) => {
   return (
@@ -47,7 +46,6 @@ const UserInput = ({ onSend }) => {
     if (!message) return;
     onSend(message);
     setMessage(""); // Clear input after sending
-    handleTextInput();
   };
 
   return (
