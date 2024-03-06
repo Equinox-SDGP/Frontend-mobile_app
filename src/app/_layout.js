@@ -6,7 +6,7 @@ import {
 import React, { useEffect, useRef, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { useColorScheme } from "react-native";
+import { useColorScheme, Keyboard } from "react-native";
 import * as Animatable from "react-native-animatable";
 import { TouchableOpacity, Image, View, StyleSheet } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
@@ -113,12 +113,31 @@ const TabButton = (props) => {
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
   const Tab = createBottomTabNavigator();
+  const [keyboardPresent, setKeyboardPresent] = useState(false);
 
-  const [navBarVisible, setNavBarVisible] = useState(true);
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      "keyboardDidShow",
+      () => {
+        setKeyboardPresent(true);
+        // Perform actions when the keyboard is shown
+      }
+    );
 
-  const handleTextInput = () => {
-    setNavBarVisible(false);
-  };
+    const keyboardDidHideListener = Keyboard.addListener(
+      "keyboardDidHide",
+      () => {
+        setKeyboardPresent(false);
+        // Perform actions when the keyboard is hidden
+      }
+    );
+
+    // Clean up listeners when the component is unmounted
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
+    };
+  }, []);
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "rgba(0,0,0,0)" }}>
@@ -128,11 +147,12 @@ function RootLayoutNav() {
           <NavigationContainer independent={true}>
             <Tab.Navigator
               screenOptions={{
+                tabBarHideOnKeyboard: true,
                 headerShown: false,
                 tabBarStyle: {
+                  bottom: keyboardPresent ? -15 : 10,
                   position: "absolute",
                   height: 72,
-                  bottom: 10,
                   left: 10,
                   right: 10,
                   borderRadius: 25,
