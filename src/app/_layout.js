@@ -6,11 +6,13 @@ import {
 import React, { useEffect, useRef, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { useColorScheme } from "react-native";
+import { useColorScheme, Keyboard } from "react-native";
 import * as Animatable from "react-native-animatable";
-import { TouchableOpacity, Image, Text, View, StyleSheet, TextInput } from "react-native";
-import * as SplashScreen from 'expo-splash-screen';
+import { TouchableOpacity, Image, View, StyleSheet } from "react-native";
+import * as SplashScreen from "expo-splash-screen";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { TamaguiProvider } from "tamagui";
+
 import { config } from "../../tamagui.config";
 
 import { useFonts } from "expo-font";
@@ -20,16 +22,21 @@ import chatbot from "../assets/icons/chatbot.png";
 import device from "../assets/icons/device.png";
 import profile from "../assets/icons/profile.png";
 
-import Chatbot from "./chatbot/Index";
-import Devices from "./devices/Index";
+import Chatbot from "./chatbot";
+import Devices from "./devices";
 import Home from "./index";
-import Profile from "./profile/Index";
+import Profile from "./profile";
 
 const tabs = [
   { route: "Home", icon: home, label: "Home", component: Home },
-  { route: "Chatbot", icon: chatbot, label: "AI Assistant", component: Chatbot },
+  {
+    route: "Chatbot",
+    icon: chatbot,
+    label: "AI Assistant",
+    component: Chatbot,
+  },
   { route: "Devices", icon: device, label: "Devices", component: Devices },
-  { route: "Profile", icon: profile, label: "Profile", component: Profile }
+  { route: "Profile", icon: profile, label: "Profile", component: Profile },
 ];
 
 export { ErrorBoundary } from "expo-router";
@@ -75,21 +82,27 @@ const TabButton = (props) => {
   }, [focused]);
 
   return (
-    <TouchableOpacity onPress={onPress} style={styles.container} activeOpacity={1}>
+    <TouchableOpacity
+      onPress={onPress}
+      style={styles.container}
+      activeOpacity={1}>
       <Animatable.View ref={viewRef} duration={500} style={styles.container}>
-        <View style={[styles.btn,{
-          borderColor: focused ? "white" : "transparent"
-        }]}>
+        <View
+          style={[
+            styles.btn,
+            {
+              borderColor: focused ? "white" : "transparent",
+            },
+          ]}>
           <Animatable.View ref={circleRef} style={styles.circle}>
             <Image
               resizeMode="contain"
               source={item.icon}
-              style={{ height: 30, width: 30, tintColor: "white"}}
+              style={{ height: 30, width: 30, tintColor: "white" }}
             />
           </Animatable.View>
         </View>
-        <Animatable.Text ref={textRef} 
-        style={styles.text}>
+        <Animatable.Text ref={textRef} style={styles.text}>
           {item.label}
         </Animatable.Text>
       </Animatable.View>
@@ -100,50 +113,89 @@ const TabButton = (props) => {
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
   const Tab = createBottomTabNavigator();
+  const [keyboardPresent, setKeyboardPresent] = useState(false);
 
-  const [navBarVisible, setNavBarVisible] = useState(true);
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      "keyboardDidShow",
+      () => {
+        setKeyboardPresent(true);
+        // Perform actions when the keyboard is shown
+      }
+    );
 
-  const handleTextInput = () => {
-    setNavBarVisible(false);
-  };
+    const keyboardDidHideListener = Keyboard.addListener(
+      "keyboardDidHide",
+      () => {
+        setKeyboardPresent(false);
+        // Perform actions when the keyboard is hidden
+      }
+    );
+
+    // Clean up listeners when the component is unmounted
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
+    };
+  }, []);
 
   return (
-    <TamaguiProvider config={config} defaultTheme={colorScheme}>
-      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-        <NavigationContainer independent={true}>
-          <Tab.Navigator screenOptions={{
-            headerShown: false,
-            tabBarStyle:{
-              position: 'absolute',
-              height: 72,
-              bottom:10,
-              left: 15,
-              right: 15,
-              borderRadius: 16,
-              backgroundColor: '#FF4F1F'
-            }
-          }}>
-            {tabs.map((item, index) => (
-              <Tab.Screen
-                key={index}
-                name={item.route}
-                component={item.component}
-                options={{
-                  tabBarShowLabel: false,
-                  tabBarButton: (props) => <TabButton {...props} item={item} />,
-                }}
-              />
-            ))}
-          </Tab.Navigator>
-        </NavigationContainer>
-      </ThemeProvider>
-    </TamaguiProvider>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "rgba(0,0,0,0)" }}>
+      <TamaguiProvider config={config} defaultTheme={colorScheme}>
+        <ThemeProvider
+          value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+          <NavigationContainer independent={true}>
+            <Tab.Navigator
+              screenOptions={{
+                tabBarHideOnKeyboard: true,
+                headerShown: false,
+                tabBarStyle: {
+                  bottom: keyboardPresent ? -15 : 10,
+                  position: "absolute",
+                  height: 72,
+                  left: 10,
+                  right: 10,
+                  borderRadius: 25,
+                  backgroundColor: "#FFF",
+                },
+              }}>
+              {tabs.map((item, index) => (
+                <Tab.Screen
+                  key={index}
+                  name={item.route}
+                  component={item.component}
+                  options={{
+                    tabBarShowLabel: false,
+                    tabBarButton: (props) => (
+                      <TabButton {...props} item={item} />
+                    ),
+                  }}
+                />
+              ))}
+            </Tab.Navigator>
+          </NavigationContainer>
+        </ThemeProvider>
+      </TamaguiProvider>
+    </SafeAreaView>
   );
 }
 
-const animate1 = { 0: { scale: 0.5, translateY: 7 }, 0.92: { translateY: -34 }, 1: { scale: 1.2, translateY: -24 } };
-const animate2 = { 0: { scale: 1.2, translateY: -24 }, 1: { scale: 1, translateY: 7 } };
-const circle1 = { 0: { scale: 0 }, 0.3: { scale: .9 }, 0.5: { scale: 0.2 }, 0.8: { scale: 0.7 }, 1: { scale: 1 } };
+const animate1 = {
+  0: { scale: 0.5, translateY: 7 },
+  0.92: { translateY: -34 },
+  1: { scale: 1.2, translateY: -10 },
+};
+const animate2 = {
+  0: { scale: 1.2, translateY: -10 },
+  1: { scale: 1, translateY: 7 },
+};
+const circle1 = {
+  0: { scale: 0 },
+  0.3: { scale: 0.9 },
+  0.5: { scale: 0.2 },
+  0.8: { scale: 0.7 },
+  1: { scale: 1 },
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -158,12 +210,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "transparent",
     alignItems: "center",
-    borderColor:'white'
+    borderColor: "white",
   },
   text: {
-    fontSize: 13,
+    fontSize: 10,
     textAlign: "center",
-    color: "white",
+    color: "black",
     marginTop: 2,
   },
   circle: {
@@ -171,6 +223,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 25,
-    backgroundColor:"#FF4F1F",
+    backgroundColor: "#FF4F1F",
   },
 });
