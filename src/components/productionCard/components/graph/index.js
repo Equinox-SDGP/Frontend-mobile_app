@@ -40,7 +40,6 @@ const Graph = ({ interval }) => {
     />
   );
 };
-
 export default Graph;
 
 const styles = StyleSheet.create({
