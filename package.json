@@ -15,6 +15,7 @@
     "@shopify/react-native-skia": "^0.1.238",
     "@tamagui/config": "^1.89.19",
     "@tamagui/metro-plugin": "^1.89.19",
+    "axios": "^1.6.7",
     "babel-preset-expo": "^10.0.1",
     "expo": "~50.0.4",
     "expo-constants": "~15.4.5",

@@ -4,6 +4,7 @@ import { BarChart } from "react-native-gifted-charts";
 import ValueIndicator from "../valueIndicator";
 import graphInformation from "./graphInformation";
 import graphConfig from "./graphConfigurations";
+import useFetch from "@/hook/useFetch";
 
 const Graph = ({ interval }) => {
   useEffect(() => {
@@ -14,7 +15,16 @@ const Graph = ({ interval }) => {
   const [barData, setBarData] = useState(graphInformation[interval].data);
   const [barConfig, setBarConfig] = useState(graphConfig[interval]);
 
+  const { data, isLoading, error, refetch } = useFetch(
+    "deviceUpdates/realtime/2323",
+    {timeInterval: interval},
+    "GET"
+  );
+
+  console.log(data);
+
   function changeActiveData(index) {
+    refetch();
     setBarData((prev) => {
       return prev.map((item, i) => {
         if (i === index) {
