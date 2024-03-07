@@ -10,6 +10,7 @@ const Graph = ({ interval }) => {
   useEffect(() => {
     setBarData(graphInformation[interval].data);
     setBarConfig(graphConfig[interval]);
+    refetch();
   }, [interval]);
 
   const [barData, setBarData] = useState(graphInformation[interval].data);
@@ -21,10 +22,7 @@ const Graph = ({ interval }) => {
     "GET"
   );
 
-  console.log(data);
-
   function changeActiveData(index) {
-    refetch();
     setBarData((prev) => {
       return prev.map((item, i) => {
         if (i === index) {
