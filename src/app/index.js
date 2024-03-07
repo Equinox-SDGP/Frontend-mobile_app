@@ -3,7 +3,7 @@ import { View, StyleSheet } from "react-native";
 import StatCard from "@/components/statsCard";
 import ProductionCard from "@/components/productionCard";
 import SpaceCard from "@/components/spaces";
-import ProfilePic from "@/components/profilePic/index.js";
+import ProfilePic from "@/components/ProfilePic";
 
 export default function Devices() {
   return (
