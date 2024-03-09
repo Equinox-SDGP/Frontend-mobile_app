@@ -8,19 +8,27 @@ import useFetch from "@/hook/useFetch";
 
 const Graph = ({ interval }) => {
   useEffect(() => {
+    refetch();
     setBarData(graphInformation[interval].data);
     setBarConfig(graphConfig[interval]);
-    refetch();
   }, [interval]);
 
   const [barData, setBarData] = useState(graphInformation[interval].data);
   const [barConfig, setBarConfig] = useState(graphConfig[interval]);
 
+  const durationOptions = {
+    startTime: new Date('2023-10-27T13:30:00').getTime(),
+    endTime: new Date('2024-10-27T13:30:00').getTime(),
+    timeInterval: "daily",
+  };
+
   const { data, isLoading, error, refetch } = useFetch(
-    "deviceUpdates/realtime/2323",
-    {timeInterval: interval},
-    "GET"
+    "deviceUpdates/historical/232323",
+    { ...durationOptions, timeInterval: interval},
+    "POST"
   );
+
+  console.log(data)
 
   function changeActiveData(index) {
     setBarData((prev) => {

@@ -15,8 +15,7 @@ export default function Devices() {
             horizontal={true}
             decelerationRate={0}
             snapToInterval={320}
-            snapToAlignment="center"
-          >
+            snapToAlignment="center">
             <XStack>
               <SpaceCard />
               <SpaceCard />
@@ -38,9 +37,6 @@ export default function Devices() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#EFEFEF",
-    alignItems: "center",
-    justifyContent: "center",
-    top: 10,
+    backgroundColor: "rgba(0,0,0,0)",
   },
 });

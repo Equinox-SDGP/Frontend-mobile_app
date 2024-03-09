@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { Card, H2, Image, Paragraph, XStack, YStack } from "tamagui";
-import DayWeather from "@/assets/icons/weatherIcon/cloudy.svg";
+import DayWeather from "@/assets/icons/weatherIcons/cloudy.svg";
 
 export default function SpaceCard(props) {
   return (

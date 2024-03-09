@@ -10,6 +10,7 @@ const useFetch = (endpoint, query, method) => {
     method: method,
     url: `http://localhost:3000/${endpoint}`,
     params: { ...query },
+    data: { ...query },
   };
 
   const fetchData = async () => {
