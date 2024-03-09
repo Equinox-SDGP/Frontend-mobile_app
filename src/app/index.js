@@ -8,17 +8,21 @@ import ProfilePic from "@/components/profilePic";
 import walletIcon from "@/assets/icons/wallet.png";
 import leafIcon from "@/assets/icons/leaf.png";
 
+import Onboarding from "@/components/onboarding";
+
 export default function Devices() {
   return (
     <View style={styles.container}>
       <ScrollView style={{ padding: 24 }}>
         <YStack rowGap={10}>
           <ProfilePic />
+          {/* <Onboarding /> */}
           <ScrollView
             horizontal={true}
             decelerationRate={0}
             snapToInterval={320}
-            snapToAlignment="center">
+            snapToAlignment="center"
+          >
             <XStack>
               <SpaceCard />
               <SpaceCard />
