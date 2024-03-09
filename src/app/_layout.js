@@ -21,6 +21,7 @@ import home from "../assets/icons/home.png";
 import chatbot from "../assets/icons/chatbot.png";
 import device from "../assets/icons/device.png";
 import profile from "../assets/icons/profile.png";
+import HomeIcon from "@/assets/icons/dolar-icon.svg";
 
 import Chatbot from "./chatbot";
 import Devices from "./devices";
@@ -28,7 +29,12 @@ import Home from "./index";
 import Profile from "./profile";
 
 const tabs = [
-  { route: "Home", icon: home, label: "Home", component: Home },
+  {
+    route: "Home",
+    icon: home,
+    label: "Home",
+    component: Home,
+  },
   {
     route: "Chatbot",
     icon: chatbot,
@@ -85,7 +91,8 @@ const TabButton = (props) => {
     <TouchableOpacity
       onPress={onPress}
       style={styles.container}
-      activeOpacity={1}>
+      activeOpacity={1}
+    >
       <Animatable.View ref={viewRef} duration={500} style={styles.container}>
         <View
           style={[
@@ -93,14 +100,12 @@ const TabButton = (props) => {
             {
               borderColor: focused ? "white" : "transparent",
             },
-          ]}>
-          <Animatable.View ref={circleRef} style={styles.circle}>
-            <Image
-              resizeMode="contain"
-              source={item.icon}
-              style={{ height: 30, width: 30, tintColor: "white" }}
-            />
-          </Animatable.View>
+          ]}
+        >
+          <Animatable.View
+            ref={circleRef}
+            style={styles.circle}
+          ></Animatable.View>
         </View>
         <Animatable.Text ref={textRef} style={styles.text}>
           {item.label}
@@ -143,7 +148,8 @@ function RootLayoutNav() {
     <SafeAreaView style={{ flex: 1, backgroundColor: "rgba(0,0,0,0)" }}>
       <TamaguiProvider config={config} defaultTheme={colorScheme}>
         <ThemeProvider
-          value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+          value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+        >
           <NavigationContainer independent={true}>
             <Tab.Navigator
               screenOptions={{
@@ -158,7 +164,8 @@ function RootLayoutNav() {
                   borderRadius: 25,
                   backgroundColor: "#FFF",
                 },
-              }}>
+              }}
+            >
               {tabs.map((item, index) => (
                 <Tab.Screen
                   key={index}
