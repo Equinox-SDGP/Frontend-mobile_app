@@ -1,27 +1,25 @@
 import { ScrollView, XStack, YStack } from "tamagui";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import StatCard from "@/components/statsCard";
 import ProductionCard from "@/components/productionCard";
 import SpaceCard from "@/components/spaces";
-import HomeHeader from "@/components/header";
+import Header from "@/components/header"
 
 import walletIcon from "@/assets/icons/wallet.png";
 import leafIcon from "@/assets/icons/leaf.png";
-
-import Onboarding from "@/components/onboarding";
+import { Link } from "expo-router";
 
 export default function Devices() {
   return (
     <View style={styles.container}>
       <ScrollView style={{ padding: 24 }}>
         <YStack rowGap={10}>
-          <HomeHeader />
+          <Header />
           <ScrollView
             horizontal={true}
             decelerationRate={0}
             snapToInterval={320}
-            snapToAlignment="center"
-          >
+            snapToAlignment="center">
             <XStack>
               <SpaceCard />
               <SpaceCard />
@@ -34,6 +32,9 @@ export default function Devices() {
             <StatCard icon={walletIcon} {...co2Stats} />
             <StatCard icon={leafIcon} {...moneyStats} />
           </XStack>
+          <Link href={"/devices"}>
+            <Text>View All Devices</Text>
+          </Link>
         </YStack>
       </ScrollView>
     </View>

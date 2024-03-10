@@ -36,7 +36,6 @@ const styles = StyleSheet.create({
   notification: {
     width: 33,
     height: 33,
-    marginRight: 20,
   },
   mainContaner: {
     justifyContent: "space-between",
