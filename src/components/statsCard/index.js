@@ -7,7 +7,7 @@ import dollarIcon from "./../../assets/icons/dolarIcon.png";
 
 const StatCard = ({ type, label, amount, icon }) => {
   return (
-    <Card style={styles.card}>
+    <Card style={styles.card} backgroundColor="#fff">
       <Card.Header>
         <Image style={styles.tinyLogo} source={icon} />
       </Card.Header>

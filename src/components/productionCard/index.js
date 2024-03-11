@@ -1,8 +1,8 @@
 import { StyleSheet } from "react-native";
 import React, { lazy, useContext, useMemo, useState } from "react";
 import { Button, Card, Text, ToggleGroup, XStack, YStack } from "tamagui";
-import Graph from "./components/graph";
-import SelectDuration from "./components/selectDuration";
+import Graph from "./graph";
+import SelectDuration from "./selectDuration";
 import { useProductionContext } from "@/hook/useContext/productionContext";
 
 const ProductionCard = () => {
@@ -22,7 +22,7 @@ const ProductionCard = () => {
     setInterval(value);
   };
   return (
-    <Card width="100%" borderRadius={15}>
+    <Card width="100%" borderRadius={15} backgroundColor="#fff">
       <Card.Header>
         <XStack style={styles.cardHeader}>
           <Text fontSize={16} fontWeight={"700"}>
