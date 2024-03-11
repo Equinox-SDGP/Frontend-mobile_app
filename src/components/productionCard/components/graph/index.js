@@ -2,33 +2,24 @@ import { StyleSheet, Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import { BarChart } from "react-native-gifted-charts";
 import ValueIndicator from "../valueIndicator";
+
 import graphInformation from "./graphInformation";
 import graphConfig from "./graphConfigurations";
-import useFetch from "@/hook/useFetch";
+
+import { useProductionContext } from "@/hook/useContext/productionContext";
 
 const Graph = ({ interval }) => {
+  const { fetch } = useProductionContext();
+  const { data, refetch } = fetch;
+
+  const [barData, setBarData] = useState(graphInformation[interval].data);
+  const [barConfig, setBarConfig] = useState(graphConfig[interval]);
+
   useEffect(() => {
     refetch();
     setBarData(graphInformation[interval].data);
     setBarConfig(graphConfig[interval]);
   }, [interval]);
-
-  const [barData, setBarData] = useState(graphInformation[interval].data);
-  const [barConfig, setBarConfig] = useState(graphConfig[interval]);
-
-  const durationOptions = {
-    startTime: new Date('2023-10-27T13:30:00').getTime(),
-    endTime: new Date('2024-10-27T13:30:00').getTime(),
-    timeInterval: "daily",
-  };
-
-  const { data, isLoading, error, refetch } = useFetch(
-    "deviceUpdates/historical/232323",
-    { ...durationOptions, timeInterval: interval},
-    "POST"
-  );
-
-  console.log(data)
 
   function changeActiveData(index) {
     setBarData((prev) => {
