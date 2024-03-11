@@ -1,10 +1,10 @@
 import { StyleSheet, Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import { BarChart } from "react-native-gifted-charts";
-import ValueIndicator from "../valueIndicator";
+import ValueIndicator from "./valueIndicator";
 
-import graphInformation from "./graphInformation";
-import graphConfig from "./graphConfigurations";
+import graphInformation from "./graphInfo/graphInformation";
+import graphConfig from "./graphInfo/graphConfigurations";
 
 import { useProductionContext } from "@/hook/useContext/productionContext";
 

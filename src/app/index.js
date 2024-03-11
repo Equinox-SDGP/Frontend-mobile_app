@@ -1,12 +1,12 @@
 // External Library Imports
 import { ScrollView, XStack, YStack } from "tamagui";
 import { View, StyleSheet } from "react-native";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 
 // Component Imports
 import StatCard from "@/components/statsCard";
 import ProductionCard from "@/components/productionCard";
-import SpaceCard from "@/components/spaces";
+import SpaceSwitcher from "@/components/spaceSwitcher";
 import HomeHeader from "@/components/header";
 import moment from "moment";
 
@@ -44,18 +44,7 @@ export default function Devices() {
         <YStack rowGap={10}>
           <HomeHeader />
           <ProductionContext.Provider value={{ fetch, query, setQuery }}>
-            <ScrollView
-              horizontal={true}
-              decelerationRate={0}
-              snapToInterval={320}
-              snapToAlignment="center">
-              <XStack>
-                <SpaceCard />
-                <SpaceCard />
-                <SpaceCard />
-              </XStack>
-            </ScrollView>
-
+            <SpaceSwitcher />
             <ProductionCard />
             <XStack columnGap={10}>
               <StatCard icon={walletIcon} {...co2Stats} />
