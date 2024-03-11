@@ -1,12 +1,24 @@
 import { StyleSheet } from "react-native";
-import React, { lazy, useMemo, useState } from "react";
+import React, { lazy, useContext, useMemo, useState } from "react";
 import { Button, Card, Text, ToggleGroup, XStack, YStack } from "tamagui";
 import Graph from "./components/graph";
 import SelectDuration from "./components/selectDuration";
+import { useProductionContext } from "@/hook/useContext/productionContext";
 
 const ProductionCard = () => {
-  const [interval, setInterval] = useState("daily"); // ["hourly", "daily", "weekly", "monthly", "yearly"
+  const { setQuery } = useProductionContext();
+
+  const [interval, setInterval] = useState("day"); // ["hourly", "daily", "weekly", "monthly", "yearly"
   const handleIntervalChange = (value) => {
+    setQuery((prevQuery) => {
+      return {
+        ...prevQuery,
+        queryBody: {
+          ...prevQuery.queryBody,
+          timeInterval: value,
+        },
+      };
+    });
     setInterval(value);
   };
   return (

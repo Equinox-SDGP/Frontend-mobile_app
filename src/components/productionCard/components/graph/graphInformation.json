@@ -1,5 +1,5 @@
 {
-  "hourly": {
+  "day": {
     "data": [
       {
         "value": 0,
@@ -86,7 +86,7 @@
     ],
     "maxValue": 1000
   },
-  "daily": {
+  "week": {
     "data": [
       {
         "value": 250,
@@ -119,7 +119,7 @@
     ],
     "maxValue": 1000
   },
-  "weekly": {
+  "month": {
     "data": [
       {
         "value": 250
@@ -129,7 +129,7 @@
       },
       {
         "value": 745,
-        "label": "February"
+        "label": "Feb"
       },
       {
         "value": 320
@@ -142,7 +142,7 @@
       },
       {
         "value": 745,
-        "label": "March"
+        "label": "Mar"
       },
       {
         "value": 320
@@ -150,7 +150,7 @@
     ],
     "maxValue": 1000
   },
-  "monthly": {
+  "year": {
     "data": [
       {
         "value": 250,
@@ -202,33 +202,5 @@
       }
     ],
     "maxValue": 1000
-  },
-  "yearly": {
-    "data": [
-      {
-        "value": 500,
-        "label": "2019"
-      },
-      {
-        "value": 745,
-        "label": "2020"
-      },
-      {
-        "value": 320,
-        "label": "2021"
-      },
-      {
-        "value": 600,
-        "label": "2022"
-      },
-      {
-        "value": 256,
-        "label": "2023"
-      },
-      {
-        "value": 300,
-        "label": "2024"
-      }
-    ]
   }
 }

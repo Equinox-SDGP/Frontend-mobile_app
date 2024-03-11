@@ -3,7 +3,7 @@ import { useMemo, useState } from "react";
 import { Adapt, Select, Sheet, YStack, getFontSize } from "tamagui";
 
 export default function SelectDuration(props) {
-  const [val, setVal] = useState(items[1].name.toLowerCase());
+  const [val, setVal] = useState(items[0].name.toLowerCase());
   function handleIntervalChange(value) {
     setVal(value);
     props.handleIntervalChange(value);
@@ -109,11 +109,10 @@ export default function SelectDuration(props) {
   );
 }
 const items = [
-  { name: "Hourly" },
-  { name: "Daily" },
-  { name: "Weekly" },
-  { name: "Monthly" },
-  { name: "Yearly" },
+  { name: "Day" },
+  { name: "Week" },
+  { name: "Month" },
+  { name: "Year" },
 ];
 
 const styles = {
