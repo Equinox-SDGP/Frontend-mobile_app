@@ -1,43 +1,39 @@
 import { StyleSheet } from "react-native";
-import React from "react";
-import { Button, Card, Text, View, XStack, YStack } from "tamagui";
-import Graph from "./components/Graph";
+import React, { lazy, useContext, useMemo, useState } from "react";
+import { Button, Card, Text, ToggleGroup, XStack, YStack } from "tamagui";
+import Graph from "./components/graph";
+import SelectDuration from "./components/selectDuration";
+import { useProductionContext } from "@/hook/useContext/productionContext";
 
 const ProductionCard = () => {
+  const { setQuery } = useProductionContext();
+
+  const [interval, setInterval] = useState("day"); // ["hourly", "daily", "weekly", "monthly", "yearly"
+  const handleIntervalChange = (value) => {
+    setQuery((prevQuery) => {
+      return {
+        ...prevQuery,
+        queryBody: {
+          ...prevQuery.queryBody,
+          timeInterval: value,
+        },
+      };
+    });
+    setInterval(value);
+  };
   return (
-    <Card width={380} rowGap={15}>
+    <Card width="100%" borderRadius={15}>
       <Card.Header>
-        <YStack rowGap={10}>
-          <Text fontSize={16} fontWeight={"bold"}>
-            Production Card
+        <XStack style={styles.cardHeader}>
+          <Text fontSize={16} fontWeight={"700"}>
+            Energy Production
           </Text>
-          <XStack justifyContent="left">
-            <Button size="$2" theme="active">
-              Daily
-            </Button>
-            <Button size="$2" variant="outlined">
-              Weekly
-            </Button>
-            <Button size="$2" variant="outlined">
-              Monthly
-            </Button>
-            <Button size="$2" variant="outlined">
-              Yearly
-            </Button>
-          </XStack>
-        </YStack>
+          <SelectDuration handleIntervalChange={handleIntervalChange} />
+        </XStack>
       </Card.Header>
-      <Card.Footer justifyContent="center">
-        <YStack rowGap={25}>
-          <Graph />
-          <YStack alignContent="center">
-            <Text textAlign="center" fontSize={16}>
-              Total Production
-            </Text>
-            <Text textAlign="center" fontSize={16}>
-              1,500 kWh
-            </Text>
-          </YStack>
+      <Card.Footer justifyContent="center" style={styles.cardFooter}>
+        <YStack minWidth={"100%"} rowGap={25} overflow="hidden">
+          <Graph interval={interval} />
         </YStack>
       </Card.Footer>
     </Card>
@@ -46,4 +42,31 @@ const ProductionCard = () => {
 
 export default ProductionCard;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  cardHeader: {
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: "100%",
+  },
+  cardFooter: {
+    position: "relative",
+    padding: 20,
+  },
+  toggleGroup: {
+    display: "flex",
+    borderRadius: 30,
+    height: 40,
+  },
+  toggleItem: {
+    paddingHorizontal: 10,
+    borderRadius: 30,
+    color: "#333",
+    fontWeight: "800",
+  },
+  toggleText: {
+    color: "#333",
+    fontWeight: "800",
+    paddingHorizontal: 10,
+    fontSize: 12,
+  },
+});

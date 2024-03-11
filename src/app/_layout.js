@@ -1,27 +1,20 @@
+/** Imports */
 import {
   DarkTheme,
   DefaultTheme,
   ThemeProvider,
 } from "@react-navigation/native";
-import { SplashScreen, Stack, Tabs } from "expo-router";
+import React, { useEffect } from "react";
 import { useColorScheme } from "react-native";
+import * as SplashScreen from "expo-splash-screen";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { TamaguiProvider } from "tamagui";
 
 import { config } from "../../tamagui.config";
 import { useFonts } from "expo-font";
-import { useEffect } from "react";
 
-export {
-  // Catch any errors thrown by the Layout component.
-  ErrorBoundary,
-} from "expo-router";
+import TabNavigator from "@/components/tabNavigator";
 
-export const unstable_settings = {
-  // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: "(tabs)",
-};
-
-// Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
@@ -32,7 +25,6 @@ export default function RootLayout() {
 
   useEffect(() => {
     if (interLoaded || interError) {
-      // Hide the splash screen after the fonts have loaded (or an error was returned) and the UI is ready.
       SplashScreen.hideAsync();
     }
   }, [interLoaded, interError]);
@@ -44,39 +36,19 @@ export default function RootLayout() {
   return <RootLayoutNav />;
 }
 
-function RootLayoutNav() {
+const RootLayoutNav = () => {
   const colorScheme = useColorScheme();
 
   return (
-    <TamaguiProvider config={config} defaultTheme={colorScheme}>
-      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-        <Tabs>
-          <Tabs.Screen
-            name="index"
-            options={{
-              title: "Home",
-            }}
-          />
-          <Tabs.Screen
-            name="chatbot/index"
-            options={{
-              title: "Chatbot",
-            }}
-          />
-          <Tabs.Screen
-            name="devices/index"
-            options={{
-              title: "Devices",
-            }}
-          />
-          <Tabs.Screen
-            name="profile/index"
-            options={{
-              title: "Profile",
-            }}
-          />
-        </Tabs>
-      </ThemeProvider>
-    </TamaguiProvider>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "rgba(0,0,0,0)" }}>
+      <TamaguiProvider config={config} defaultTheme={colorScheme}>
+        <ThemeProvider
+          value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+          <TabNavigator />
+        </ThemeProvider>
+      </TamaguiProvider>
+    </SafeAreaView>
   );
-}
+};
+
+export { ErrorBoundary } from "expo-router";
