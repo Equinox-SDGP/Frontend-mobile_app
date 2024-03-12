@@ -1,6 +1,7 @@
 import {
   StyleSheet,
   Text,
+  FlatList,
   View,
   useWindowDimensions,
   Animated,
@@ -23,8 +24,8 @@ const SpaceSwitcher = () => {
 
   return (
     <View style={styles.container}>
-      <ScrollView
-        overflow="shown"
+      <FlatList
+        data={data}
         marginBottom={10}
         horizontal={true}
         decelerationRate={0}
@@ -41,11 +42,9 @@ const SpaceSwitcher = () => {
         scrollEventThrottle={32}
         viewAbilityConfig={viewConfig}
         onViewableItemsChanged={onViewableItemsChanged}
+        renderItem={({ item, index }) => {return <SpaceCard key={index} data={item} />;}}
         ref={sliderRef}>
-        {data.map((item, index) => {
-          return <SpaceCard key={index} data={item} />;
-        })}
-      </ScrollView>
+      </FlatList>
       <Paginator data={data} scrollX={scrollX} />
     </View>
   );
