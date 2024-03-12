@@ -1,6 +1,6 @@
 // External Library Imports
 import { ScrollView, XStack, YStack } from "tamagui";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, RefreshControl } from "react-native";
 import {  useState } from "react";
 
 // Component Imports
@@ -40,7 +40,9 @@ export default function Devices() {
 
   return (
     <View style={styles.container}>
-      <ScrollView style={{ padding: 24 }}>
+      <ScrollView style={{ padding: 24 }}
+        refreshControl={<RefreshControl />}
+      >
         <YStack rowGap={10}>
           <HomeHeader />
           <ProductionContext.Provider value={{ fetch, query, setQuery }}>
