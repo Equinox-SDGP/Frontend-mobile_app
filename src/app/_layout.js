@@ -13,7 +13,7 @@ import { TamaguiProvider } from "tamagui";
 import { config } from "../../tamagui.config";
 import { useFonts } from "expo-font";
 
-import TabNavigator from "@/components/tabNavigator";
+import { Stack } from "expo-router";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -44,7 +44,24 @@ const RootLayoutNav = () => {
       <TamaguiProvider config={config} defaultTheme={colorScheme}>
         <ThemeProvider
           value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-          <TabNavigator />
+          <Stack>
+            <Stack.Screen
+              name="(tabs)"
+              options={{
+                headerShown: false,
+                tabBarHideOnKeyboard: true,
+                tabBarStyle: {
+                  bottom: 10,
+                  position: "absolute",
+                  height: 60,
+                  left: 10,
+                  right: 10,
+                  borderRadius: 25,
+                  backgroundColor: "#FFF",
+                },
+              }}
+            />
+          </Stack>
         </ThemeProvider>
       </TamaguiProvider>
     </SafeAreaView>
