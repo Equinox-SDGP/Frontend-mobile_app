@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import { Avatar, XStack, YStack, Button } from "tamagui";
 import Notification from "@/assets/icons/notification.png";
+import { Link } from "expo-router";
 
 export default function ProfilePic() {
   return (
@@ -22,7 +23,9 @@ export default function ProfilePic() {
       {/* <Button alignSelf="center" icon={Airplay} size="$6"/> */}
 
       <TouchableOpacity>
+      <Link href="/notifications">
         <Image style={styles.notification} source={Notification}></Image>
+      </Link>
       </TouchableOpacity>
     </XStack>
   );

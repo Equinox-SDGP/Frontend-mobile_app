@@ -1,7 +1,7 @@
 // External Library Imports
 import { ScrollView, XStack, YStack } from "tamagui";
 import { View, StyleSheet } from "react-native";
-import {  useState } from "react";
+import { useEffect, useState } from "react";
 
 // Component Imports
 import StatCard from "@/components/statsCard";
