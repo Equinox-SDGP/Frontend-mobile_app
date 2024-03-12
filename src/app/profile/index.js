@@ -24,16 +24,23 @@ import {
 export default function Profile() {
   return (
     <View style={styles.Contaner}>
-      <XStack alignItems="center">
-        <Avatar style={styles.avatar} circular size="$10">
+      <YStack
+        alignItems="center"
+        justifyContent="center"
+        columnGap={5}
+        marginBottom={30}
+        paddingBottom={20}
+      >
+        <Avatar style={styles.avatar} circular size="$11">
           <Avatar.Image
             accessibilityLabel="Cam"
             src="https://images.unsplash.com/photo-1548142813-c348350df52b?&w=150&h=150&dpr=2&q=80"
           />
           <Avatar.Fallback backgroundColor="$blue10" />
         </Avatar>
-      </XStack>
-      <Text>index</Text>
+        <Text style={styles.UserName}> Promodh Madusha </Text>
+        <Text style={styles.email}> promodmadusha@gmail.com </Text>
+      </YStack>
       <Lists />
     </View>
   );
@@ -118,13 +125,25 @@ function Lists() {
 
 const styles = StyleSheet.create({
   Contaner: {
-    alignItems: "center",
+    alignItems: "Left",
     padding: 10,
     display: "flex",
     justifyContent: "center",
-    paddingTop: 120,
+    paddingTop: 50,
+    paddingHorizontal: 40,
   },
   avatar: {
     alignSelf: "center",
+    backgroundColor: "blue",
+  },
+  UserName: {
+    fontSize: 25,
+    fontWeight: "bold",
+    paddingTop: 20,
+  },
+  email: {
+    fontSize: 13,
+    //fontStyle: "italic",
+    color: "#696969",
   },
 });
