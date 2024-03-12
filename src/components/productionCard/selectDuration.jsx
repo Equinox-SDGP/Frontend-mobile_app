@@ -15,7 +15,10 @@ export default function SelectDuration(props) {
       onValueChange={handleIntervalChange}
       disablePreventBodyScroll
       {...props}>
-      <Select.Trigger width={120} iconAfter={ChevronDown} style={styles.selectButton}>
+      <Select.Trigger
+        width={120}
+        iconAfter={ChevronDown}
+        style={styles.selectButton}>
         <Select.Value placeholder="Time Duration" />
       </Select.Trigger>
 
@@ -29,8 +32,7 @@ export default function SelectDuration(props) {
             damping: 20,
             mass: 1.2,
             stiffness: 250,
-          }}
-          >
+          }}>
           <Sheet.Frame>
             <Sheet.ScrollView>
               <Adapt.Contents />
@@ -116,12 +118,12 @@ const items = [
 ];
 
 const styles = {
-  selectButton:{
+  selectButton: {
     borderColor: "#DCDCDC",
     color: "#333",
     backgroundColor: "#fff",
     fontSize: 16,
     fontWeight: 800,
-    textAlign: "left", 
-  }
-}
+    textAlign: "left",
+  },
+};
