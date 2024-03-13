@@ -3,6 +3,7 @@ import { StyleSheet, View, Button, Text } from "react-native";
 import TextField from "@/components/textField";
 import * as Google from "expo-auth-session/providers/google";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import {GoogleSignin, GoogleSigninButton, statusCodes} from '@react-native-google-signin/google-signin';
 
 const SignIn = () => {
   const [userInfo, setUserInfo] = useState(null);
@@ -54,7 +55,11 @@ const SignIn = () => {
       <TextField size="$4" fieldName="Email" label="  Email" />
       <TextField size="$4" fieldName="Password" label=" Your Password" />
       <Text>{JSON.stringify(userInfo, null, 2)}</Text>
-      <Button title="Sign in with Google" onPress={() => promptAsync()} />
+      <GoogleSigninButton
+        style={{ width: 192, height: 48 }}
+        size={GoogleSigninButton.Size.Wide}
+        color={GoogleSigninButton.Color.Dark}
+        onPress={() => promptAsync()}/>
       <Button title="Sign out" onPress={handleSignOut} />
     </View>
   );
