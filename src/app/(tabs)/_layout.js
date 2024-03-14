@@ -74,5 +74,5 @@ const tabConfig = [
     name: "profile",
     icon: User2,
     label: "Profile",
-  },
+  }
 ];

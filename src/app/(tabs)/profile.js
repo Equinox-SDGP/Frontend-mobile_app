@@ -21,7 +21,6 @@ import {
   MessageSquareText,
 } from "@tamagui/lucide-icons";
 import { Link } from "expo-router";
-import SignIn from "../(auth)/signin";
 
 export default function Profile() {
   return (
@@ -42,7 +41,6 @@ export default function Profile() {
         <Text style={styles.UserName}> Promodh Madusha </Text>
         <Text style={styles.email}> promodmadusha@gmail.com </Text>
       </YStack>
-      <SignIn />
       <Lists />
     </View>
   );
