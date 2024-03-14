@@ -48,8 +48,8 @@ export default function Devices() {
             <SpaceSwitcher />
             <ProductionCard />
             <XStack columnGap={10}>
-              <StatCard icon={walletIcon} {...co2Stats} />
-              <StatCard icon={leafIcon} {...moneyStats} />
+              <StatCard icon={walletIcon} {...moneyStats} />
+              <StatCard icon={leafIcon} {...co2Stats} />
             </XStack>
           </ProductionContext.Provider>
         </YStack>

@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   },
   card: {
     //height: 115,
-    width: 183,
+    width: "49%",
     alignItems: "center",
     paddingBottom: 15,
   },

@@ -20,6 +20,8 @@ import {
   PhoneCall,
   MessageSquareText,
 } from "@tamagui/lucide-icons";
+import { Link } from "expo-router";
+import SignIn from "../(auth)/signin";
 
 export default function Profile() {
   return (
@@ -29,8 +31,7 @@ export default function Profile() {
         justifyContent="center"
         columnGap={5}
         marginBottom={30}
-        paddingBottom={20}
-      >
+        paddingBottom={20}>
         <Avatar style={styles.avatar} circular size="$11">
           <Avatar.Image
             accessibilityLabel="Cam"
@@ -41,6 +42,7 @@ export default function Profile() {
         <Text style={styles.UserName}> Promodh Madusha </Text>
         <Text style={styles.email}> promodmadusha@gmail.com </Text>
       </YStack>
+      <SignIn />
       <Lists />
     </View>
   );
@@ -53,18 +55,20 @@ function Lists() {
       bordered
       width={screenWidth - 60}
       size="$8"
-      separator={<Separator />}
-    >
-      <YGroup.Item>
-        <ListItem
-          hoverTheme
-          pressTheme
-          title="Profile"
-          subTitle="Edit Profile"
-          icon={UserRoundCog}
-          iconAfter={ChevronRight}
-        />
-      </YGroup.Item>
+      separator={<Separator />}>
+      <Link href="(auth)/signin">
+        <YGroup.Item>
+          <ListItem
+            hoverTheme
+            pressTheme
+            title="Profile"
+            subTitle="Edit Profile"
+            icon={UserRoundCog}
+            iconAfter={ChevronRight}
+            Link="signin"
+          />
+        </YGroup.Item>
+      </Link>
 
       <YGroup.Item>
         <ListItem
@@ -81,7 +85,7 @@ function Lists() {
           hoverTheme
           pressTheme
           title="Feedback"
-          subTitle="Add Feedback:)"
+          subTitle="Give Feedback :)"
           icon={MessageSquareText}
           iconAfter={ChevronRight}
         />
@@ -91,7 +95,7 @@ function Lists() {
         <ListItem
           hoverTheme
           pressTheme
-          title="Contac us"
+          title="Contact us"
           subTitle="+94 71 212 4273"
           icon={PhoneCall}
           iconAfter={ChevronRight}
