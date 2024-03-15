@@ -6,7 +6,7 @@ import {
 } from "@react-navigation/native";
 import React, { useEffect } from "react";
 import { useColorScheme } from "react-native";
-import * as SplashScreen from "expo-splash-screen";
+// import * as SplashScreen from "expo-splash-screen";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { TamaguiProvider } from "tamagui";
 
@@ -15,7 +15,9 @@ import { useFonts } from "expo-font";
 
 import { Stack } from "expo-router";
 
-SplashScreen.preventAutoHideAsync();
+import SplashScreen from 'react-native-splash-screen'
+
+// SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [interLoaded, interError] = useFonts({
@@ -24,8 +26,11 @@ export default function RootLayout() {
   });
 
   useEffect(() => {
+    // if (interLoaded || interError) {
+    //   SplashScreen.hideAsync();
+    // }
     if (interLoaded || interError) {
-      SplashScreen.hideAsync();
+      SplashScreen.hide(); // Hide the splash screen when fonts are loaded
     }
   }, [interLoaded, interError]);
 
