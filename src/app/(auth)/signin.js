@@ -11,11 +11,14 @@ import {
 import { Image, Input, Button, H4 } from 'tamagui'
 import EquinoxCover from "@/assets/images/solar1.png"; // Importing cover image
 import { Eye, EyeOff } from "@tamagui/lucide-icons"; // Import Eye and EyeOff icons
+import { router } from 'expo-router';
+// import { useSession } from '../../hook/useSession'; // Import useSession hook from useSession file
 
 const SignInPage = () => {
   // State variables for managing user info and password visibility
   const [userInfo, setUserInfo] = useState(null);
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const { signIn } = useSession();
 
   // Initialize Google sign-in
   const [request, response, promptAsync] = Google.useAuthRequest({
@@ -79,7 +82,17 @@ const SignInPage = () => {
 
   // Function to handle login
   const handleLogin = () => {
-    // Add your login logic here
+
+
+// Function to handle login
+const handleLogin = () => {
+  // Get the navigation object using the useNavigation hook
+  const navigation = useNavigation();
+  
+  // Navigate to the index.js file
+  navigation.navigate('index');
+};
+
   };
 
   // Function to handle forgot password
@@ -125,7 +138,14 @@ const SignInPage = () => {
             </Button>
           </View>
           {/* Button to log in */}
-          <Button style={styles.logInButton} onPress={handleLogin}>Log In</Button>
+          <Button style={styles.logInButton} 
+        //   onPress={() => {
+        //   signIn();
+        //   // Navigate after signing in. You may want to tweak this to ensure sign-in is
+        //   // successful before navigating.
+        //   router.replace('/');
+        // }}
+        >Log In</Button>
           <Button style={styles.forgotPassword} onPress={handleForgotPassword}>Forgot Password?</Button>
         </View>
 

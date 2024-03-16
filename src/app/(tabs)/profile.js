@@ -21,9 +21,10 @@ import {
   MessageSquareText,
 } from "@tamagui/lucide-icons";
 import { Link } from "expo-router";
-import SignIn from "../(auth)/signin";
+// import { useSession } from '../../hook/useSession'; // Import useSession hook from useSession file
 
 export default function Profile() {
+  // const { signOut } = useSession();
   return (
     <View style={styles.Contaner}>
       <YStack
@@ -42,7 +43,6 @@ export default function Profile() {
         <Text style={styles.UserName}> Promodh Madusha </Text>
         <Text style={styles.email}> promodmadusha@gmail.com </Text>
       </YStack>
-      <SignIn />
       <Lists />
     </View>
   );
@@ -121,6 +121,10 @@ function Lists() {
           //subTitle="Edit Profile"
           icon={Power}
           //iconAfter={ChevronRight}
+          // onPress={() => {
+          //   // The `app/(app)/_layout.tsx` will redirect to the sign-in screen.
+          //   signOut();
+          // }}
         />
       </YGroup.Item>
     </YGroup>

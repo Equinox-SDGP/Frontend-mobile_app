@@ -3,6 +3,9 @@ import { Tabs } from "expo-router";
 import * as Animatable from "react-native-animatable";
 import { TouchableOpacity, View, StyleSheet, Keyboard } from "react-native";
 import { useState, useEffect, useRef } from "react";
+import { Redirect, Stack } from 'expo-router';
+import * as SplashScreen from "expo-splash-screen"; // Import SplashScreen module from expo-splash-screen
+// import { useSession } from '../../hook/useSession'; // Import useSession hook from useSession file
 
 import NavigatorButton from "@/components/tabNavigator/navigatorButton";
 
@@ -10,6 +13,13 @@ import { Home, MessageCircle, User2 } from "@tamagui/lucide-icons";
 
 export default TabNavigator = () => {
   const [keyboardPresent, setKeyboardPresent] = useState(false);
+  // const { session, SplashScreen } = useSession();
+  // if(SplashScreen) {
+  //   SplashScreen.preventAutoHideAsync();
+  // }
+  // if (!session) {
+  //   return <Redirect href="./(auth)/signin" />;
+  // }
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
