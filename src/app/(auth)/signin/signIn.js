@@ -1,6 +1,8 @@
 // Import necessary modules and components
 import React, { useEffect, useState } from "react";
 import { StyleSheet, View, Text } from "react-native";
+import * as WebBrowser from "expo-web-browser";
+
 import * as Google from "expo-auth-session/providers/google";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
@@ -11,14 +13,13 @@ import {
 import { Image, Input, Button, H4 } from 'tamagui'
 import EquinoxCover from "@/assets/images/solar1.png"; // Importing cover image
 import { Eye, EyeOff } from "@tamagui/lucide-icons"; // Import Eye and EyeOff icons
-import { router } from 'expo-router';
-// import { useSession } from '../../hook/useSession'; // Import useSession hook from useSession file
+
+WebBrowser.maybeCompleteAuthSession();
 
 const SignInPage = () => {
   // State variables for managing user info and password visibility
   const [userInfo, setUserInfo] = useState(null);
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const { signIn } = useSession();
 
   // Initialize Google sign-in
   const [request, response, promptAsync] = Google.useAuthRequest({
@@ -58,13 +59,18 @@ const SignInPage = () => {
       const user = await response.json();
       await AsyncStorage.setItem("@user", JSON.stringify(user));
       setUserInfo(user);
-            {/* Display user information */}
-          console.log(JSON.stringify(userInfo, null, 2));
     } catch (error) {
-      console.error(error);
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+              console.log("User cancelled the login flow");
+            } else if (error.code === statusCodes.IN_PROGRESS) {
+              console.log("Sign in is in progress");
+            } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+              console.log("Play services not available");
+            } else {
+              console.log("Something went wrong", error);
+            }
     }
   };
-
   // Function to handle sign-out
   const handleSignOut = async () => {
     try {
@@ -82,17 +88,7 @@ const SignInPage = () => {
 
   // Function to handle login
   const handleLogin = () => {
-
-
-// Function to handle login
-const handleLogin = () => {
-  // Get the navigation object using the useNavigation hook
-  const navigation = useNavigation();
-  
-  // Navigate to the index.js file
-  navigation.navigate('index');
-};
-
+    // Add your login logic here
   };
 
   // Function to handle forgot password
@@ -138,14 +134,7 @@ const handleLogin = () => {
             </Button>
           </View>
           {/* Button to log in */}
-          <Button style={styles.logInButton} 
-        //   onPress={() => {
-        //   signIn();
-        //   // Navigate after signing in. You may want to tweak this to ensure sign-in is
-        //   // successful before navigating.
-        //   router.replace('/');
-        // }}
-        >Log In</Button>
+          <Button style={styles.logInButton} onPress={handleLogin}>Log In</Button>
           <Button style={styles.forgotPassword} onPress={handleForgotPassword}>Forgot Password?</Button>
         </View>
 
@@ -157,7 +146,9 @@ const handleLogin = () => {
           color={GoogleSigninButton.Color.Dark}
           onPress={() => promptAsync()}
         />
+        <Text>{JSON.stringify(userInfo, null, 2)}</Text>
       </View>
+
       {/* Display app version and copyright */}
       <View style={styles.versionContainer}>
         <Text style={styles.version}>Version 1.0</Text>

@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Frontend-mobile_app",
+    "name": "Equinox",
     "slug": "Frontend-mobile_app",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -47,6 +47,6 @@
     "experiments": {
       "typedRoutes": true
     },
-    "scheme": "Frontend-mobile_app"
+    "scheme": "Equinox"
   }
 }
