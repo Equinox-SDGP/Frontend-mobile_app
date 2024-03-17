@@ -5,6 +5,7 @@ import { UserRoundCog, HardDrive, MessageSquareText, PhoneCall, Info, Power, Che
 import * as ImagePicker from 'expo-image-picker';
 import UploadModal from "../../components/uploadProfilePic/upload";
 import ProfileAvatar from "../../components/profileAvatar/avatar";
+import { router } from 'expo-router';
 
 export default function Profile() {
   const [modalVisible, setModalVisible] = useState(false);
@@ -100,7 +101,7 @@ function Lists() {
           subTitle="Edit Profile"
           icon={UserRoundCog}
           iconAfter={ChevronRight}
-          onPress={() => console.log('Edit profile pressed')}
+          onPress={() => router.push('/(auth)/signin/signIn')}
         />
       </YGroup.Item>
 
@@ -112,7 +113,7 @@ function Lists() {
           subTitle="Device "
           icon={HardDrive}
           iconAfter={ChevronRight}
-          onPress={() => console.log('Device pressed')}
+          onPress={() => router.push('devices')}
         />
       </YGroup.Item>
 
