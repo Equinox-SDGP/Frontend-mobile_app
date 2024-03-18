@@ -28,6 +28,10 @@
       }
     },
     "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./src/assets/images/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
       "package": "com.Equinox"
     },
     "web": {
