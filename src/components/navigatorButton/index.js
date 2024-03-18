@@ -84,10 +84,10 @@ const styles = StyleSheet.create({
     borderColor: "white",
   },
   text: {
-    fontSize: 11,
+    fontSize: 10,
     textAlign: "center",
     color: "black",
-    marginTop: -2,
+    marginTop: 2,
   },
   circle: {
     ...StyleSheet.absoluteFillObject,
