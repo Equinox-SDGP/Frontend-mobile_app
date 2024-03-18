@@ -7,16 +7,10 @@ import UploadModal from "../../components/uploadProfilePic/upload";
 import ProfileAvatar from "../../components/profileAvatar/avatar";
 import { router } from 'expo-router';
 
-/**
- * Profile screen component.
- */
 export default function Profile() {
   const [modalVisible, setModalVisible] = useState(false);
   const [image, setImage] = useState(null);
 
-  /**
-   * Function to remove the selected image.
-   */
   const removeImage = async () => {
     try {
       setImage(null);
@@ -26,10 +20,6 @@ export default function Profile() {
     }
   };
 
-  /**
-   * Function to upload image from camera or gallery.
-   * @param {string} mode - Specifies the source of the image: 'gallery' or 'camera'.
-   */
   const uploadImage = async (mode) => {
     try {
       let result = {};
@@ -67,10 +57,6 @@ export default function Profile() {
     }
   };
 
-  /**
-   * Function to save the uploaded image.
-   * @param {string} image - URI of the uploaded image.
-   */
   const saveImage = async (image) => {
     try {
       setImage(image);
@@ -82,15 +68,10 @@ export default function Profile() {
 
   return (
     <View style={styles.container}>
-      {/* Profile avatar component */}
       <ProfileAvatar uri={image} onButtonPress={() => setModalVisible(true)} />
-      {/* User name */}
       <Text style={styles.userName}>Promodh Madusha</Text>
-      {/* Email */}
       <Text style={styles.email}>promodmadusha@gmail.com</Text>
-      {/* List of items */}
       <Lists />
-      {/* Upload modal component */}
       <UploadModal
         modalVisible={modalVisible}
         onBackPress={() => setModalVisible(false)}
@@ -102,9 +83,6 @@ export default function Profile() {
   );
 }
 
-/**
- * List of items component.
- */
 function Lists() {
   const screenWidth = useWindowDimensions().width;
   return (
@@ -115,7 +93,6 @@ function Lists() {
       size="$8"
       separator={<Separator />}
     >
-      {/* Profile item */}
       <YGroup.Item >
         <ListItem
           hoverTheme
@@ -124,10 +101,10 @@ function Lists() {
           subTitle="Edit Profile"
           icon={UserRoundCog}
           iconAfter={ChevronRight}
-          onPress={() => router.push('/(auth)/startPage/startPage')}
+          onPress={() => router.push('/(auth)/signin/signIn')}
         />
       </YGroup.Item>
-      {/* Device item */}
+
       <YGroup.Item >
         <ListItem
           hoverTheme
@@ -139,7 +116,7 @@ function Lists() {
           onPress={() => router.push('devices')}
         />
       </YGroup.Item>
-      {/* Feedback item */}
+
       <YGroup.Item>
         <ListItem
           hoverTheme
@@ -150,7 +127,7 @@ function Lists() {
           iconAfter={ChevronRight}
         />
       </YGroup.Item>
-      {/* Contact us item */}
+
       <YGroup.Item>
         <ListItem
           hoverTheme
@@ -161,7 +138,7 @@ function Lists() {
           iconAfter={ChevronRight}
         />
       </YGroup.Item>
-      {/* About item */}
+
       <YGroup.Item>
         <ListItem
           hoverTheme
@@ -172,7 +149,7 @@ function Lists() {
           iconAfter={ChevronRight}
         />
       </YGroup.Item>
-      {/* Sign out item */}
+
       <YGroup.Item>
         <ListItem
           hoverTheme
@@ -193,9 +170,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingTop: 50,
     paddingHorizontal: 40,
+    
   },
   userName: {
-    marginTop: -20,
+    marginTop:-20,
     fontSize: 25,
     fontWeight: "bold",
     paddingTop: 20,

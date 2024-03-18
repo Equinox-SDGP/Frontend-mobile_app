@@ -12,6 +12,8 @@ import { TamaguiProvider } from "tamagui"; // Import TamaguiProvider component f
 import { config } from "../../tamagui.config"; // Import configuration from tamagui.config file
 import { useFonts } from "expo-font"; // Import useFonts hook from expo-font
 import { Stack } from "expo-router"; // Import Stack component from expo-router
+// import { Slot } from 'expo-router';
+// import { SessionProvider } from '../hook/useSession'; // Import SessionProvider component from sessionProvider file
 
 // Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();
@@ -52,6 +54,9 @@ const RootLayoutNav = () => {
       <TamaguiProvider config={config} defaultTheme={colorScheme}>
         <ThemeProvider
           value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+          {/* <SessionProvider>
+            <Slot />
+          </SessionProvider> */}
           <Stack >
             <Stack.Screen
               name="(tabs)"
