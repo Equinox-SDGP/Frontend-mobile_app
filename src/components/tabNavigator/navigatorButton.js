@@ -40,7 +40,7 @@ export default TabButton = (props) => {
             },
           ]}>
           <Animatable.View ref={circleRef} style={styles.circle} backgroundColor={focused?"#FF621F":"white"}>
-            <item.icon width={25} height={25} stroke={focused?"white":"black"}/>
+            <item.icon width={25} height={25} stroke={focused?"#FFFF":"#0000"}/>
           </Animatable.View>
         </View>
         <Animatable.Text ref={textRef} style={styles.text} >
