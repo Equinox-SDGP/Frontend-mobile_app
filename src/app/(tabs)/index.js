@@ -1,39 +1,43 @@
 // External Library Imports
-import { ScrollView, XStack, YStack } from 'tamagui';
+import { ScrollView, XStack, YStack } from "tamagui";
 
-import { View, StyleSheet, RefreshControl } from 'react-native';
-import { useEffect, useState } from 'react';
+import { View, StyleSheet, RefreshControl } from "react-native";
+import { useState } from "react";
 
 // Component Imports
-import StatCard from '@/components/statsCard';
-import ProductionCard from '@/components/productionCard';
-import SpaceCard from '@/components/spaces';
-import HomeHeader from '@/components/header';
-import moment from 'moment';
+import StatCard from "@/components/statsCard";
+import ProductionCard from "@/components/productionCard";
+import SpaceSwitcher from "@/components/spaceSwitcher";
+import HomeHeader from "@/components/header";
+import moment from "moment";
 
 // Hooks Imports
-import { ProductionContext } from '@/hook/useContext/productionContext';
-import useFetch from '@/hook/useFetch';
+import { ProductionContext } from "@/hook/useContext/productionContext";
+import useFetch from "@/hook/useFetch";
 
 // Asset Imports
-import walletIcon from '@/assets/icons/wallet.png';
-import leafIcon from '@/assets/icons/leaf.png';
+import walletIcon from "@/assets/icons/wallet.png";
+import leafIcon from "@/assets/icons/leaf.png";
 
 export default function Devices() {
   const endTime = moment(1589598900);
-  const startTime = moment(endTime).subtract(1, 'week');
+  const startTime = moment(endTime).subtract(1, "week");
 
   const durationOptions = {
     startTime: startTime.valueOf(),
     endTime: endTime.valueOf(),
-    timeInterval: 'day',
+    timeInterval: "day",
   };
 
   const [query, setQuery] = useState({
-    id: '1BY6WEcLGh8j5v7',
+    id: "1BY6WEcLGh8j5v7",
     queryBody: durationOptions,
   });
-  const fetch = useFetch(`deviceUpdates/historical/${query.id}`, query.queryBody, 'POST');
+  const fetch = useFetch(
+    `deviceUpdates/historical/${query.id}`,
+    query.queryBody,
+    "POST"
+  );
 
   return (
     <View style={styles.container}>
@@ -41,14 +45,7 @@ export default function Devices() {
         <YStack rowGap={10}>
           <HomeHeader />
           <ProductionContext.Provider value={{ fetch, query, setQuery }}>
-            <ScrollView horizontal={true} decelerationRate={0} snapToInterval={320} snapToAlignment="center">
-              <XStack>
-                <SpaceCard />
-                <SpaceCard />
-                <SpaceCard />
-              </XStack>
-            </ScrollView>
-
+            <SpaceSwitcher />
             <ProductionCard />
             <XStack columnGap={10}>
               <StatCard icon={walletIcon} {...moneyStats} />
@@ -62,19 +59,19 @@ export default function Devices() {
 }
 
 const moneyStats = {
-  type: 'Money',
-  label: 'Money Saved!',
-  amount: 'Rs. 5000',
+  type: "Money",
+  label: "Money Saved!",
+  amount: "Rs. 5000",
 };
 const co2Stats = {
-  type: 'CO2 Reduction',
-  label: 'CO2 Reduction',
-  amount: '-0.5kg',
+  type: "CO2 Reduction",
+  label: "CO2 Reduction",
+  amount: "-0.5kg",
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0)',
+    backgroundColor: "rgba(0,0,0,0)",
   },
 });
