@@ -1,28 +1,26 @@
-import { StyleSheet, Text, View, useWindowDimensions } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { Card, H2, Image, Paragraph, XStack, YStack } from "tamagui";
 import DayWeather from "@/assets/icons/weatherIcons/cloudy.svg";
 
-export default function SpaceCard({ data }) {
-  const windowWidth = useWindowDimensions().width;
+export default function SpaceCard(props) {
   return (
     <Card
       elevate
       size="$4"
-      marginHorizontal={15}
+      bordered
       animation="bouncy"
-      width={windowWidth - 80}
+      width={320}
       height={170}
       scale={0.9}
-      pressStyle={{ scale: 0.985 }}>
+      hoverStyle={{ scale: 0.925 }}
+      pressStyle={{ scale: 0.875 }}>
       <Card.Header>
-        <YStack rowGap={-5}>
-          <XStack alignItems="center" maxHeight="$3" columnGap={-5}>
-            <H2 style={styles.spaceTitle} marginBottom={0}>
-              {data.title}
-            </H2>
+        <YStack>
+          <XStack alignItems="center" maxHeight="$3" columnGap={-10}>
+            <H2 marginBottom={0}>Home</H2>
             <View>
-              <DayWeather marginBottom={-5} width={50} height={50} />
+              <DayWeather marginBottom={-5} width={75} height={75} />
             </View>
           </XStack>
           <Paragraph theme="alt2">Colombo,sri lanka</Paragraph>
@@ -35,6 +33,17 @@ export default function SpaceCard({ data }) {
           <Text style={styles.productionTitle}>Daily Production </Text>
         </YStack>
       </Card.Footer>
+
+      <Card.Background>
+        <Image
+          resizeMode="contain"
+          alignSelf="center"
+          source={{
+            width: 200,
+            height: 200,
+          }}
+        />
+      </Card.Background>
       <Indicator status="Healthy" />
     </Card>
   );
@@ -55,11 +64,6 @@ function Indicator({ status }) {
 }
 
 const styles = StyleSheet.create({
-  spaceTitle: {
-    fontSize: 24,
-    fontWeight: "900",
-    color: "#2E2E2E",
-  },
   productionText: {
     fontSize: 32,
     fontWeight: "900",
@@ -84,7 +88,7 @@ const styles = StyleSheet.create({
     width: 10,
     height: 10,
     borderRadius: 5,
-    backgroundColor: "#00A958",
+    backgroundColor: "green",
   },
   faultyIndicator: {
     width: 10,
