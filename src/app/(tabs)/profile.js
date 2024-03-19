@@ -124,7 +124,7 @@ function Lists() {
           subTitle="Edit Profile"
           icon={UserRoundCog}
           iconAfter={ChevronRight}
-          onPress={() => router.push('/(auth)/startPage/startPage')}
+          // onPress={() => router.push('/(auth)/startPage/startPage')}
         />
       </YGroup.Item>
       {/* Device item */}
