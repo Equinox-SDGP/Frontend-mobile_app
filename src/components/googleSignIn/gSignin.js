@@ -10,6 +10,7 @@ import {
   GoogleSignin,
   statusCodes,
 } from "@react-native-google-signin/google-signin";
+import { useSession } from "../../hook/useSession";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -77,6 +78,7 @@ const SignInPage = () => {
       console.error(error);
     }
   };
+
   // JSX code for rendering the sign-in page
   return (
     <View style={styles.container1}>
