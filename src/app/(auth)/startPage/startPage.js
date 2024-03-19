@@ -6,6 +6,7 @@ import EquinoxCover from "@/assets/images/solar1.png"; // Importing cover image
 import GoogleSignIn from "@/components/googleSignIn/gSignin"; // Import GoogleSignIn component
 import { router, Stack } from 'expo-router';
 
+
 const StartPage = () => {
   // Function to handle login
   const handleLogin = () => {
@@ -14,7 +15,6 @@ const StartPage = () => {
   // JSX code for rendering the sign-in page
   return (
     <View style={{height:"100%"}} >
-      {/* Hide the header */}
       <Stack.Screen options={{ header: () => null }} /> 
         {/* Display cover image */}
         <Image
@@ -97,6 +97,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     top: "9%", 
+
   },
   version: {
     color: "grey",

@@ -7,12 +7,13 @@ import { useEffect, useState } from 'react';
 // Component Imports
 import StatCard from '@/components/statsCard';
 import ProductionCard from '@/components/productionCard';
-import SpaceCard from '@/components/spaces';
+import SpaceSwitcher from '@/components/spaceSwitcher';
 import HomeHeader from '@/components/header';
 import moment from 'moment';
 
 // Hooks Imports
 import { ProductionContext } from '@/hook/useContext/productionContext';
+import { SpaceContext } from '@/hook/useContext/spaceContext';
 import useFetch from '@/hook/useFetch';
 
 // Asset Imports
@@ -20,6 +21,8 @@ import walletIcon from '@/assets/icons/wallet.png';
 import leafIcon from '@/assets/icons/leaf.png';
 
 export default function Devices() {
+  const spaceQuery = useFetch('space/info', {}, 'POST');
+
   const endTime = moment(1589598900);
   const startTime = moment(endTime).subtract(1, 'week');
 
@@ -34,30 +37,30 @@ export default function Devices() {
     queryBody: durationOptions,
   });
   const fetch = useFetch(`deviceUpdates/historical/${query.id}`, query.queryBody, 'POST');
+  const onRefresh = () => {
+    fetch.refetch();
+    spaceQuery.refetch();
+  };
+  const [refreshing, setRefreshing] = useState(false);
 
   return (
-    <View style={styles.container}>
-      <ScrollView style={{ padding: 24 }} refreshControl={<RefreshControl />}>
-        <YStack rowGap={10}>
-          <HomeHeader />
-          <ProductionContext.Provider value={{ fetch, query, setQuery }}>
-            <ScrollView horizontal={true} decelerationRate={0} snapToInterval={320} snapToAlignment="center">
-              <XStack>
-                <SpaceCard />
-                <SpaceCard />
-                <SpaceCard />
+    <SpaceContext.Provider value={spaceQuery.data}>
+      <View style={styles.container}>
+        <ScrollView style={{ padding: 24 }} refreshControl={<RefreshControl onRefresh={onRefresh} refreshing={refreshing}/> }>
+          <YStack rowGap={10}>
+            <HomeHeader />
+            <ProductionContext.Provider value={{ fetch, query, setQuery }}>
+              <SpaceSwitcher />
+              <ProductionCard />
+              <XStack columnGap={10}>
+                <StatCard icon={walletIcon} {...moneyStats} />
+                <StatCard icon={leafIcon} {...co2Stats} />
               </XStack>
-            </ScrollView>
-
-            <ProductionCard />
-            <XStack columnGap={10}>
-              <StatCard icon={walletIcon} {...moneyStats} />
-              <StatCard icon={leafIcon} {...co2Stats} />
-            </XStack>
-          </ProductionContext.Provider>
-        </YStack>
-      </ScrollView>
-    </View>
+            </ProductionContext.Provider>
+          </YStack>
+        </ScrollView>
+      </View>
+    </SpaceContext.Provider>
   );
 }
 

@@ -5,6 +5,7 @@ import { Eye, EyeOff } from "@tamagui/lucide-icons"; // Import Eye and EyeOff ic
 import { Image, Input, Button, H3 } from 'tamagui'
 import { router, Stack } from 'expo-router';
 
+
 const SignUpPage = () => {
   // State variables for managing password visibility
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -99,6 +100,7 @@ const styles = StyleSheet.create({
     alignItems: "left",
     paddingHorizontal: 20,
     marginTop: 30
+
   },
   infoText: {
     textAlign:"justify",
