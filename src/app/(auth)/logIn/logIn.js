@@ -31,6 +31,7 @@ const logInPage = () => {
 <View style={{height:"100%"}} >
         <View style={styles.info}>
         {/* Display sign-in heading */}
+        <Stack.Screen options={{ header: () => null }} />
         <H3>Login</H3> 
         <Text style={styles.infoText}>Welcome back! {"\n"}Hope you are ready to save money and the environment</Text>
       
