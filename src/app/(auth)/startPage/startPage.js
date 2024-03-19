@@ -4,7 +4,8 @@ import { StyleSheet, View, Text } from "react-native";
 import { Image, Input, Button, H4 } from 'tamagui'
 import EquinoxCover from "@/assets/images/solar1.png"; // Importing cover image
 import GoogleSignIn from "@/components/googleSignIn/gSignin"; // Import GoogleSignIn component
-import { router } from 'expo-router';
+import { router, Stack } from 'expo-router';
+
 
 const StartPage = () => {
   // Function to handle login
@@ -14,6 +15,7 @@ const StartPage = () => {
   // JSX code for rendering the sign-in page
   return (
     <View style={{height:"100%"}} >
+      <Stack.Screen options={{ header: () => null }} /> 
         {/* Display cover image */}
         <Image
           source={{
@@ -94,7 +96,8 @@ const styles = StyleSheet.create({
   versionContainer: {
     justifyContent: "center",
     alignItems: "center",
-    bottom: -50, 
+    top: "9%", 
+
   },
   version: {
     color: "grey",

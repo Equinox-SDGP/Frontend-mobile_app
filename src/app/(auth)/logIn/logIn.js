@@ -3,10 +3,12 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet, View, Text, Pressable } from "react-native";
 import { Eye, EyeOff } from "@tamagui/lucide-icons"; // Import Eye and EyeOff icons
 import { Image, Input, Button, H3 } from 'tamagui'
-import { router } from 'expo-router';
-
+import { router, Stack } from 'expo-router';
 
 const logInPage = () => {
+  //Set username and password useStates
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   // State variables for managing password visibility
   const [passwordVisible, setPasswordVisible] = useState(false);
 
@@ -17,7 +19,7 @@ const logInPage = () => {
 
   // Function to handle login
   const handleLogin = () => {
-    // Add your login logic here
+    router.push('/home')
   };
 
   // Function to handle forgot password
@@ -58,6 +60,7 @@ const logInPage = () => {
           <Button style={styles.forgotPassword} 
             onPress={handleForgotPassword}>Forgot Password?
             </Button>
+
           {/* Button to log in */}
           <Button style={styles.logInButton} onPress={handleLogin}>Login</Button>
           <View style={styles.already}>
@@ -133,6 +136,7 @@ const styles = StyleSheet.create({
         color: "grey",
         height: 30,
         backgroundColor: "transparent",
+
         marginBottom: 190,
       },
       already: {
@@ -153,6 +157,8 @@ const styles = StyleSheet.create({
         color: "white",
         fontWeight: "bold",
         backgroundColor: "#FF621F",
-        borderRadius: 30
+        borderRadius: 30,
+        marginBottom: 13
+
       },
 });
