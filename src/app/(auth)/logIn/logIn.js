@@ -3,10 +3,15 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet, View, Text, Pressable } from "react-native";
 import { Eye, EyeOff } from "@tamagui/lucide-icons"; // Import Eye and EyeOff icons
 import { Image, Input, Button, H3 } from 'tamagui'
-import { router } from 'expo-router';
+import { router, Stack } from 'expo-router';
 
 
 const logInPage = () => {
+
+  //Set username and password useStates
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
   // State variables for managing password visibility
   const [passwordVisible, setPasswordVisible] = useState(false);
 
@@ -17,7 +22,9 @@ const logInPage = () => {
 
   // Function to handle login
   const handleLogin = () => {
+    router.push('/home')
     // Add your login logic here
+
   };
 
   // Function to handle forgot password
@@ -26,7 +33,9 @@ const logInPage = () => {
   };
   // JSX code for rendering the sign-in page
   return (
+    // View to contain the sign-in page
 <View style={{height:"100%"}} >
+<Stack.Screen options={{ header: () => null }} />
         <View style={styles.info}>
         {/* Display sign-in heading */}
         <H3>Login</H3> 
@@ -58,9 +67,10 @@ const logInPage = () => {
           <Button style={styles.forgotPassword} 
             onPress={handleForgotPassword}>Forgot Password?
             </Button>
+
+          <View style={styles.already}>
           {/* Button to log in */}
           <Button style={styles.logInButton} onPress={handleLogin}>Login</Button>
-          <View style={styles.already}>
             <Text>
               Don't have an account?{" "}
               <Pressable
@@ -82,11 +92,12 @@ const styles = StyleSheet.create({
         justifyContent: "left",
         alignItems: "left",
         paddingHorizontal: 20,
-        marginTop: 20
+        marginTop: 30
       },
       infoText: {
         color:"grey",
-        marginBottom: 20
+        marginBottom: 20,
+        marginTop: 10,
       },
       inputTopic: {
         textAlign: "left",
@@ -133,11 +144,9 @@ const styles = StyleSheet.create({
         color: "grey",
         height: 30,
         backgroundColor: "transparent",
-        marginBottom: 190,
+        marginBottom: 40,
       },
       already: {
-        marginTop: 12,
-        textAlign: "center",
         alignItems: "center",
         justifyContent: "center",
       },
@@ -148,11 +157,11 @@ const styles = StyleSheet.create({
         textDecorationLine: "underline",
       },
       logInButton:{
-        marginTop: 50,
         width: "95%",
         color: "white",
         fontWeight: "bold",
         backgroundColor: "#FF621F",
-        borderRadius: 30
+        borderRadius: 30,
+        marginBottom: 13
       },
 });

@@ -74,7 +74,7 @@ export default TabNavigator = () => {
 };
 
 const tabConfig = [
-  { name: "index", icon: Home, label: "Home" },
+  { name: "home", icon: Home, label: "Home" },
   {
     name: "chatbot",
     icon: MessageCircle,

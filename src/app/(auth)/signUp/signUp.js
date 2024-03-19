@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet, View, Text, Pressable } from "react-native";
 import { Eye, EyeOff } from "@tamagui/lucide-icons"; // Import Eye and EyeOff icons
 import { Image, Input, Button, H3 } from 'tamagui'
-import { router } from 'expo-router';
+import { router, Stack } from 'expo-router';
 
 const SignUpPage = () => {
   // State variables for managing password visibility
@@ -26,6 +26,7 @@ const SignUpPage = () => {
   // JSX code for rendering the sign-in page
   return (
     <View style={{height:"100%"}} >
+      <Stack.Screen options={{ header: () => null }} />
         <View style={styles.info}>
         {/* Display sign-in heading */}
         <H3>Create your account</H3> 
@@ -97,7 +98,7 @@ const styles = StyleSheet.create({
     justifyContent: "left",
     alignItems: "left",
     paddingHorizontal: 20,
-    marginTop: 20
+    marginTop: 30
   },
   infoText: {
     textAlign:"justify",
