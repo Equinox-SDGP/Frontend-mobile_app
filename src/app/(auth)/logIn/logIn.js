@@ -133,15 +133,15 @@ const styles = StyleSheet.create({
         marginLeft: 10,
       },
       forgotPassword: {
-        marginTop: 20,
+        marginTop: 3,
         color: "grey",
         height: 30,
         backgroundColor: "transparent",
 
-        marginBottom: 190,
+        marginBottom: 20,
       },
       already: {
-        marginTop: 12,
+        marginTop: 10,
         textAlign: "center",
         alignItems: "center",
         justifyContent: "center",
@@ -153,13 +153,13 @@ const styles = StyleSheet.create({
         textDecorationLine: "underline",
       },
       logInButton:{
-        marginTop: 50,
+        marginTop: 20,
         width: "95%",
         color: "white",
         fontWeight: "bold",
         backgroundColor: "#FF621F",
         borderRadius: 30,
-        marginBottom: 13
+        marginBottom: 5
 
       },
 });
