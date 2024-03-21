@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>507614658299-1mqpj28ugh9huot3erudgu0bte4e73ps.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.507614658299-1mqpj28ugh9huot3erudgu0bte4e73ps</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>507614658299-5kebsqm4ek7jgfk8k4l5sb5vfjs58opc.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBsugavx6jKVfWFp7nM_Ly9sn85Ou7dwLQ</string>
+	<key>GCM_SENDER_ID</key>
+	<string>507614658299</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.Equinox</string>
+	<key>PROJECT_ID</key>
+	<string>equinox-d890e</string>
+	<key>STORAGE_BUCKET</key>
+	<string>equinox-d890e.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:507614658299:ios:df13d9775a06cae457fa5e</string>
+</dict>
+</plist>

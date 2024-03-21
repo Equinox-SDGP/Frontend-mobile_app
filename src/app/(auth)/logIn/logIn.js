@@ -4,11 +4,13 @@ import { StyleSheet, View, Text, Pressable } from "react-native";
 import { Eye, EyeOff } from "@tamagui/lucide-icons"; // Import Eye and EyeOff icons
 import { Image, Input, Button, H3 } from 'tamagui'
 import { router, Stack } from 'expo-router';
+import auth from '@react-native-firebase/auth';
 
 const logInPage = () => {
   //Set username and password useStates
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
   // State variables for managing password visibility
   const [passwordVisible, setPasswordVisible] = useState(false);
 
@@ -19,7 +21,16 @@ const logInPage = () => {
 
   // Function to handle login
   const handleLogin = () => {
-    router.push('/home')
+    if ( email && password) {
+      try {
+        const response = auth().signInWithEmailAndPassword(email, password);
+        if (response.user){
+          router.push('/home');
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
   };
 
   // Function to handle forgot password

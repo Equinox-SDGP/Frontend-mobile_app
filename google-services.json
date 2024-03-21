@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "507614658299",
+    "project_id": "equinox-d890e",
+    "storage_bucket": "equinox-d890e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:507614658299:android:8f00e83ac8f3a43057fa5e",
+        "android_client_info": {
+          "package_name": "com.Equinox"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDuflYDK4UN0V3bLmtdaW9koCzIA6EaWaw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

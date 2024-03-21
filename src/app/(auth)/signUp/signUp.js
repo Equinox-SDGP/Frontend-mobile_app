@@ -4,9 +4,21 @@ import { StyleSheet, View, Text, Pressable } from "react-native";
 import { Eye, EyeOff } from "@tamagui/lucide-icons"; // Import Eye and EyeOff icons
 import { Image, Input, Button, H3 } from 'tamagui'
 import { router, Stack } from 'expo-router';
+import auth from '@react-native-firebase/auth';
+import db from '@react-native-firebase/database';
+
 
 
 const SignUpPage = () => {
+
+  //Set Email and password useStates
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  //Set First name and Last name useStates
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+
   // State variables for managing password visibility
   const [passwordVisible, setPasswordVisible] = useState(false);
 
@@ -15,9 +27,33 @@ const SignUpPage = () => {
     setPasswordVisible(!passwordVisible);
   };
 
+  //Function to send the data to the database
+  const createProfile = async (response) => {
+    db.ref('users/' + response.user.uid).set({firstName});
+    db.ref('users/' + response.user.uid).set({lastName});
+  }
+
   // Function to handle login
-  const handleLogin = () => {
-    // Add your login logic here
+  const handleLogin = async () => {
+    if ( email && password) {
+      try {
+        const response =await auth().createUserWithEmailAndPassword(email, password);
+        if (response.user){
+          await createProfile(response);
+          router.push('/home');
+        }
+        
+      } catch (error) {
+        if (error.code === 'auth/email-already-in-use') {
+          console.log('That email address is already in use!');
+        }
+        if (error.code === 'auth/invalid-email') {
+          console.log('That email address is invalid!');
+        }
+        console.error(error);
+      }
+    }
+
   };
 
   // Function to handle forgot password
@@ -35,14 +71,29 @@ const SignUpPage = () => {
         {/* Display sign-in form*/}
         <View style={styles.inputContainer}>
           <Text style={styles.inputTopic}>Personal</Text>
-          <Input size="$4" fieldName="First Name" placeholder="First Name" style={styles.inputField}/>
-          <Input size="$4" fieldName="Last Name" placeholder="Last Name" style={styles.inputField}/>
+          <Input size="$4" fieldName="First Name" 
+          placeholder="First Name"
+          value={firstName}
+          onChangeText={setFirstName} 
+          style={styles.inputField}
+          />
+
+          <Input size="$4" fieldName="Last Name" 
+          placeholder="Last Name" 
+          value={lastName}
+          onChangeText={setLastName}
+          style={styles.inputField}
+          />
           {/* Input field for email */}
           <Text style={{ ...styles.inputTopic, marginTop: 20 }}>Credentials</Text>
           <Input
             size="$4"
             fieldName="Email"
             placeholder="Email"
+            inputMode="email"
+            autoCapitalize="none"
+            value={email}
+            onChangeText={setEmail}
             style={styles.inputField}
           />
           {/* Input field for password with dynamic secureTextEntry based on password visibility state */}
@@ -51,6 +102,8 @@ const SignUpPage = () => {
               size="$4"
               fieldName="Password"
               placeholder="Password"
+              value={password}
+              onChangeText={setPassword}
               secureTextEntry={!passwordVisible} // Set secureTextEntry based on password visibility state
               style={styles.passwordInput}
             />
