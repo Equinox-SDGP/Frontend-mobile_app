@@ -30,7 +30,7 @@ const StartPage = () => {
         {/* Display sign-in form*/}
         <View style={styles.inputContainer}>
           <Button style={styles.signUpButton} onPress={() => router.push('/(auth)/signUp/signUp')}>Sign Up</Button>
-          <Button style={styles.logInButton} onPress={() => router.push('/logIn/logIn')}>Log In</Button>
+          <Button style={styles.logInButton} onPress={() => router.push('/(auth)/logIn/logIn')}>Log In</Button>
         </View>
 
         {/* Google Sign-in button */}
