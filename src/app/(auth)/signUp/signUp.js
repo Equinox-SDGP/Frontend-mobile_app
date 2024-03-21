@@ -2,9 +2,9 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, View, Text, Pressable } from "react-native";
 import { Eye, EyeOff } from "@tamagui/lucide-icons"; // Import Eye and EyeOff icons
-import { Image, Input, Button, H3 } from 'tamagui';
+import { Image, Input, Button, H3 } from 'tamagui'
 import { router, Stack } from 'expo-router';
-import {useForm, Controller} from "react-hook-form";
+
 
 const SignUpPage = () => {
   // State variables for managing password visibility
@@ -15,15 +15,15 @@ const SignUpPage = () => {
     setPasswordVisible(!passwordVisible);
   };
 
-  // Use react-hook-form to handle form state
-  const { control, handleSubmit, formState: { errors } } = useForm();
-
   // Function to handle login
-  const handleSignUp = () => {
-    // Add your signup logic here
-    router.push('/home')
+  const handleLogin = () => {
+    // Add your login logic here
   };
 
+  // Function to handle forgot password
+  const handleForgotPassword = () => {
+    // Add your forgot password logic here
+  };
   // JSX code for rendering the sign-in page
   return (
     <View style={{height:"100%"}} >
@@ -68,10 +68,6 @@ const SignUpPage = () => {
               secureTextEntry={!passwordVisible} // Set secureTextEntry based on password visibility state
               style={styles.passwordInput}
             />
-            <Controller 
-            control={control}
-            name="username"
-            />
             {/* Button to toggle password visibility */}
             <Button size="$4" onPress={togglePasswordVisibility} backgroundColor="white" style={styles.eyeButton}>
               {/* Show Eye icon when password is hidden and EyeOff icon when password is visible */}
@@ -79,7 +75,7 @@ const SignUpPage = () => {
             </Button>
           </View>
           {/* Button to log in */}
-          <Button style={styles.signUpButton} onPress={handleSubmit(handleSignUp)}>Sign Up</Button>
+          <Button style={styles.signUpButton} onPress={handleLogin}>Sign Up</Button>
           <View style={styles.already}>
             <Text>
               Already have an account?{" "}
