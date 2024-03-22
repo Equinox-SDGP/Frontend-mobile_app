@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet, View, Text } from "react-native";
 import { Image, Input, Button, H4 } from 'tamagui'
 import EquinoxCover from "@/assets/images/solar1.png"; // Importing cover image
-import GoogleSignIn from "@/components/googleSignIn/gSignin"; // Import GoogleSignIn component
+// import GoogleSignIn from "@/components/googleSignIn/gSignin"; // Import GoogleSignIn component
 import { router, Stack } from 'expo-router';
 
 
@@ -36,7 +36,7 @@ const StartPage = () => {
         {/* Google Sign-in button */}
         <Text>or</Text>
 
-        <GoogleSignIn/>
+        {/* <GoogleSignIn/> */}
       </View>
 
       {/* Display app version and copyright */}

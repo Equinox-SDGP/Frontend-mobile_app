@@ -1,49 +1,47 @@
-// Import necessary modules and components
 import React, { useEffect, useState } from "react";
 import { StyleSheet, View, Text, Pressable } from "react-native";
-import { Eye, EyeOff } from "@tamagui/lucide-icons"; // Import Eye and EyeOff icons
+import { Eye, EyeOff } from "@tamagui/lucide-icons";
 import { Image, Input, Button, H3 } from 'tamagui'
-import { router, Stack } from 'expo-router';
-import auth from '@react-native-firebase/auth';
-import db from '@react-native-firebase/database';
-
-
+import { router, Stack } from 'expo-router'; // Importing router and Stack from expo-router
+import auth from '@react-native-firebase/auth'; // Importing authentication module from Firebase
+import db from '@react-native-firebase/database'; // Importing database module from Firebase
 
 const SignUpPage = () => {
-
-  //Set Email and password useStates
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  //Set First name and Last name useStates
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-
-  // State variables for managing password visibility
-  const [passwordVisible, setPasswordVisible] = useState(false);
+  // State variables for user input fields and password visibility
+  const [email, setEmail] = useState(''); // State variable for email
+  const [password, setPassword] = useState(''); // State variable for password
+  const [confirmPassword, setConfirmPassword] = useState(''); // State variable for confirm password
+  const [firstName, setFirstName] = useState(''); // State variable for first name
+  const [lastName, setLastName] = useState(''); // State variable for last name
+  const [passwordVisible, setPasswordVisible] = useState(false); // State variable to toggle password visibility
 
   // Function to toggle password visibility
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
 
-  //Function to send the data to the database
+  // Function to create user profile in the database
   const createProfile = async (response) => {
-    db.ref('users/' + response.user.uid).set({firstName});
-    db.ref('users/' + response.user.uid).set({lastName});
+    // Set user's first name and last name in the database
+    db.ref('users/' + response.user.uid).set({ firstName, lastName });
   }
 
-  // Function to handle login
-  const handleLogin = async () => {
-    if ( email && password) {
+ // Function to handle sign up
+const handleSignUp = async () => {
+  // Check if all required fields are filled and passwords match
+  if (email && password && confirmPassword) {
+    if (password === confirmPassword) {
       try {
-        const response =await auth().createUserWithEmailAndPassword(email, password);
-        if (response.user){
+        // Create user with email and password
+        const response = await auth().createUserWithEmailAndPassword(email, password);
+        if (response.user) {
+          // Create user profile
           await createProfile(response);
+          // Redirect user to home page
           router.push('/home');
         }
-        
       } catch (error) {
+        // Handle authentication errors
         if (error.code === 'auth/email-already-in-use') {
           console.log('That email address is already in use!');
         }
@@ -52,39 +50,36 @@ const SignUpPage = () => {
         }
         console.error(error);
       }
+    } else {
+      // Passwords do not match, send error message
+      console.log('Password and confirm password do not match!');
     }
+  } else {
+    // Required fields are not filled, send error message
+    console.log('Please fill in all required fields!');
+  }
+};
 
-  };
-
-  // Function to handle forgot password
-  const handleForgotPassword = () => {
-    // Add your forgot password logic here
-  };
-  // JSX code for rendering the sign-in page
   return (
-    <View style={{height:"100%"}} >
+    <View style={{ height: "100%" }}>
       <Stack.Screen options={{ header: () => null }} />
-        <View style={styles.info}>
-        {/* Display sign-in heading */}
-        <H3>Create your account</H3> 
+      <View style={styles.info}>
+        <H3>Create your account</H3>
         <Text style={styles.infoText}>Create an account to keep up with your solar energy system and invest for a better eco-friendly future.</Text>
-        {/* Display sign-in form*/}
         <View style={styles.inputContainer}>
           <Text style={styles.inputTopic}>Personal</Text>
-          <Input size="$4" fieldName="First Name" 
-          placeholder="First Name"
-          value={firstName}
-          onChangeText={setFirstName} 
-          style={styles.inputField}
+          <Input size="$4" fieldName="First Name"
+            placeholder="First Name"
+            value={firstName}
+            onChangeText={setFirstName}
+            style={styles.inputField}
           />
-
-          <Input size="$4" fieldName="Last Name" 
-          placeholder="Last Name" 
-          value={lastName}
-          onChangeText={setLastName}
-          style={styles.inputField}
+          <Input size="$4" fieldName="Last Name"
+            placeholder="Last Name"
+            value={lastName}
+            onChangeText={setLastName}
+            style={styles.inputField}
           />
-          {/* Input field for email */}
           <Text style={{ ...styles.inputTopic, marginTop: 20 }}>Credentials</Text>
           <Input
             size="$4"
@@ -96,7 +91,7 @@ const SignUpPage = () => {
             onChangeText={setEmail}
             style={styles.inputField}
           />
-          {/* Input field for password with dynamic secureTextEntry based on password visibility state */}
+          {/* Password input with toggleable visibility */}
           <View style={styles.passwordContainer}>
             <Input
               size="$4"
@@ -104,31 +99,33 @@ const SignUpPage = () => {
               placeholder="Password"
               value={password}
               onChangeText={setPassword}
-              secureTextEntry={!passwordVisible} // Set secureTextEntry based on password visibility state
+              secureTextEntry={!passwordVisible}
               style={styles.passwordInput}
             />
             {/* Button to toggle password visibility */}
             <Button size="$4" onPress={togglePasswordVisibility} backgroundColor="white" style={styles.eyeButton}>
-              {/* Show Eye icon when password is hidden and EyeOff icon when password is visible */}
               {passwordVisible ? <EyeOff /> : <Eye />}
             </Button>
           </View>
+          {/* Confirm Password input with toggleable visibility */}
           <View style={styles.passwordContainer}>
             <Input
               size="$4"
-              fieldName="ConfirmPassword"
+              fieldName="Confirm Password"
               placeholder="Confirm Password"
-              secureTextEntry={!passwordVisible} // Set secureTextEntry based on password visibility state
+              value={confirmPassword}
+              onChangeText={setConfirmPassword}
+              secureTextEntry={!passwordVisible}
               style={styles.passwordInput}
             />
             {/* Button to toggle password visibility */}
             <Button size="$4" onPress={togglePasswordVisibility} backgroundColor="white" style={styles.eyeButton}>
-              {/* Show Eye icon when password is hidden and EyeOff icon when password is visible */}
               {passwordVisible ? <EyeOff /> : <Eye />}
             </Button>
           </View>
-          {/* Button to log in */}
-          <Button style={styles.signUpButton} onPress={handleLogin}>Sign Up</Button>
+          {/* Button to sign up */}
+          <Button style={styles.signUpButton} onPress={handleSignUp}>Sign Up</Button>
+          {/* Already have an account text with login link */}
           <View style={styles.already}>
             <Text>
               Already have an account?{" "}
@@ -153,11 +150,10 @@ const styles = StyleSheet.create({
     alignItems: "left",
     paddingHorizontal: 20,
     marginTop: 30
-
   },
   infoText: {
-    textAlign:"justify",
-    color:"grey",
+    textAlign: "justify",
+    color: "grey",
     marginBottom: 20
   },
   inputTopic: {
@@ -173,7 +169,7 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     paddingTop: 10,
-    width:"100%",
+    width: "100%",
   },
   inputField: {
     marginBottom: 10,
@@ -181,7 +177,7 @@ const styles = StyleSheet.create({
     borderColor: "lightgrey",
     borderWidth: 1,
     backgroundColor: "#fff",
-    width:"100%"
+    width: "100%"
   },
   passwordContainer: {
     flexDirection: "row",
@@ -204,15 +200,14 @@ const styles = StyleSheet.create({
     marginTop: 12,
     textAlign: "center",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "center"
   },
-  
   logInButtonText: {
     flexDirection: "row",
     color: "#FF621F",
     textDecorationLine: "underline",
   },
-  signUpButton:{
+  signUpButton: {
     marginTop: 50,
     width: "95%",
     color: "white",
@@ -221,3 +216,4 @@ const styles = StyleSheet.create({
     borderRadius: 30
   },
 });
+
