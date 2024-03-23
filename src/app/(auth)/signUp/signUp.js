@@ -3,8 +3,8 @@ import { StyleSheet, View, Text, Pressable } from "react-native";
 import { Eye, EyeOff } from "@tamagui/lucide-icons";
 import { Image, Input, Button, H3 } from 'tamagui'
 import { router, Stack } from 'expo-router'; // Importing router and Stack from expo-router
-import auth from '@react-native-firebase/auth'; // Importing authentication module from Firebase
-import db from '@react-native-firebase/database'; // Importing database module from Firebase
+import {auth} from '../../../../firebase'; // Importing authentication module from Firebase
+import {db} from '../../../../firebase'; // Importing database module from Firebase
 
 const SignUpPage = () => {
   // State variables for user input fields and password visibility

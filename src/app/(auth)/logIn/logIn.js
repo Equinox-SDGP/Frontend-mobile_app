@@ -21,16 +21,17 @@ const logInPage = () => {
 
   // Function to handle login
   const handleLogin = () => {
-    if ( email && password) {
-      try {
-        const response = auth().signInWithEmailAndPassword(email, password);
-        if (response.user){
-          router.push('/home');
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    }
+     router.push('/home');
+    // if ( email && password) {
+    //   try {
+    //     const response = auth().signInWithEmailAndPassword(email, password);
+    //     if (response.user){
+    //       router.push('/home');
+    //     }
+    //   } catch (error) {
+    //     console.error(error);
+    //   }
+    // }
   };
 
   // Function to handle forgot password
