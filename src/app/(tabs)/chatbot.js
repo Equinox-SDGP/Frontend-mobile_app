@@ -2,10 +2,14 @@ import React, { useState } from "react";
 import { View, Text, TextInput, StyleSheet } from "react-native";
 import { Button, ScrollView, Avatar, XStack } from "tamagui";
 import { SendHorizontal } from "@tamagui/lucide-icons";
+import chatbotImg from "@/assets/icons/chat.png";
 
+// Component for displaying the chat messages
 const ChatBox = ({ messages }) => {
   return (
+    // ScrollView to display chat messages, scrolls to end automatically
     <ScrollView snapToEnd style={styles.chatBox}>
+      {/* Mapping through messages to display each chat message */}
       {messages.map((message, index) => (
         <ChatMessage key={index} message={message} />
       ))}
@@ -13,25 +17,33 @@ const ChatBox = ({ messages }) => {
   );
 };
 
+// Component for displaying each individual chat message
 const ChatMessage = ({ message }) => {
+  // Check if the message is sent by the user or the bot
   const isUser = message.sender === "user";
   return (
+    // Stack to align the message content and avatar
     <XStack style={[isUser ? styles.userMessage : styles.botMessage]}>
+      {/* Container for the message content */}
       <View
         style={[
           styles.message,
           isUser ? styles.userInnerMessage : styles.botInnerMessage,
         ]}
       >
+        {/* Display the message text */}
         <Text style={styles.messageText}>{message.text}</Text>
       </View>
+      {/* Display the avatar for the message sender */}
       <MessageAvatar src={message.avatarImage} />
     </XStack>
   );
 };
 
+// Component for displaying the avatar of the message sender
 const MessageAvatar = ({ src }) => {
   return (
+    // Avatar component with fallback image
     <Avatar style={{ borderRadius: 12 }} size="$3.5">
       <Avatar.Image accessibilityLabel="Nate Wienert" src={src} />
       <Avatar.Fallback delayMs={600} backgroundColor="$blue10" />
@@ -39,23 +51,30 @@ const MessageAvatar = ({ src }) => {
   );
 };
 
+// Component for user input to send messages
 const UserInput = ({ onSend }) => {
   const [message, setMessage] = useState("");
 
+  // Function to handle sending a message
   const handleSend = () => {
     if (!message) return;
+    // Call the onSend callback with the message content
     onSend(message);
-    setMessage(""); // Clear input after sending
+    // Clear the input after sending the message
+    setMessage("");
   };
 
   return (
+    // Container for user input
     <View style={styles.userInput}>
+      {/* TextInput for typing the message */}
       <TextInput
         style={styles.textInput}
         value={message}
         onChangeText={setMessage}
         placeholder="Type your message..."
       />
+      {/* Button to send the message */}
       <Button size="$3" onPress={handleSend} backgroundColor="white">
         <SendHorizontal size={24} color="#868686" />
       </Button>
@@ -67,7 +86,9 @@ const UserInput = ({ onSend }) => {
 const App = () => {
   const [messages, setMessages] = useState([]);
 
+  // Function to handle sending a message
   const handleSend = (message) => {
+    // Create a message object for the user message
     const userMessage = {
       sender: "user",
       text: message,
@@ -76,24 +97,29 @@ const App = () => {
     };
     // Replace with your chatbot logic to simulate bot response
     const botResponse = `Hello, I'm your friendly chatbot!`;
+    // Create a message object for the bot response
     const botMessage = {
       sender: "bot",
       text: botResponse,
-      avatarImage:
-        "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.flaticon.com%2Ffree-icon%2Fchatbot_6014401&psig=AOvVaw1w6bHyreZB2WHej4tVXP8n&ust=1708153936539000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCNi5obinr4QDFQAAAAAdAAAAABAD",
+      avatarImage:chatbotImg
     };
 
+    // Update the messages state with the user message and bot response
     setMessages((prevMessages) => [...prevMessages, userMessage, botMessage]);
   };
 
   return (
+    // Main container for the app
     <View style={styles.container}>
+      {/* Component for displaying the chat messages */}
       <ChatBox messages={messages} />
+      {/* Component for user input to send messages */}
       <UserInput onSend={handleSend} />
     </View>
   );
 };
 
+// Styles for the components
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -104,7 +130,6 @@ const styles = StyleSheet.create({
   },
   chatBox: {
     flex: 1,
-    
   },
   message: {
     maxWidth: "80%",

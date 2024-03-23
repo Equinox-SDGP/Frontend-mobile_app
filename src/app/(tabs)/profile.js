@@ -1,28 +1,29 @@
-import React, { useState } from "react";
-import { View, Text, StyleSheet, useWindowDimensions } from "react-native";
-import { YGroup, ListItem, Separator } from "tamagui";
-import { UserRoundCog, HardDrive, MessageSquareText, PhoneCall, Info, Power, ChevronRight } from "@tamagui/lucide-icons";
-import * as ImagePicker from 'expo-image-picker';
-import UploadModal from "../../components/uploadProfilePic/upload";
-import ProfileAvatar from "../../components/profileAvatar/avatar";
-import { router } from 'expo-router';
+// Import statements
+import React, { useState } from "react"; // Importing React and useState hook from "react" for component creation and state management
+import { View, Text, StyleSheet, useWindowDimensions } from "react-native"; // Importing View, Text, StyleSheet, and useWindowDimensions hook from "react-native" for UI rendering and dimension handling
+import { YGroup, ListItem, Separator } from "tamagui"; // Importing YGroup, ListItem, and Separator components from "tamagui" for layout and list rendering
+import { UserRoundCog, HardDrive, MessageSquareText, PhoneCall, Info, Power, ChevronRight } from "@tamagui/lucide-icons"; // Importing icons from "@tamagui/lucide-icons"
+import * as ImagePicker from 'expo-image-picker'; // Importing ImagePicker from "expo-image-picker" for image selection
+import UploadModal from "../../components/uploadProfilePic/upload"; // Importing UploadModal component for image uploading
+import ProfileAvatar from "../../components/profileAvatar/avatar"; // Importing ProfileAvatar component for displaying profile avatar
+import { router } from 'expo-router'; // Importing router from "expo-router" for navigation
 
 /**
  * Profile screen component.
  */
 export default function Profile() {
-  const [modalVisible, setModalVisible] = useState(false);
-  const [image, setImage] = useState(null);
+  const [modalVisible, setModalVisible] = useState(false); // State variable for modal visibility
+  const [image, setImage] = useState(null); // State variable for selected image URI
 
   /**
    * Function to remove the selected image.
    */
   const removeImage = async () => {
     try {
-      setImage(null);
-      setModalVisible(false);
+      setImage(null); // Clearing the image state
+      setModalVisible(false); // Closing the modal
     } catch (error) {
-      alert(error.message);
+      alert(error.message); // Displaying error message if any
     }
   };
 
@@ -59,11 +60,11 @@ export default function Profile() {
       }
 
       if (!result.cancelled) {
-        await saveImage(result.assets[0].uri);
+        await saveImage(result.assets[0].uri); // Saving the uploaded image
       }
     } catch (err) {
-      alert("Error uploading image: " + err.message);
-      setModalVisible(false);
+      alert("Error uploading image: " + err.message); // Displaying error message if any
+      setModalVisible(false); // Closing the modal
     }
   };
 
@@ -73,10 +74,10 @@ export default function Profile() {
    */
   const saveImage = async (image) => {
     try {
-      setImage(image);
-      setModalVisible(false);
+      setImage(image); // Setting the image state
+      setModalVisible(false); // Closing the modal
     } catch (error) {
-      throw error;
+      throw error; // Throwing error if any
     }
   };
 
@@ -106,7 +107,7 @@ export default function Profile() {
  * List of items component.
  */
 function Lists() {
-  const screenWidth = useWindowDimensions().width;
+  const screenWidth = useWindowDimensions().width; // Getting screen width
   return (
     <YGroup
       alignSelf="center"
@@ -185,6 +186,7 @@ function Lists() {
   );
 }
 
+// Styles
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
