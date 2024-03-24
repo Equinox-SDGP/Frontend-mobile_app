@@ -1,4 +1,4 @@
-package com.Equinox
+package com.equinox
 
 import android.os.Build
 import android.os.Bundle

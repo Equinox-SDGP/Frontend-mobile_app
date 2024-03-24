@@ -3,6 +3,7 @@ import { View, Text, TextInput, StyleSheet } from "react-native";
 import { Button, ScrollView, Avatar, XStack } from "tamagui";
 import { SendHorizontal } from "@tamagui/lucide-icons";
 import chatbotImg from "@/assets/icons/chat.png";
+import { useAuth0 } from "react-native-auth0"; // Importing useAuth0 hook from "react-native-auth0" for user authentication
 
 // Component for displaying the chat messages
 const ChatBox = ({ messages }) => {
@@ -85,6 +86,7 @@ const UserInput = ({ onSend }) => {
 /** Main export function */
 const App = () => {
   const [messages, setMessages] = useState([]);
+  const { user } = useAuth0(); // Getting user information from Auth0
 
   // Function to handle sending a message
   const handleSend = (message) => {
@@ -92,8 +94,7 @@ const App = () => {
     const userMessage = {
       sender: "user",
       text: message,
-      avatarImage:
-        "https://images.unsplash.com/photo-1531384441138-2736e62e0919?&w=100&h=100&dpr=2&q=80",
+      avatarImage:user.picture,
     };
     // Replace with your chatbot logic to simulate bot response
     const botResponse = `Hello, I'm your friendly chatbot!`;

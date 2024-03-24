@@ -60,6 +60,7 @@
     "react-native-svg": "14.1.0",
     "react-native-web": "~0.19.6",
     "react-test-renderer": "^18.2.0",
+    "sharp-cli": "^4.2.0",
     "tamagui": "^1.89.0",
     "victory-native": "^40.0.4",
     "watchman": "^1.0.0"
