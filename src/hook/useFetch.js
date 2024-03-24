@@ -41,7 +41,6 @@ const useFetch = (endpoint, query, method) => {
       setIsLoading(false);
     } catch (error) {
       setError(error);
-      console.log('Error fetching data: ', error);
       sendNotification('Error', `Error fetching data: ${error}`);
       setIsLoading(false);
     }

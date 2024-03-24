@@ -1,22 +1,35 @@
-import { Redirect } from 'expo-router';
+import React, { useEffect, useState } from 'react';
+import { Redirect, Stack } from 'expo-router';
 import { useAuth0 } from 'react-native-auth0';
-import { View } from 'react-native';
+import { View, ActivityIndicator } from 'react-native';
 
 const Index = () => {
   const { user, error } = useAuth0();
-  console.log(user);
+  const [loading, setLoading] = useState(true);
 
-  if (!user) {
+  useEffect(() => {
+    // Set loading to false once user data is fetched
+    if (user || error) {
+      setLoading(false);
+    }
+  }, [user, error]);
+
+  if (loading) {
+    // Show loading indicator while waiting for user data
     return (
-      <View options={{ header: () => null }}>
-    <Redirect href="/startPage" />
-    </View>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+              <Stack.Screen options={{ header: () => null }} />
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
     );
   }
-  return( 
-    <View options={{ header: () => null }}>
-  <Redirect href="/home" />
-  </View>
+
+  // Once loading is complete, redirect based on user authentication status
+  return (
+    <View>
+      <Stack.Screen options={{ header: () => null }} />
+      {user ? <Redirect href="/home" /> : <Redirect href="/startPage" />}
+    </View>
   );
 };
 
