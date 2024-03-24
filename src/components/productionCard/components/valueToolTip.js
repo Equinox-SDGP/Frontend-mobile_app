@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 
-const valueIndicator = ({ value }) => {
+const ValueToolTip = ({ value }) => {
   return (
     <View style={styles.indicator}>
       <Text style={styles.text}>{value}kWh</Text>
@@ -9,11 +9,12 @@ const valueIndicator = ({ value }) => {
   );
 };
 
-export default valueIndicator;
+export default ValueToolTip;
 
 const styles = StyleSheet.create({
   indicator: {
-    marginBottom: 20,
+    position: "relative",
+    marginBottom: 10,
     marginLeft: -20,
     paddingHorizontal: 6,
     paddingVertical: 4,

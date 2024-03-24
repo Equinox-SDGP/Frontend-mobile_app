@@ -8,7 +8,8 @@ import { TamaguiProvider } from 'tamagui'; // Import TamaguiProvider component f
 import { config } from '../../tamagui.config'; // Import configuration from tamagui.config file
 import { useFonts } from 'expo-font'; // Import useFonts hook from expo-font
 import { Stack } from 'expo-router'; // Import Stack component from expo-router
-import { SessionProvider, useSession } from '../hook/useSession';
+import { Auth0Provider } from 'react-native-auth0';
+import { Slot } from 'expo-router';
 
 // Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();
@@ -48,7 +49,7 @@ const RootLayoutNav = () => {
     <SafeAreaView style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0)' }}>
       <TamaguiProvider config={config} defaultTheme={colorScheme}>
         <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-          <SessionProvider>
+          <Auth0Provider domain={'dev-lupmiwit5z3hexny.us.auth0.com'} clientId={'WtljS5wT1Zn5Bld2ElTU0eZ9SGsNdsXk'}>
             <Stack>
               <Stack.Screen
                 name="(tabs)"
@@ -66,8 +67,9 @@ const RootLayoutNav = () => {
                   },
                 }}
               />
+              <Slot />
             </Stack>
-          </SessionProvider>
+          </Auth0Provider>
         </ThemeProvider>
       </TamaguiProvider>
     </SafeAreaView>

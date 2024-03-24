@@ -1,7 +1,14 @@
 // External Library Imports
+<<<<<<< HEAD
+import { ScrollView, XStack, YStack, Text, Toast } from 'tamagui';
+
+import { View, StyleSheet, RefreshControl } from 'react-native';
+import { useEffect, useState } from 'react';
+=======
 import { ScrollView, XStack, YStack } from 'tamagui'; // Importing layout components from tamagui library
 import { View, StyleSheet, RefreshControl } from 'react-native'; // Importing necessary components from React Native
 import { useEffect, useState } from 'react'; // Importing hooks from React
+>>>>>>> deac381d22502ad17895b9ffb8227032b5e0b181
 
 // Component Imports
 import StatCard from '@/components/statsCard'; // Importing custom StatCard component
@@ -11,15 +18,23 @@ import HomeHeader from '@/components/header'; // Importing custom HomeHeader com
 import moment from 'moment'; // Importing moment library for date manipulation
 
 // Hooks Imports
+<<<<<<< HEAD
+import { SpaceContext } from '@/hook/useContext/spaceContext';
+import useFetch from '@/hook/useFetch';
+=======
 import { ProductionContext } from '@/hook/useContext/productionContext'; // Importing ProductionContext from custom hook
 import { SpaceContext } from '@/hook/useContext/spaceContext'; // Importing SpaceContext from custom hook
 import useFetch from '@/hook/useFetch'; // Importing custom hook for data fetching
+>>>>>>> deac381d22502ad17895b9ffb8227032b5e0b181
 
 // Asset Imports
 import walletIcon from '@/assets/icons/wallet.png'; // Importing wallet icon from assets
 import leafIcon from '@/assets/icons/leaf.png'; // Importing leaf icon from assets
 
 export default function Devices() {
+<<<<<<< HEAD
+  const spaceQuery = useFetch('/space/info', null, 'POST');
+=======
   // Fetching space information using custom hook
   const spaceQuery = useFetch('space/info', {}, 'POST');
 
@@ -50,17 +65,38 @@ export default function Devices() {
   };
 
   // State variable for refreshing state
+>>>>>>> deac381d22502ad17895b9ffb8227032b5e0b181
   const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = async () => {
+    spaceQuery.refetch();
+    setRefreshing(spaceQuery.isLoading);
+  };
 
   return (
     <SpaceContext.Provider value={spaceQuery.data}>
       <View style={styles.container}>
+<<<<<<< HEAD
+        <ScrollView
+          style={{ padding: 24 }}
+          refreshControl={<RefreshControl onRefresh={onRefresh} refreshing={refreshing} />}
+        >
+=======
         {/* ScrollView with RefreshControl for pull-to-refresh functionality */}
         <ScrollView style={{ padding: 24 }} refreshControl={<RefreshControl onRefresh={onRefresh} refreshing={refreshing}/> }>
           {/* Vertical stack layout */}
+>>>>>>> deac381d22502ad17895b9ffb8227032b5e0b181
           <YStack rowGap={10}>
             {/* Header component */}
             <HomeHeader />
+<<<<<<< HEAD
+            <SpaceSwitcher />
+            <ProductionCard />
+            <XStack columnGap={10}>
+              <StatCard icon={walletIcon} {...moneyStats} />
+              <StatCard icon={leafIcon} {...co2Stats} />
+            </XStack>
+=======
             {/* Context provider for production data */}
             <ProductionContext.Provider value={{ fetch, query, setQuery }}>
               {/* Space switcher component */}
@@ -75,6 +111,7 @@ export default function Devices() {
                 <StatCard icon={leafIcon} {...co2Stats} />
               </XStack>
             </ProductionContext.Provider>
+>>>>>>> deac381d22502ad17895b9ffb8227032b5e0b181
           </YStack>
         </ScrollView>
       </View>

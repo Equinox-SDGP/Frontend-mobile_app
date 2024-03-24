@@ -16,12 +16,9 @@
     "hideYAxisText": true
   },
   "day": {
-    "initialSpacing": 40,
-    "labelWidth": 35,
-
+    "initialSpacing": 30,
+    "labelWidth": 30,
     "minValue": 0,
-    "maxValue": 1000,
-
     "barWidth": 8,
     "spacing": 5
   },
@@ -29,28 +26,20 @@
     "initialSpacing": 40,
     "labelWidth": 35,
     "minValue": 0,
-    "maxValue": 1000,
-
     "barWidth": 24,
     "spacing": 20
   },
   "month": {
     "initialSpacing": 40,
     "labelWidth": 25,
-
     "minValue": 0,
-    "maxValue": 1000,
-
     "barWidth": 24,
     "spacing": 16
   },
   "year": {
     "initialSpacing": 20,
     "labelWidth": 16,
-
     "minValue": 0,
-    "maxValue": 1000,
-
     "barWidth": 16,
     "spacing": 10
   }
