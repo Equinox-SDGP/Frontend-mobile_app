@@ -20,14 +20,14 @@ export default function SpaceCard({ data }) {
         <YStack rowGap={-5}>
           <XStack alignItems="center" maxHeight="$3" columnGap={-5}>
             <H2 style={styles.spaceTitle} marginBottom={0}>
-              {data.spaceInfo.plantName}
+              {data.plantName}
             </H2>
             {/* <View>
               <DayWeather marginBottom={-5} width={50} height={50} />
             </View> */}
             <Image
               style={{ width: 120, height: 120 }}
-              source={{ uri: `http://openweathermap.org/img/w/${data.weather.current.icon}.png` }}
+              source={{ uri: `http://openweathermap.org/img/w/25.png` }}
             />
           </XStack>
           <Paragraph theme="alt2">Western Province</Paragraph>

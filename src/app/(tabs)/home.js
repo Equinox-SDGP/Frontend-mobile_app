@@ -1,5 +1,5 @@
 // External Library Imports
-import { ScrollView, XStack, YStack } from 'tamagui';
+import { ScrollView, XStack, YStack, Text, Toast } from 'tamagui';
 
 import { View, StyleSheet, RefreshControl } from 'react-native';
 import { useEffect, useState } from 'react';
@@ -12,7 +12,6 @@ import HomeHeader from '@/components/header';
 import moment from 'moment';
 
 // Hooks Imports
-import { ProductionContext } from '@/hook/useContext/productionContext';
 import { SpaceContext } from '@/hook/useContext/spaceContext';
 import useFetch from '@/hook/useFetch';
 
@@ -21,42 +20,29 @@ import walletIcon from '@/assets/icons/wallet.png';
 import leafIcon from '@/assets/icons/leaf.png';
 
 export default function Devices() {
-  const spaceQuery = useFetch('space/info', {}, 'POST');
-
-  const endTime = moment(1589598900);
-  const startTime = moment(endTime).subtract(1, 'week');
-
-  const durationOptions = {
-    startTime: startTime.valueOf(),
-    endTime: endTime.valueOf(),
-    timeInterval: 'day',
-  };
-
-  const [query, setQuery] = useState({
-    id: '1BY6WEcLGh8j5v7',
-    queryBody: durationOptions,
-  });
-  const fetch = useFetch(`deviceUpdates/historical/${query.id}`, query.queryBody, 'POST');
-  const onRefresh = () => {
-    fetch.refetch();
-    spaceQuery.refetch();
-  };
+  const spaceQuery = useFetch('/space/info', null, 'POST');
   const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = async () => {
+    spaceQuery.refetch();
+    setRefreshing(spaceQuery.isLoading);
+  };
 
   return (
     <SpaceContext.Provider value={spaceQuery.data}>
       <View style={styles.container}>
-        <ScrollView style={{ padding: 24 }} refreshControl={<RefreshControl onRefresh={onRefresh} refreshing={refreshing}/> }>
+        <ScrollView
+          style={{ padding: 24 }}
+          refreshControl={<RefreshControl onRefresh={onRefresh} refreshing={refreshing} />}
+        >
           <YStack rowGap={10}>
             <HomeHeader />
-            <ProductionContext.Provider value={{ fetch, query, setQuery }}>
-              <SpaceSwitcher />
-              <ProductionCard />
-              <XStack columnGap={10}>
-                <StatCard icon={walletIcon} {...moneyStats} />
-                <StatCard icon={leafIcon} {...co2Stats} />
-              </XStack>
-            </ProductionContext.Provider>
+            <SpaceSwitcher />
+            <ProductionCard />
+            <XStack columnGap={10}>
+              <StatCard icon={walletIcon} {...moneyStats} />
+              <StatCard icon={leafIcon} {...co2Stats} />
+            </XStack>
           </YStack>
         </ScrollView>
       </View>

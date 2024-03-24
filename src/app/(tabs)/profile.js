@@ -1,18 +1,29 @@
-import React, { useState } from "react";
-import { View, Text, StyleSheet, useWindowDimensions } from "react-native";
-import { YGroup, ListItem, Separator } from "tamagui";
-import { UserRoundCog, HardDrive, MessageSquareText, PhoneCall, Info, Power, ChevronRight } from "@tamagui/lucide-icons";
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, useWindowDimensions } from 'react-native';
+import { YGroup, ListItem, Separator } from 'tamagui';
+import {
+  UserRoundCog,
+  HardDrive,
+  MessageSquareText,
+  PhoneCall,
+  Info,
+  Power,
+  ChevronRight,
+} from '@tamagui/lucide-icons';
 import * as ImagePicker from 'expo-image-picker';
-import UploadModal from "../../components/uploadProfilePic/upload";
-import ProfileAvatar from "../../components/profileAvatar/avatar";
+import UploadModal from '../../components/uploadProfilePic/upload';
+import ProfileAvatar from '../../components/profileAvatar/avatar';
+import LogoutButton from '../../components/logoutButton';
 import { router } from 'expo-router';
+import { useAuth0 } from 'react-native-auth0';
 
 /**
  * Profile screen component.
  */
 export default function Profile() {
+  const { user } = useAuth0();
   const [modalVisible, setModalVisible] = useState(false);
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState(user.image);
 
   /**
    * Function to remove the selected image.
@@ -62,7 +73,7 @@ export default function Profile() {
         await saveImage(result.assets[0].uri);
       }
     } catch (err) {
-      alert("Error uploading image: " + err.message);
+      alert('Error uploading image: ' + err.message);
       setModalVisible(false);
     }
   };
@@ -83,11 +94,11 @@ export default function Profile() {
   return (
     <View style={styles.container}>
       {/* Profile avatar component */}
-      <ProfileAvatar uri={image} onButtonPress={() => setModalVisible(true)} />
+      <ProfileAvatar uri={user} onButtonPress={() => setModalVisible(true)} />
       {/* User name */}
-      <Text style={styles.userName}>Promodh Madusha</Text>
+      <Text style={styles.userName}>{user.name}</Text>
       {/* Email */}
-      <Text style={styles.email}>promodmadusha@gmail.com</Text>
+      <Text style={styles.email}>{user.email}</Text>
       {/* List of items */}
       <Lists />
       {/* Upload modal component */}
@@ -108,15 +119,9 @@ export default function Profile() {
 function Lists() {
   const screenWidth = useWindowDimensions().width;
   return (
-    <YGroup
-      alignSelf="center"
-      bordered
-      width={screenWidth - 60}
-      size="$8"
-      separator={<Separator />}
-    >
+    <YGroup alignSelf="center" bordered width={screenWidth - 60} size="$8" separator={<Separator />}>
       {/* Profile item */}
-      <YGroup.Item >
+      <YGroup.Item>
         <ListItem
           hoverTheme
           pressTheme
@@ -128,7 +133,7 @@ function Lists() {
         />
       </YGroup.Item>
       {/* Device item */}
-      <YGroup.Item >
+      <YGroup.Item>
         <ListItem
           hoverTheme
           pressTheme
@@ -163,46 +168,31 @@ function Lists() {
       </YGroup.Item>
       {/* About item */}
       <YGroup.Item>
-        <ListItem
-          hoverTheme
-          pressTheme
-          title="About"
-          subTitle="Version"
-          icon={Info}
-          iconAfter={ChevronRight}
-        />
+        <ListItem hoverTheme pressTheme title="About" subTitle="Version" icon={Info} iconAfter={ChevronRight} />
       </YGroup.Item>
-      {/* Sign out item */}
-      <YGroup.Item>
-        <ListItem
-          hoverTheme
-          pressTheme
-          title="Sign out"
-          icon={Power}
-        />
-      </YGroup.Item>
+      <LogoutButton />
     </YGroup>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: "center",
+    alignItems: 'center',
     padding: 10,
-    display: "flex",
-    justifyContent: "center",
+    display: 'flex',
+    justifyContent: 'center',
     paddingTop: 50,
     paddingHorizontal: 40,
   },
   userName: {
     marginTop: -20,
     fontSize: 25,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     paddingTop: 20,
   },
   email: {
     fontSize: 13,
-    color: "#696969",
+    color: '#696969',
     marginBottom: 30,
   },
 });

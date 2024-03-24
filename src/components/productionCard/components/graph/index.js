@@ -1,58 +1,67 @@
-import { StyleSheet, Text, View } from "react-native";
-import React, { useEffect, useState } from "react";
-import { BarChart } from "react-native-gifted-charts";
-import ValueIndicator from "../valueIndicator";
+import { StyleSheet, View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { BarChart } from 'react-native-gifted-charts';
+import moment from 'moment';
 
-import graphInformation from "./graphInformation";
-import graphConfig from "./graphConfigurations";
-
-import { useProductionContext } from "@/hook/useContext/productionContext";
+import useFetch from '@/hook/useFetch';
+import graphConfig from './graphConfigurations';
+import ValueToolTip from '../valueToolTip';
 
 const Graph = ({ interval }) => {
-  const { fetch } = useProductionContext();
-  const { data, refetch } = fetch;
+  const [collectTime, setCollectTime] = useState(moment().valueOf());
 
-  const [barData, setBarData] = useState(graphInformation[interval].data);
+  const queryParams = {
+    collectTime: String(collectTime),
+    timeInterval: interval,
+  };
+  const spaceId = 'NE=51002841';
+
+  const { data, isLoading, error, refetch } = useFetch(`/spaceUpdates/historical/graph/${spaceId}`, queryParams, 'GET');
+  const graphData = data[interval];
+
   const [barConfig, setBarConfig] = useState(graphConfig[interval]);
+  const [selectedBarIndex, setSelectedBarIndex] = useState(null);
 
   useEffect(() => {
     refetch();
-    setBarData(graphInformation[interval].data);
     setBarConfig(graphConfig[interval]);
   }, [interval]);
 
-  function changeActiveData(index) {
-    setBarData((prev) => {
-      return prev.map((item, i) => {
-        if (i === index) {
-          return { ...item, active: true, frontColor: "#FF621F" };
-        }
-        return { ...item, active: false, frontColor: "#E2E2E2" };
-      });
-    });
-  }
+  const handleBarPress = (index) => {
+    setSelectedBarIndex(index);
+  };
+
   return (
-    <BarChart
-      style={styles.graphContainer}
-      data={barData}
-      scrollAnimation={true}
-      {...graphConfig.common}
-      {...barConfig}
-      onPress={(value, index) => {
-        changeActiveData(index);
-      }}
-      renderTooltip={(item, index) => {
-        return item.active ? <ValueIndicator value={item.value} /> : null;
-      }}
-    />
+    <>
+      {isLoading && <ActivityIndicator />}
+      {data[interval] && (
+        <BarChart
+          isAnimated
+          style={styles.graphContainer}
+          data={graphData['data']}
+          maxValue={3}
+          scrollAnimation={true}
+          {...graphConfig.common}
+          {...barConfig}
+          renderTooltip={(item) => {
+            return <ValueToolTip value={item.value} />;
+          }}
+        />
+      )}
+    </>
   );
 };
+
 export default Graph;
 
 const styles = StyleSheet.create({
   graphContainer: {
-    width: "90%",
+    width: '90%',
     height: 150,
-    position: "relative",
+    position: 'absolute',
+  },
+  bar: {
+    flex: 1,
+    marginHorizontal: 2,
   },
 });

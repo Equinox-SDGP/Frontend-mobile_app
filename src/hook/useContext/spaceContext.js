@@ -8,6 +8,5 @@ export function useSpaceContext() {
   if (spaceData === undefined) {
     throw new Error('useSpaceContext must be used within a SpaceContext.Provider');
   }
-
   return spaceData;
 }

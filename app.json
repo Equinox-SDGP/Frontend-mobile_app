@@ -11,28 +11,12 @@
       "resizeMode": "cover",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.Equinox",
-      "infoPlist": {
-        "CFBundleURLTypes": [
-          {
-            "CFBundleURLSchemes": [
-              "com.googleusercontent.apps.1011648521385-ero96u6o1105fh8flf4p9j2ol9ode549"
-            ]
-          }
-        ]
-      }
+      "bundleIdentifier": "com.equinox"
     },
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./src/assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      },
-      "package": "com.Equinox"
+      "package": "com.equinox"
     },
     "web": {
       "bundler": "metro",
@@ -40,6 +24,12 @@
       "favicon": "./src/assets/images/favicon.png"
     },
     "plugins": [
+      [
+        "react-native-auth0",
+        {
+          "domain": "dev-lupmiwit5z3hexny.us.auth0.com"
+        }
+      ],
       "expo-router",
       "expo-font",
       "@react-native-google-signin/google-signin"
@@ -47,6 +37,14 @@
     "experiments": {
       "typedRoutes": true
     },
-    "scheme": "Equinox"
+    "scheme": "Equinox",
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "0ef4984e-dba5-43b4-a58c-edec8b7264b0"
+      }
+    }
   }
 }
