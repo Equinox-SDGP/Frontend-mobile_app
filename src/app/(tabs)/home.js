@@ -19,6 +19,8 @@ import useFetch from '@/hook/useFetch'; // Importing custom hook for data fetchi
 import walletIcon from '@/assets/icons/wallet.png'; // Importing wallet icon from assets
 import leafIcon from '@/assets/icons/leaf.png'; // Importing leaf icon from assets
 
+import ErrorPopup from '../../components/errorPopUp';
+
 export default function Devices() {
   // Fetching space information using custom hook
   const spaceQuery = useFetch('space/info', {}, 'POST');
@@ -55,6 +57,8 @@ export default function Devices() {
   return (
     <SpaceContext.Provider value={spaceQuery.data}>
       <View style={styles.container}>
+        {/* Conditionally render the ErrorPopup component if there's an error */}
+        {fetch.error && <ErrorPopup message={`Error fetching data: ${fetch.error.message}`} />}
         {/* ScrollView with RefreshControl for pull-to-refresh functionality */}
         <ScrollView style={{ padding: 24 }} refreshControl={<RefreshControl onRefresh={onRefresh} refreshing={refreshing}/> }>
           {/* Vertical stack layout */}

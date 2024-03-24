@@ -40,6 +40,17 @@ export default function App() {
     };
   }, []);
 
+  // Function to send a notification
+  const sendNotification = async (title, body) => {
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: title,
+        body: body,
+      },
+      trigger: { seconds: 2 },
+    });
+  };
+
   return (
     <View
       style={{
@@ -62,22 +73,14 @@ export default function App() {
       <Button
         title="Press to schedule a notification"
         onPress={async () => {
-          await schedulePushNotification();
+          await sendNotification(
+            "Test Notification",
+            "This is a test notification"
+          );
         }}
       />
     </View>
   );
-}
-
-async function schedulePushNotification() {
-  await Notifications.scheduleNotificationAsync({
-    content: {
-      title: "Promodh Madusha Done the work! 📬",
-      body: "Here is the notification body",
-      data: { data: "goes here" },
-    },
-    trigger: { seconds: 2 },
-  });
 }
 
 async function registerForPushNotificationsAsync() {

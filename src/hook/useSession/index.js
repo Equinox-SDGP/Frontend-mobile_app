@@ -1,4 +1,16 @@
 import { createContext, useContext, useState } from 'react';
+import * as Notifications from 'expo-notifications';
+
+// Function to send a notification
+const sendNotification = async (title, body) => {
+  await Notifications.scheduleNotificationAsync({
+    content: {
+      title: title,
+      body: body,
+    },
+    trigger: { seconds: 2 },
+  });
+};
 
 // Create a session context
 const SessionContext = createContext();
@@ -19,6 +31,7 @@ export const SessionProvider = ({ children }) => {
       setSession({ /* user data */ });
     } catch (error) {
       console.error('Error occurred during sign-in:', error);
+      sendNotification('Error', `Error logging in: ${error}`);
       // Handle error, such as displaying an error message to the user
     }
   };
@@ -31,6 +44,7 @@ export const SessionProvider = ({ children }) => {
       setSession(null);
     } catch (error) {
       console.error('Error occurred during sign-out:', error);
+      sendNotification('Error', `Error logging out: ${error}`);
       // Handle error, such as displaying an error message to the user
     }
   };

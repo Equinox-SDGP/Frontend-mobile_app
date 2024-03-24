@@ -4,6 +4,7 @@ import { Button, ScrollView, Avatar, XStack } from "tamagui";
 import { SendHorizontal } from "@tamagui/lucide-icons";
 import chatbotImg from "@/assets/icons/chat.png";
 import { useAuth0 } from "react-native-auth0"; // Importing useAuth0 hook from "react-native-auth0" for user authentication
+import ErrorPop from "@/components/errorPopUp"; // Importing toast component from "toast" file
 
 // Component for displaying the chat messages
 const ChatBox = ({ messages }) => {
