@@ -1,4 +1,5 @@
 // External Library Imports
+
 import { ScrollView, XStack, YStack } from 'tamagui'; // Importing layout components from tamagui library
 import { View, StyleSheet, RefreshControl } from 'react-native'; // Importing necessary components from React Native
 import { useEffect, useState } from 'react'; // Importing hooks from React
@@ -19,40 +20,23 @@ import useFetch from '@/hook/useFetch'; // Importing custom hook for data fetchi
 import walletIcon from '@/assets/icons/wallet.png'; // Importing wallet icon from assets
 import leafIcon from '@/assets/icons/leaf.png'; // Importing leaf icon from assets
 
+const pricePerUnit = 30; // Price per unit of electricity in Rs.
+const co2PerUnit = 0.71; // CO2 emission per unit of electricity in kg
 import ErrorPopup from '../../components/errorPopUp';
 
 export default function Devices() {
   // Fetching space information using custom hook
-  const spaceQuery = useFetch('space/info', {}, 'POST');
-
-  // Defining start and end time for historical data
-  const endTime = moment(1589598900); // Example end time
-  const startTime = moment(endTime).subtract(1, 'week'); // Example start time
-
-  // Options for historical data query
-  const durationOptions = {
-    startTime: startTime.valueOf(),
-    endTime: endTime.valueOf(),
-    timeInterval: 'day',
-  };
-
-  // State variables for historical data query and fetching
-  const [query, setQuery] = useState({
-    id: '1BY6WEcLGh8j5v7', // Example device ID
-    queryBody: durationOptions,
-  });
-
-  // Fetching historical data using custom hook
-  const fetch = useFetch(`deviceUpdates/historical/${query.id}`, query.queryBody, 'POST');
-
-  // Function to handle refresh
-  // State variable for refreshing state
+  const spaceQuery = useFetch('/space/info', {}, 'POST');
   const [refreshing, setRefreshing] = useState(false);
 
   const onRefresh = async () => {
     spaceQuery.refetch();
     setRefreshing(spaceQuery.isLoading);
   };
+  let totalPower = 0; // Total power generated
+  if (spaceQuery.data.length > 0) {
+    totalPower = Math.round(spaceQuery.data[0].dataItemMap.total_power);
+  }
 
   return (
     <SpaceContext.Provider value={spaceQuery.data}>
@@ -65,12 +49,21 @@ export default function Devices() {
           <YStack rowGap={10}>
             {/* Header component */}
             <HomeHeader />
+            {/* Context provider for production data */}
+            {/* Space switcher component */}
             <SpaceSwitcher />
-            <ProductionCard />
-            <XStack columnGap={10}>
-              <StatCard icon={walletIcon} {...moneyStats} />
-              <StatCard icon={leafIcon} {...co2Stats} />
-            </XStack>
+            {/* Production card component */}
+            {spaceQuery.data.length > 0 && (
+              <>
+                <ProductionCard />
+                <XStack columnGap={10}>
+                  {/* Statistic card for money */}
+                  <StatCard icon={walletIcon} {...moneyStats} amount={`Rs. ${pricePerUnit * totalPower}`} />
+                  {/* Statistic card for CO2 reduction */}
+                  <StatCard icon={leafIcon} {...co2Stats} amount={`-${co2PerUnit * totalPower}kg`} />
+                </XStack>
+              </>
+            )}
           </YStack>
         </ScrollView>
       </View>
@@ -82,14 +75,12 @@ export default function Devices() {
 const moneyStats = {
   type: 'Money',
   label: 'Money Saved!',
-  amount: 'Rs. 5000',
 };
 
 // Data for CO2 reduction statistic
 const co2Stats = {
   type: 'CO2 Reduction',
   label: 'CO2 Reduction',
-  amount: '-0.5kg',
 };
 
 // Stylesheet for component

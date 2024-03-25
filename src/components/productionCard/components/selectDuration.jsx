@@ -112,7 +112,6 @@ export default function SelectDuration(props) {
 }
 const items = [
   { name: "Day" },
-  { name: "Week" },
   { name: "Month" },
   { name: "Year" },
 ];

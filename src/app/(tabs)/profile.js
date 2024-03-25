@@ -1,14 +1,21 @@
-// Import statements
-import React, { useState } from "react"; // Importing React and useState hook from "react" for component creation and state management
-import { View, Text, StyleSheet, useWindowDimensions, Linking } from "react-native"; // Importing View, Text, StyleSheet, and useWindowDimensions hook from "react-native" for UI rendering and dimension handling
-import { YGroup, ListItem, Separator, Avatar } from "tamagui"; // Importing YGroup, ListItem, and Separator components from "tamagui" for layout and list rendering
-import { UserRoundCog, HardDrive, MessageSquareText, PhoneCall, Info, Power, ChevronRight } from "@tamagui/lucide-icons"; // Importing icons from "@tamagui/lucide-icons"
+import React, { useState } from 'react'; // Importing React and useState hook from "react" for component creation and state management
+import { View, Text, StyleSheet, useWindowDimensions, Linking } from 'react-native'; // Importing View, Text, StyleSheet, and useWindowDimensions hook from "react-native" for UI rendering and dimension handling
+import { YGroup, ListItem, Separator, Avatar } from 'tamagui'; // Importing YGroup, ListItem, and Separator components from "tamagui" for layout and list rendering
+import {
+  UserRoundCog,
+  HardDrive,
+  MessageSquareText,
+  PhoneCall,
+  Info,
+  Power,
+  ChevronRight,
+} from '@tamagui/lucide-icons'; // Importing icons from "@tamagui/lucide-icons"
 import * as ImagePicker from 'expo-image-picker'; // Importing ImagePicker from "expo-image-picker" for image selection
-import UploadModal from "../../components/uploadProfilePic/upload"; // Importing UploadModal component for image uploading
+import UploadModal from '../../components/uploadProfilePic/upload'; // Importing UploadModal component for image uploading
 import { router } from 'expo-router'; // Importing router from "expo-router" for navigation
-import { useAuth0 } from "react-native-auth0"; // Importing useAuth0 hook from "react-native-auth0" for user authentication
-import { LogoutButton } from "../../components/logoutButton"; // Importing LogoutButton component for user logout
-import Blankprofile from "@/assets/images/blankProfile.png"; // Importing the blank profile image
+import { useAuth0 } from 'react-native-auth0'; // Importing useAuth0 hook from "react-native-auth0" for user authentication
+import { LogoutButton } from '../../components/logoutButton'; // Importing LogoutButton component for user logout
+import Blankprofile from '@/assets/images/blankProfile.png'; // Importing the blank profile image
 
 /**
  * Profile screen component.
@@ -65,7 +72,7 @@ export default function Profile() {
         await saveImage(result.assets[0].uri); // Saving the uploaded image
       }
     } catch (err) {
-      alert("Error uploading image: " + err.message); // Displaying error message if any
+      alert('Error uploading image: ' + err.message); // Displaying error message if any
       setModalVisible(false); // Closing the modal
     }
   };
@@ -86,11 +93,10 @@ export default function Profile() {
   return (
     <View style={styles.container}>
       {/* Profile avatar component */}
-
       <Avatar circular size="$12">
-          <Avatar.Image accessibilityLabel="Cam" src={user.picture ? user.picture : Blankprofile} />
-          <Avatar.Fallback backgroundColor="$blue10" />
-        </Avatar>
+        <Avatar.Image accessibilityLabel="Cam" src={user.picture ? user.picture : Blankprofile} />
+        <Avatar.Fallback backgroundColor="$blue10" />
+      </Avatar>
       {/* <ProfileAvatar  onButtonPress={() => setModalVisible(true)} /> */}
       {/* User name */}
       <Text style={styles.userName}>{user.name}</Text>

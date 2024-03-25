@@ -6,6 +6,7 @@ import chatbotImg from "@/assets/icons/chat.png";
 import { useAuth0 } from "react-native-auth0"; // Importing useAuth0 hook from "react-native-auth0" for user authentication
 import Blankprofile from "@/assets/images/blankProfile.png"; // Importing the blank profile image
 
+
 // Component for displaying the chat messages
 const ChatBox = ({ messages }) => {
   return (
@@ -90,19 +91,19 @@ const App = () => {
   const { user } = useAuth0(); // Getting user information from Auth0
 
   // Function to handle sending a message
-  const handleSend = (message) => {
+  const handleSend = async (message) => {
     // Create a message object for the user message
     const userMessage = {
       sender: "user",
       text: message,
       avatarImage:user.picture ? user.picture : Blankprofile,
     };
-    // Replace with your chatbot logic to simulate bot response
-    const botResponse = `Hello, I'm your friendly chatbot!`;
+
+    const response = await useFetch('/chatbot/user-message',{message: userMessage.text},'POST');
     // Create a message object for the bot response
     const botMessage = {
       sender: "bot",
-      text: botResponse,
+      text: response.message,
       avatarImage:chatbotImg
     };
 

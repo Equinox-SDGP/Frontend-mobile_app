@@ -3,7 +3,6 @@ import axios from 'axios';
 import ErrorPopup from '../components/errorPopUp';
 import * as Notifications from 'expo-notifications';
 
-
 /**
  * Hook for querying to backend
  * @param {*} endpoint
@@ -23,7 +22,6 @@ const sendNotification = async (title, body) => {
   });
 };
 
-
 const useFetch = (endpoint, query, method) => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -34,7 +32,7 @@ const useFetch = (endpoint, query, method) => {
     try {
       const response = await axios.request({
         method: method,
-        url: `http://localhost:3000${endpoint}`,
+        url: `https://equinox-backend.azurewebsites.net${endpoint}`,
         params: query, // Pass query directly here
       });
       setData(response.data);

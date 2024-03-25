@@ -6,6 +6,8 @@
     "start": "expo start --dev-client",
     "android": "expo run:android",
     "ios": "expo run:ios",
+    "android-eas": "eas build -p android --profile preview",
+    "ios-eas": "eas build -p ios --profile preview",
     "web": "expo start --web",
     "test": "jest"
   },
@@ -14,7 +16,9 @@
   },
   "dependencies": {
     "@expo/metro-runtime": "3.1.1",
+    "@google-cloud/dialogflow": "^6.4.0",
     "@react-native-async-storage/async-storage": "^1.22.3",
+    "@react-native-community/voice": "^1.1.9",
     "@react-native-google-signin/google-signin": "^11.0.0",
     "@react-navigation/native": "^6.0.2",
     "@react-oauth/google": "^0.12.1",
@@ -40,7 +44,9 @@
     "expo-system-ui": "~2.9.3",
     "expo-updates": "~0.24.12",
     "expo-web-browser": "~12.8.2",
+    "google-auth-library": "^9.7.0",
     "moment": "^2.30.1",
+    "path": "^0.12.7",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-helmet-async": "~2.0.4",
