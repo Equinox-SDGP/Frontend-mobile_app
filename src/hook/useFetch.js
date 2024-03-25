@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import ErrorPopup from '../components/errorPopUp';
+import * as Notifications from 'expo-notifications';
 
 /**
  * Hook for querying to backend
@@ -8,6 +10,18 @@ import axios from 'axios';
  * @param {*} method
  * @returns { data, isLoading, error, refetch }
  */
+
+// Function to send a notification
+const sendNotification = async (title, body) => {
+  await Notifications.scheduleNotificationAsync({
+    content: {
+      title: title,
+      body: body,
+    },
+    trigger: { seconds: 2 },
+  });
+};
+
 const useFetch = (endpoint, query, method) => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -25,6 +39,7 @@ const useFetch = (endpoint, query, method) => {
       setIsLoading(false);
     } catch (error) {
       setError(error);
+      sendNotification('Error', `Error fetching data: ${error}`);
       setIsLoading(false);
     }
   };

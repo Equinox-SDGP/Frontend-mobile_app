@@ -3,7 +3,9 @@ import { View, Text, TextInput, StyleSheet } from "react-native";
 import { Button, ScrollView, Avatar, XStack } from "tamagui";
 import { SendHorizontal } from "@tamagui/lucide-icons";
 import chatbotImg from "@/assets/icons/chat.png";
-import { useAuth0 } from "react-native-auth0";
+import { useAuth0 } from "react-native-auth0"; // Importing useAuth0 hook from "react-native-auth0" for user authentication
+import ErrorPop from "@/components/errorPopUp"; // Importing toast component from "toast" file
+
 
 // Component for displaying the chat messages
 const ChatBox = ({ messages }) => {
@@ -86,7 +88,7 @@ const UserInput = ({ onSend }) => {
 /** Main export function */
 const App = () => {
   const [messages, setMessages] = useState([]);
-  const {user} = useAuth0();
+  const { user } = useAuth0(); // Getting user information from Auth0
 
   // Function to handle sending a message
   const handleSend = async (message) => {
@@ -94,7 +96,7 @@ const App = () => {
     const userMessage = {
       sender: "user",
       text: message,
-      avatarImage: user.picture
+      avatarImage:user.picture,
     };
 
     const response = await useFetch('/chatbot/user-message',{message: userMessage.text},'POST');

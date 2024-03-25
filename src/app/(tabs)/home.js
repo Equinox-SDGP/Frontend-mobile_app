@@ -1,7 +1,8 @@
 // External Library Imports
-import { ScrollView, XStack, YStack, Text, Toast } from 'tamagui';
-import { View, StyleSheet, RefreshControl } from 'react-native';
-import { useEffect, useState } from 'react';
+
+import { ScrollView, XStack, YStack } from 'tamagui'; // Importing layout components from tamagui library
+import { View, StyleSheet, RefreshControl } from 'react-native'; // Importing necessary components from React Native
+import { useEffect, useState } from 'react'; // Importing hooks from React
 
 // Component Imports
 import StatCard from '@/components/statsCard'; // Importing custom StatCard component
@@ -21,12 +22,11 @@ import leafIcon from '@/assets/icons/leaf.png'; // Importing leaf icon from asse
 
 const pricePerUnit = 30; // Price per unit of electricity in Rs.
 const co2PerUnit = 0.71; // CO2 emission per unit of electricity in kg
+import ErrorPopup from '../../components/errorPopUp';
 
 export default function Devices() {
   // Fetching space information using custom hook
   const spaceQuery = useFetch('/space/info', {}, 'POST');
-
-  // State variable for refreshing stat
   const [refreshing, setRefreshing] = useState(false);
 
   const onRefresh = async () => {
@@ -41,10 +41,10 @@ export default function Devices() {
   return (
     <SpaceContext.Provider value={spaceQuery.data}>
       <View style={styles.container}>
-        <ScrollView
-          style={{ padding: 24 }}
-          refreshControl={<RefreshControl onRefresh={onRefresh} refreshing={refreshing} />}
-        >
+        {/* Conditionally render the ErrorPopup component if there's an error */}
+        {fetch.error && <ErrorPopup message={`Error fetching data: ${fetch.error.message}`} />}
+        {/* ScrollView with RefreshControl for pull-to-refresh functionality */}
+        <ScrollView style={{ padding: 24 }} refreshControl={<RefreshControl onRefresh={onRefresh} refreshing={refreshing}/> }>
           {/* Vertical stack layout */}
           <YStack rowGap={10}>
             {/* Header component */}
