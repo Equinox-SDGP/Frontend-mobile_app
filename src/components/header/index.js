@@ -4,6 +4,7 @@ import { Avatar, XStack, YStack, Button } from 'tamagui';
 import Notification from '@/assets/icons/notification.png';
 import { Link } from 'expo-router';
 import { useAuth0 } from 'react-native-auth0';
+import Blankprofile from "@/assets/images/blankProfile.png"; // Importing the blank profile image
 
 export default function ProfilePic() {
   const { user } = useAuth0();
@@ -11,7 +12,7 @@ export default function ProfilePic() {
     <XStack style={styles.mainContaner}>
       <XStack gap={10}>
         <Avatar circular size="$4">
-          <Avatar.Image accessibilityLabel="Cam" src={user.picture} />
+          <Avatar.Image accessibilityLabel="Cam" src={user.picture ? user.picture : Blankprofile} />
           <Avatar.Fallback backgroundColor="$blue10" />
         </Avatar>
         <YStack>

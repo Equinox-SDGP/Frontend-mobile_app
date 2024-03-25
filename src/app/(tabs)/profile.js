@@ -1,6 +1,5 @@
-// Import statements
 import React, { useState } from 'react'; // Importing React and useState hook from "react" for component creation and state management
-import { View, Text, StyleSheet, useWindowDimensions } from 'react-native'; // Importing View, Text, StyleSheet, and useWindowDimensions hook from "react-native" for UI rendering and dimension handling
+import { View, Text, StyleSheet, useWindowDimensions, Linking } from 'react-native'; // Importing View, Text, StyleSheet, and useWindowDimensions hook from "react-native" for UI rendering and dimension handling
 import { YGroup, ListItem, Separator, Avatar } from 'tamagui'; // Importing YGroup, ListItem, and Separator components from "tamagui" for layout and list rendering
 import {
   UserRoundCog,
@@ -13,10 +12,10 @@ import {
 } from '@tamagui/lucide-icons'; // Importing icons from "@tamagui/lucide-icons"
 import * as ImagePicker from 'expo-image-picker'; // Importing ImagePicker from "expo-image-picker" for image selection
 import UploadModal from '../../components/uploadProfilePic/upload'; // Importing UploadModal component for image uploading
-import ProfileAvatar from '../../components/profileAvatar/avatar'; // Importing ProfileAvatar component for displaying profile avatar
 import { router } from 'expo-router'; // Importing router from "expo-router" for navigation
 import { useAuth0 } from 'react-native-auth0'; // Importing useAuth0 hook from "react-native-auth0" for user authentication
 import { LogoutButton } from '../../components/logoutButton'; // Importing LogoutButton component for user logout
+import Blankprofile from '@/assets/images/blankProfile.png'; // Importing the blank profile image
 
 /**
  * Profile screen component.
@@ -95,7 +94,7 @@ export default function Profile() {
     <View style={styles.container}>
       {/* Profile avatar component */}
       <Avatar circular size="$12">
-        <Avatar.Image accessibilityLabel="Cam" src={user.picture} />
+        <Avatar.Image accessibilityLabel="Cam" src={user.picture ? user.picture : Blankprofile} />
         <Avatar.Fallback backgroundColor="$blue10" />
       </Avatar>
       {/* <ProfileAvatar  onButtonPress={() => setModalVisible(true)} /> */}
@@ -157,6 +156,7 @@ function Lists() {
           subTitle="Give Feedback :)"
           icon={MessageSquareText}
           iconAfter={ChevronRight}
+          onPress={() => Linking.openURL('mailto: nimesh.20221000@iit.ac.lk')}
         />
       </YGroup.Item>
       {/* Contact us item */}
@@ -168,6 +168,7 @@ function Lists() {
           subTitle="+94 71 212 4273"
           icon={PhoneCall}
           iconAfter={ChevronRight}
+          onPress={() => Linking.openURL('tel:+94712124273')}
         />
       </YGroup.Item>
       {/* About item */}

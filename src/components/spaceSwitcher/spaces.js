@@ -1,10 +1,14 @@
 import { StyleSheet, Text, View, useWindowDimensions } from 'react-native';
 import React from 'react';
 import { Card, H2, Image, Paragraph, XStack, YStack } from 'tamagui';
-import DayWeather from '@/assets/icons/weatherIcons/cloudy.svg';
 
 export default function SpaceCard({ data }) {
   const windowWidth = useWindowDimensions().width;
+
+  // Check if data is available, otherwise use default values or placeholders
+  const plantName = data?.plantName || 'Plant Name';
+  const dayPower = data?.dataItemMap?.day_power || null;
+
   return (
     <Card
       elevate
@@ -20,9 +24,16 @@ export default function SpaceCard({ data }) {
         <YStack rowGap={-5}>
           <XStack alignItems="center" maxHeight="$3" columnGap={-5}>
             <H2 style={styles.spaceTitle} marginBottom={0}>
-              {data.plantName}
+              {plantName}
             </H2>
+<<<<<<< HEAD
             <Image source={{ width: 200, height: 200, uri: 'http://openweathermap.org/img/w/10d.png' }} width="100%" height="100%" />
+=======
+            <Image
+              style={{ width: 120, height: 120 }}
+              source={{ uri: `http://openweathermap.org/img/w/25.png` }}
+            />
+>>>>>>> ef8812c45470899de4a5d711c63ad2ef0f0a7cc2
           </XStack>
           <Paragraph theme="alt2">Western Province</Paragraph>
         </YStack>
@@ -30,7 +41,7 @@ export default function SpaceCard({ data }) {
 
       <Card.Footer padded>
         <YStack>
-          <Text style={styles.productionText}>{data.dataItemMap.day_power} kW</Text>
+          <Text style={styles.productionText}>{dayPower} kW</Text>
           <Text style={styles.productionTitle}>Daily Production </Text>
         </YStack>
       </Card.Footer>
