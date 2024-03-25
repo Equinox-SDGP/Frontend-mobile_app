@@ -4,19 +4,25 @@ import { BarChart } from 'react-native-gifted-charts';
 import moment from 'moment';
 
 import useFetch from '@/hook/useFetch';
+import { useSpaceContext } from '@/hook/useContext/spaceContext';
 import graphConfig from './graphConfigurations';
 import ValueToolTip from '../valueToolTip';
 
 const Graph = ({ interval }) => {
+  const spaceContext = useSpaceContext()
   const [collectTime, setCollectTime] = useState(moment().valueOf());
 
   const queryParams = {
-    collectTime: String(collectTime),
+    collectTime: collectTime,
     timeInterval: interval,
   };
-  const spaceId = 'NE=51002841';
 
-  const { data, isLoading, error, refetch } = useFetch(`/spaceUpdates/historical/graph/${spaceId}`, queryParams, 'GET');
+  const { data, isLoading, error, refetch } = useFetch(
+    `/spaceUpdates/historical/graph/${spaceContext[0].stationCode}`,
+    queryParams,
+    'GET',
+  );
+
   const graphData = data[interval];
 
   const [barConfig, setBarConfig] = useState(graphConfig[interval]);
@@ -39,7 +45,7 @@ const Graph = ({ interval }) => {
           isAnimated
           style={styles.graphContainer}
           data={graphData['data']}
-          maxValue={3}
+          maxValue={graphData['maxValue']}
           scrollAnimation={true}
           {...graphConfig.common}
           {...barConfig}

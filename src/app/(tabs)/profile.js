@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, useWindowDimensions } from 'react-native';
 import { YGroup, ListItem, Separator } from 'tamagui';
@@ -17,30 +16,14 @@ import ProfileAvatar from '../../components/profileAvatar/avatar';
 import LogoutButton from '../../components/logoutButton';
 import { router } from 'expo-router';
 import { useAuth0 } from 'react-native-auth0';
-=======
-// Import statements
-import React, { useState } from "react"; // Importing React and useState hook from "react" for component creation and state management
-import { View, Text, StyleSheet, useWindowDimensions } from "react-native"; // Importing View, Text, StyleSheet, and useWindowDimensions hook from "react-native" for UI rendering and dimension handling
-import { YGroup, ListItem, Separator } from "tamagui"; // Importing YGroup, ListItem, and Separator components from "tamagui" for layout and list rendering
-import { UserRoundCog, HardDrive, MessageSquareText, PhoneCall, Info, Power, ChevronRight } from "@tamagui/lucide-icons"; // Importing icons from "@tamagui/lucide-icons"
-import * as ImagePicker from 'expo-image-picker'; // Importing ImagePicker from "expo-image-picker" for image selection
-import UploadModal from "../../components/uploadProfilePic/upload"; // Importing UploadModal component for image uploading
-import ProfileAvatar from "../../components/profileAvatar/avatar"; // Importing ProfileAvatar component for displaying profile avatar
-import { router } from 'expo-router'; // Importing router from "expo-router" for navigation
->>>>>>> deac381d22502ad17895b9ffb8227032b5e0b181
 
 /**
  * Profile screen component.
  */
 export default function Profile() {
-<<<<<<< HEAD
   const { user } = useAuth0();
   const [modalVisible, setModalVisible] = useState(false);
-  const [image, setImage] = useState(user.image);
-=======
-  const [modalVisible, setModalVisible] = useState(false); // State variable for modal visibility
-  const [image, setImage] = useState(null); // State variable for selected image URI
->>>>>>> deac381d22502ad17895b9ffb8227032b5e0b181
+  const [image, setImage] = useState(user.picture);
 
   /**
    * Function to remove the selected image.
@@ -90,13 +73,8 @@ export default function Profile() {
         await saveImage(result.assets[0].uri); // Saving the uploaded image
       }
     } catch (err) {
-<<<<<<< HEAD
-      alert('Error uploading image: ' + err.message);
-      setModalVisible(false);
-=======
-      alert("Error uploading image: " + err.message); // Displaying error message if any
+      alert('Error uploading image: ' + err.message); // Displaying error message if any
       setModalVisible(false); // Closing the modal
->>>>>>> deac381d22502ad17895b9ffb8227032b5e0b181
     }
   };
 
@@ -116,7 +94,7 @@ export default function Profile() {
   return (
     <View style={styles.container}>
       {/* Profile avatar component */}
-      <ProfileAvatar uri={user} onButtonPress={() => setModalVisible(true)} />
+      <ProfileAvatar uri={image} onButtonPress={() => setModalVisible(true)} />
       {/* User name */}
       <Text style={styles.userName}>{user.name}</Text>
       {/* Email */}

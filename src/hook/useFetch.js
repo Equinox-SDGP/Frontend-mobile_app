@@ -18,14 +18,13 @@ const useFetch = (endpoint, query, method) => {
     try {
       const response = await axios.request({
         method: method,
-        url: `http://localhost:3000${endpoint}`,
+        url: `https://equinox-backend.azurewebsites.net${endpoint}`,
         params: query, // Pass query directly here
       });
       setData(response.data);
       setIsLoading(false);
     } catch (error) {
       setError(error);
-      console.log('Error fetching data: ', error);
       setIsLoading(false);
     }
   };

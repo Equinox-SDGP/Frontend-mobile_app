@@ -22,13 +22,7 @@ export default function SpaceCard({ data }) {
             <H2 style={styles.spaceTitle} marginBottom={0}>
               {data.plantName}
             </H2>
-            {/* <View>
-              <DayWeather marginBottom={-5} width={50} height={50} />
-            </View> */}
-            <Image
-              style={{ width: 120, height: 120 }}
-              source={{ uri: `http://openweathermap.org/img/w/25.png` }}
-            />
+            <Image source={{ width: 200, height: 200, uri: 'http://openweathermap.org/img/w/10d.png' }} width="100%" height="100%" />
           </XStack>
           <Paragraph theme="alt2">Western Province</Paragraph>
         </YStack>
@@ -40,7 +34,7 @@ export default function SpaceCard({ data }) {
           <Text style={styles.productionTitle}>Daily Production </Text>
         </YStack>
       </Card.Footer>
-      <Indicator status="Healthy" />
+      <Indicator status={data.healthStatus || "Healthy"} />
     </Card>
   );
 }
