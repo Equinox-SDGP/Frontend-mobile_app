@@ -162,6 +162,7 @@ function Lists() {
           subTitle="+94 71 212 4273"
           icon={PhoneCall}
           iconAfter={ChevronRight}
+          onPress={() => Linking.openURL('tel:+94712124273')}
         />
       </YGroup.Item>
       {/* About item */}
