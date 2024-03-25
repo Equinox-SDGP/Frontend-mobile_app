@@ -7,9 +7,8 @@ import { SafeAreaView } from 'react-native-safe-area-context'; // Import SafeAre
 import { TamaguiProvider } from 'tamagui'; // Import TamaguiProvider component from tamagui package
 import { config } from '../../tamagui.config'; // Import configuration from tamagui.config file
 import { useFonts } from 'expo-font'; // Import useFonts hook from expo-font
-import { Stack } from 'expo-router'; // Import Stack component from expo-router
-import { Auth0Provider } from 'react-native-auth0';
-import { Slot } from 'expo-router';
+import { Stack, Slot } from 'expo-router'; // Import Stack component from expo-router
+import { Auth0Provider } from 'react-native-auth0'; // Import Auth0Provider component from react-native-auth0
 
 // Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();
