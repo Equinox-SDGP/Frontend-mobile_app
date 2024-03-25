@@ -4,7 +4,7 @@ import { Button, ScrollView, Avatar, XStack } from "tamagui";
 import { SendHorizontal } from "@tamagui/lucide-icons";
 import chatbotImg from "@/assets/icons/chat.png";
 import { useAuth0 } from "react-native-auth0"; // Importing useAuth0 hook from "react-native-auth0" for user authentication
-import ErrorPop from "@/components/errorPopUp"; // Importing toast component from "toast" file
+import Blankprofile from "@/assets/images/blankProfile.png"; // Importing the blank profile image
 
 // Component for displaying the chat messages
 const ChatBox = ({ messages }) => {
@@ -95,7 +95,7 @@ const App = () => {
     const userMessage = {
       sender: "user",
       text: message,
-      avatarImage:user.picture,
+      avatarImage:user.picture ? user.picture : Blankprofile,
     };
     // Replace with your chatbot logic to simulate bot response
     const botResponse = `Hello, I'm your friendly chatbot!`;

@@ -1,6 +1,5 @@
 import { StyleSheet, Text, FlatList, View, useWindowDimensions, Animated } from 'react-native';
 import React, { useState, useRef, useEffect } from 'react';
-import { XStack, ScrollView } from 'tamagui';
 import SpaceCard from './spaces';
 import Paginator from './paginator';
 import { useSpaceContext } from '@/hook/useContext/spaceContext';

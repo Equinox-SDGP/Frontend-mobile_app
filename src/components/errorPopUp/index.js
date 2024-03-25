@@ -10,7 +10,7 @@ const ErrorPopup = ({ message }) => {
       // Automatically hide after 10 seconds
       const timeout = setTimeout(() => {
         setIsVisible(false);
-      }, 10000);
+      }, 3000);
       return () => clearTimeout(timeout);
     }
   }, [message]);
