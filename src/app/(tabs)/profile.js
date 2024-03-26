@@ -173,7 +173,7 @@ function Lists() {
       </YGroup.Item>
       {/* About item */}
       <YGroup.Item>
-        <ListItem hoverTheme pressTheme title="About" subTitle="Version" icon={Info} iconAfter={ChevronRight} />
+        <ListItem hoverTheme pressTheme title="About" subTitle="Version 1.0" icon={Info} iconAfter={ChevronRight} />
       </YGroup.Item>
       {/* <LogoutButton /> */}
     </YGroup>

@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   },
   cardFooter: {
     position: "relative",
-    padding: 20,
+    padding: 2,
   },
   toggleGroup: {
     display: "flex",

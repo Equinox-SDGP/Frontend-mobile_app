@@ -17,14 +17,11 @@ const Graph = ({ interval }) => {
     collectTime: collectTime,
     timeInterval: interval,
   };
+  const spaceId = 'NE=51002841'; // Space ID for fetching data
 
-  const { data, isLoading, error, refetch } = useFetch(
-    `/spaceUpdates/historical/graph/${spaceContext[0].stationCode}`,
-    queryParams,
-    'GET',
-  );
-
-  const graphData = data[interval];
+  // Fetch data using custom hook
+  const { data, isLoading, refetch } = useFetch(`/spaceUpdates/historical/graph/${spaceId}`, queryParams, 'GET');
+  const graphData = data[interval]; // Extract graph data for specified interval
 
   const [barConfig, setBarConfig] = useState(graphConfig[interval]); // State for graph configuration
   const [selectedBarIndex, setSelectedBarIndex] = useState(null); // State for selected bar index
