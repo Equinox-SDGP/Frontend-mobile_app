@@ -26,14 +26,7 @@ export default function SpaceCard({ data }) {
             <H2 style={styles.spaceTitle} marginBottom={0}>
               {plantName}
             </H2>
-<<<<<<< HEAD
             <Image style={{ width: 120, height: 120 }} source={{ uri: `http://openweathermap.org/img/w/25.png` }} />
-=======
-            <Image
-              style={{ width: 120, height: 120 }}
-              source={{ uri: `http://openweathermap.org/img/w/25.png` }}
-            />
->>>>>>> b30aeb772f1b4a770495f6c0590bd49ffb1876e1
           </XStack>
           <Paragraph theme="alt2">Western Province</Paragraph>
         </YStack>

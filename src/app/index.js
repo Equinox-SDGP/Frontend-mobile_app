@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Redirect, Stack } from 'expo-router';
+import { Redirect, Stack, Screen } from 'expo-router';
 import { useAuth0 } from 'react-native-auth0';
 import { View, ActivityIndicator } from 'react-native';
 import { registerForPushNotificationsAsync } from '../components/notificationFunction'; // Note the correct import

@@ -22,6 +22,7 @@ const Graph = ({ interval }) => {
   // Fetch data using custom hook
   const { data, isLoading, refetch } = useFetch(`/spaceUpdates/historical/graph/${spaceId}`, queryParams, 'GET');
   const graphData = data[interval]; // Extract graph data for specified interval
+  const maxValue = data.maxValue;
 
   const [barConfig, setBarConfig] = useState(graphConfig[interval]); // State for graph configuration
   const [selectedBarIndex, setSelectedBarIndex] = useState(null); // State for selected bar index
@@ -47,7 +48,7 @@ const Graph = ({ interval }) => {
           isAnimated
           style={styles.graphContainer}
           data={graphData ? graphData['data'] : []} // Render with empty data array if graphData is falsy
-          maxValue={3} // Maximum value for y-axis
+          maxValue={maxValue} // Maximum value for y-axis
           scrollAnimation={true} // Enable scroll animation
           {...graphConfig.common} // Spread common graph configurations
           {...barConfig} // Spread specific graph configurations for current interval

@@ -58,9 +58,9 @@ export default function Devices() {
                 <ProductionCard />
                 <XStack columnGap={10}>
                   {/* Statistic card for money */}
-                  <StatCard icon={walletIcon} {...moneyStats} amount={`Rs. ${pricePerUnit * totalPower}`} />
+                  <StatCard icon={walletIcon} {...moneyStats} amount={`Rs. ${Math.round(pricePerUnit * totalPower)}`} />
                   {/* Statistic card for CO2 reduction */}
-                  <StatCard icon={leafIcon} {...co2Stats} amount={`-${co2PerUnit * totalPower}kg`} />
+                  <StatCard icon={leafIcon} {...co2Stats} amount={`-${Math.round(co2PerUnit * totalPower)}kg`} />
                 </XStack>
               </>
             )}
