@@ -1,18 +1,13 @@
-import {
-  StyleSheet,
-  Text,
-  FlatList,
-  View,
-  useWindowDimensions,
-  Animated,
-} from "react-native";
-import React, { useState, useRef } from "react";
-import { XStack, ScrollView } from "tamagui";
-import SpaceCard from "./spaces";
-import Paginator from "./paginator";
+import { StyleSheet, Text, FlatList, View, useWindowDimensions, Animated } from 'react-native';
+import React, { useState, useRef, useEffect } from 'react';
+import SpaceCard from './spaces';
+import Paginator from './paginator';
+import { useSpaceContext } from '@/hook/useContext/spaceContext';
 
 const SpaceSwitcher = () => {
-  windowWidth = useWindowDimensions().width;
+  const spaceData = useSpaceContext();
+  const windowWidth = useWindowDimensions().width;
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const scrollX = useRef(new Animated.Value(0)).current;
 
@@ -25,7 +20,7 @@ const SpaceSwitcher = () => {
   return (
     <View style={styles.container}>
       <FlatList
-        data={data}
+        data={spaceData}
         marginBottom={10}
         horizontal={true}
         decelerationRate={0}
@@ -34,41 +29,26 @@ const SpaceSwitcher = () => {
         overScrollMode="never"
         showsHorizontalScrollIndicator={false}
         snapToAlignment="center"
-        keyExtractor={(item) => item.id}
-        onScroll={Animated.event(
-          [{ nativeEvent: { contentOffset: { x: scrollX } } }],
-          { useNativeDriver: false }
-        )}
+        keyExtractor={(item) => item.stationCode}
+        onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: scrollX } } }], { useNativeDriver: false })}
         scrollEventThrottle={32}
         viewAbilityConfig={viewConfig}
         onViewableItemsChanged={onViewableItemsChanged}
-        renderItem={({ item, index }) => {return <SpaceCard key={index} data={item} />;}}
-        ref={sliderRef}>
-      </FlatList>
-      <Paginator data={data} scrollX={scrollX} />
+        renderItem={({ item, index }) => {
+          return <SpaceCard key={index} data={item} />;
+        }}
+        ref={sliderRef}
+      ></FlatList>
+      <Paginator data={spaceData} scrollX={scrollX} />
     </View>
   );
 };
+
 
 export default SpaceSwitcher;
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: "center",
+    alignItems: 'center',
   },
 });
-
-const data = [
-  {
-    id: "1",
-    title: "Home",
-  },
-  {
-    id: "2",
-    title: "Office",
-  },
-  {
-    id: "3",
-    title: "Factory",
-  },
-];

@@ -1,27 +1,18 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Tabs } from "expo-router";
-import * as Animatable from "react-native-animatable";
-import { TouchableOpacity, View, StyleSheet, Keyboard } from "react-native";
-import { useState, useEffect, useRef } from "react";
-import { Redirect, Stack } from 'expo-router';
-import * as SplashScreen from "expo-splash-screen"; // Import SplashScreen module from expo-splash-screen
-// import { useSession } from '../../hook/useSession'; // Import useSession hook from useSession file
+// Import statements
+import { Tabs } from "expo-router"; // Importing Tabs from "expo-router" for tab navigation
+import { Keyboard } from "react-native"; // Importing Keyboard from "react-native" for keyboard event handling
+import { useState, useEffect} from "react"; // Importing useState and useEffect from "react" for managing component state and lifecycle
 
-import NavigatorButton from "@/components/tabNavigator/navigatorButton";
+import NavigatorButton from "@/components/tabNavigator/navigatorButton"; // Importing NavigatorButton component for rendering tab buttons
 
-import { Home, MessageCircle, User2 } from "@tamagui/lucide-icons";
+import { Home, MessageCircle, User2 } from "@tamagui/lucide-icons"; // Importing icons from "@tamagui/lucide-icons"
 
+// Component definition
 export default TabNavigator = () => {
-  const [keyboardPresent, setKeyboardPresent] = useState(false);
-  // const { session, SplashScreen } = useSession();
-  // if(SplashScreen) {
-  //   SplashScreen.preventAutoHideAsync();
-  // }
-  // if (!session) {
-  //   return <Redirect href="./(auth)/signin" />;
-  // }
+  const [keyboardPresent, setKeyboardPresent] = useState(false); // State variable to track keyboard visibility
 
   useEffect(() => {
+    // Effect hook to listen for keyboard events
     const keyboardDidShowListener = Keyboard.addListener(
       "keyboardDidShow",
       () => {
@@ -44,13 +35,15 @@ export default TabNavigator = () => {
       keyboardDidHideListener.remove();
     };
   }, []);
+
+  // Rendering tab navigator
   return (
     <Tabs
       screenOptions={{
         tabBarHideOnKeyboard: true,
         headerShown: false,
         tabBarStyle: {
-          bottom: keyboardPresent ? -15 : 10,
+          bottom: keyboardPresent ? -15 : 10, // Adjusting tabBar position based on keyboard visibility
           position: "absolute",
           height: 60,
           left: 10,
@@ -65,7 +58,7 @@ export default TabNavigator = () => {
           name={item.name}
           options={{
             tabBarShowLabel: false,
-            tabBarButton: (props) => <NavigatorButton {...props} item={item} />,
+            tabBarButton: (props) => <NavigatorButton {...props} item={item} />, // Customizing tab button using NavigatorButton component
           }}
         />
       ))}
@@ -73,8 +66,9 @@ export default TabNavigator = () => {
   );
 };
 
+// Configuration for tab items
 const tabConfig = [
-  { name: "index", icon: Home, label: "Home" },
+  { name: "home", icon: Home, label: "Home" },
   {
     name: "chatbot",
     icon: MessageCircle,

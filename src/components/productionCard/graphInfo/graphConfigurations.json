@@ -1,0 +1,57 @@
+{
+  "common": {
+    "xAxisLabelTextStyle": {
+      "color": "black",
+      "fontSize": 11,
+      "alignSelf": "center"
+    },
+    "scrollToEnd": true,
+    "height": 150,
+    "width": 350,
+    "noOfSections": 4,
+    "barBorderRadius": 4,
+    "frontColor": "#E2E2E2",
+    "yAxisThickness": 0,
+    "xAxisThickness": 0,
+    "hideYAxisText": true
+  },
+  "day": {
+    "initialSpacing": 40,
+    "labelWidth": 35,
+
+    "minValue": 0,
+    "maxValue": 1000,
+
+    "barWidth": 8,
+    "spacing": 5
+  },
+  "week": {
+    "initialSpacing": 40,
+    "labelWidth": 35,
+    "minValue": 0,
+    "maxValue": 1000,
+
+    "barWidth": 24,
+    "spacing": 20
+  },
+  "month": {
+    "initialSpacing": 40,
+    "labelWidth": 25,
+
+    "minValue": 0,
+    "maxValue": 1000,
+
+    "barWidth": 24,
+    "spacing": 16
+  },
+  "year": {
+    "initialSpacing": 20,
+    "labelWidth": 16,
+
+    "minValue": 0,
+    "maxValue": 1000,
+
+    "barWidth": 16,
+    "spacing": 10
+  }
+}

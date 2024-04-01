@@ -3,26 +3,15 @@ import React, { lazy, useContext, useMemo, useState } from "react";
 import { Button, Card, Text, ToggleGroup, XStack, YStack } from "tamagui";
 import Graph from "./components/graph";
 import SelectDuration from "./components/selectDuration";
-import { useProductionContext } from "@/hook/useContext/productionContext";
 
 const ProductionCard = () => {
-  const { setQuery } = useProductionContext();
-
   const [interval, setInterval] = useState("day"); // ["hourly", "daily", "weekly", "monthly", "yearly"
   const handleIntervalChange = (value) => {
-    setQuery((prevQuery) => {
-      return {
-        ...prevQuery,
-        queryBody: {
-          ...prevQuery.queryBody,
-          timeInterval: value,
-        },
-      };
-    });
     setInterval(value);
   };
+
   return (
-    <Card width="100%" borderRadius={15}>
+    <Card width="100%" borderRadius={15} backgroundColor="#fff">
       <Card.Header>
         <XStack style={styles.cardHeader}>
           <Text fontSize={16} fontWeight={"700"}>
@@ -50,7 +39,7 @@ const styles = StyleSheet.create({
   },
   cardFooter: {
     position: "relative",
-    padding: 20,
+    padding: 2,
   },
   toggleGroup: {
     display: "flex",
