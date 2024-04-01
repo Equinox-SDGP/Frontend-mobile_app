@@ -5,7 +5,6 @@ import { SendHorizontal } from '@tamagui/lucide-icons';
 import chatbotImg from '@/assets/icons/chat.png';
 import { useAuth0 } from 'react-native-auth0'; // Importing useAuth0 hook from "react-native-auth0" for user authentication
 import Blankprofile from '@/assets/images/blankProfile.png'; // Importing the blank profile image
-import useFetch from '../../hook/useFetch';
 import axios from 'axios';
 
 // Component for displaying the chat messages
